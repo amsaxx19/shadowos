@@ -26,28 +26,29 @@ try {
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseKey) {
     console.error("Missing env vars. URL:", !!supabaseUrl, "Key:", !!supabaseKey)
     process.exit(1)
 }
 
-const supabaseAdmin = createClient(supabaseUrl, supabaseKey)
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 async function createTestCreator() {
-    const email = `creator_${Date.now()}@example.com`
+    const email = `creator_test@shadowos.com`
     const password = "password123"
 
     console.log(`Creating creator: ${email} / ${password}`)
 
-    const { data: user, error } = await supabaseAdmin.auth.admin.createUser({
+    const { data: user, error } = await supabase.auth.signUp({
         email: email,
         password: password,
-        email_confirm: true,
-        user_metadata: {
-            full_name: "Test Creator",
-            role: "creator"
+        options: {
+            data: {
+                full_name: "Test Creator",
+                role: "creator"
+            }
         }
     })
 
@@ -56,10 +57,12 @@ async function createTestCreator() {
         return
     }
 
-    console.log("User created successfully:", user.user.id)
+    if (!user.user) {
+        console.error("User creation failed (no user returned)")
+        return
+    }
 
-    // Also ensure wallet exists (trigger should handle it, but good to verify)
-    // We can't verify wallet easily without admin client for public schema, but trigger is reliable.
+    console.log("User created successfully:", user.user.id)
 }
 
 createTestCreator()
