@@ -45,7 +45,7 @@ export default async function NewProductPage() {
                                     id="title"
                                     name="title"
                                     placeholder="e.g. Ultimate Coding Guide 2024"
-                                    className="bg-blue-50/50 border-blue-100 text-blue-900 placeholder:text-blue-400 focus:ring-[#0055D4] focus:border-[#0055D4]"
+                                    className="bg-white border-blue-200 text-blue-900 placeholder:text-blue-400 focus:ring-[#0055D4] focus:border-[#0055D4]"
                                     required
                                 />
                             </div>
@@ -55,7 +55,7 @@ export default async function NewProductPage() {
                                     id="description"
                                     name="description"
                                     placeholder="Describe what your customers will get..."
-                                    className="min-h-[150px] bg-blue-50/50 border-blue-100 text-blue-900 placeholder:text-blue-400 focus:ring-[#0055D4] focus:border-[#0055D4]"
+                                    className="min-h-[150px] bg-white border-blue-200 text-blue-900 placeholder:text-blue-400 focus:ring-[#0055D4] focus:border-[#0055D4]"
                                     required
                                 />
                             </div>
@@ -97,7 +97,7 @@ export default async function NewProductPage() {
                                             placeholder="70"
                                             max="100"
                                             min="0"
-                                            className="bg-blue-50/50 border-blue-100 text-blue-900 placeholder:text-blue-400 focus:ring-[#0055D4] focus:border-[#0055D4]"
+                                            className="bg-white border-blue-200 text-blue-900 placeholder:text-blue-400 focus:ring-[#0055D4] focus:border-[#0055D4]"
                                             required
                                         />
                                         <span className="absolute right-3 top-2.5 text-blue-500">%</span>
@@ -121,7 +121,7 @@ export default async function NewProductPage() {
                             <div className="space-y-2">
                                 <Label htmlFor="creator_id" className="text-blue-900">Select Creator</Label>
                                 <Select name="creator_id" required>
-                                    <SelectTrigger className="bg-blue-50/50 border-blue-100 text-blue-900">
+                                    <SelectTrigger className="bg-white border-blue-200 text-blue-900">
                                         <SelectValue placeholder="Select a creator" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white border-blue-100 text-blue-900">
