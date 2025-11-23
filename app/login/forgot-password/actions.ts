@@ -6,7 +6,7 @@ import { headers } from "next/headers"
 export async function resetPassword(formData: FormData) {
     const supabase = await createClient()
     const email = formData.get("email") as string
-    const origin = headers().get("origin")
+    const origin = (await headers()).get("origin")
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${origin}/login/update-password`,
