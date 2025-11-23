@@ -16,19 +16,27 @@ export async function approveApplication(applicationId: string, email: string, f
     // 1. Create User Account
     const tempPassword = Math.random().toString(36).slice(-8) + "Aa1!" // Simple random password
 
-    const { data: user, error: userError } = await supabaseAdmin.auth.admin.createUser({
-        email: email,
-        password: tempPassword,
-        email_confirm: true,
-        user_metadata: {
-            full_name: fullName,
-            role: 'creator'
-        }
-    })
+    // Check if user already exists
+    const { data: { users } } = await supabaseAdmin.auth.admin.listUsers()
+    const existingUser = users.find(u => u.email === email)
 
-    if (userError) {
-        console.error("Error creating user:", userError)
-        throw new Error("Failed to create user account")
+    if (existingUser) {
+        console.log(`User ${email} already exists. Skipping creation.`)
+    } else {
+        const { error: userError } = await supabaseAdmin.auth.admin.createUser({
+            email: email,
+            password: tempPassword,
+            email_confirm: true,
+            user_metadata: {
+                full_name: fullName,
+                role: 'creator'
+            }
+        })
+
+        if (userError) {
+            console.error("Error creating user:", userError)
+            throw new Error(`Failed to create user account: ${userError.message}`)
+        }
     }
 
     // 2. Update Application Status

@@ -16,7 +16,8 @@ export function CopyLinkButton({ url, label = "Salin Link", className }: CopyLin
 
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(url)
+            const textToCopy = url.startsWith('http') ? url : `${window.location.origin}${url}`
+            await navigator.clipboard.writeText(textToCopy)
             setCopied(true)
             toast.success("Link berhasil disalin")
             setTimeout(() => setCopied(false), 2000)

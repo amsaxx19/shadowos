@@ -75,7 +75,7 @@ export default async function CreatorProductsPage() {
                                     </div>
 
                                     <CopyLinkButton
-                                        url={`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/${product.id}?ref=${user.id}`}
+                                        url={`/checkout/${product.id}?ref=${user.id}`}
                                         className="w-full bg-[#0055D4] hover:bg-[#0044AA] text-white h-10 font-bold shadow-md hover:shadow-lg transition-all"
                                         label="SALIN LINK"
                                     />

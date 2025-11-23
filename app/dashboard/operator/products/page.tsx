@@ -86,13 +86,7 @@ export default async function ProductsPage() {
                                         </span>
                                     </div>
                                     <div className="flex gap-2">
-                                        <CopyLinkButton url={`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/${product.id}`} />
-                                        <Link href={`/checkout/${product.id}`} target="_blank">
-                                            <Button size="sm" className="h-8 text-xs bg-[#0055D4] text-white hover:bg-blue-700 font-medium shadow-sm">
-                                                <ExternalLink className="mr-2 h-3 w-3" />
-                                                Checkout
-                                            </Button>
-                                        </Link>
+                                        <CopyLinkButton url={`/checkout/${product.id}`} />
                                     </div>
                                 </div>
                             </CardContent>
