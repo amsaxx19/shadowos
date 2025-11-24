@@ -4,6 +4,19 @@ import { PaymentSimulator } from "./payment-simulator"
 
 export default async function PaymentPage({ params }: { params: Promise<{ orderId: string }> }) {
     const { orderId } = await params
+    // Mock Data Fallback
+    if (orderId.startsWith('mock-')) {
+        return (
+            <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+                <PaymentSimulator
+                    orderId={orderId}
+                    amount={150000} // Mock amount
+                    customerName={"Guest Simulation"}
+                />
+            </div>
+        )
+    }
+
     const supabase = await createClient()
 
     const { data: order } = await supabase
