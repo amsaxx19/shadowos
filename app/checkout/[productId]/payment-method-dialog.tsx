@@ -104,23 +104,23 @@ export function PaymentMethodDialog({ onSelect, selectedMethod }: PaymentMethodD
 
 function PaymentOption({ value, label, icon }: { value: string, label: string, icon: React.ReactNode }) {
     return (
-        <Label
-            htmlFor={value}
-            className={cn(
-                "flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 transition-all [&:has(:checked)]:border-[#0055D4] [&:has(:checked)]:bg-blue-50",
-            )}
-        >
-            <div className="h-8 w-10 bg-white rounded border border-gray-200 flex items-center justify-center shrink-0 shadow-sm">
-                {icon}
-            </div>
-            <span className="font-medium text-sm text-gray-700 flex-1">{label}</span>
-            <div className="relative h-5 w-5">
-                <RadioGroupItem value={value} id={value} className="sr-only" />
-                <div className="h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center group-has-[:checked]:border-[#0055D4] group-has-[:checked]:bg-transparent">
-                    <div className="h-2.5 w-2.5 rounded-full bg-[#0055D4] opacity-0 group-has-[:checked]:opacity-100 transition-opacity" />
+        <div className="relative">
+            <RadioGroupItem value={value} id={value} className="peer sr-only" />
+            <Label
+                htmlFor={value}
+                className={cn(
+                    "flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 transition-all peer-data-[state=checked]:border-[#0055D4] peer-data-[state=checked]:bg-blue-50",
+                )}
+            >
+                <div className="h-8 w-10 bg-white rounded border border-gray-200 flex items-center justify-center shrink-0 shadow-sm">
+                    {icon}
                 </div>
-            </div>
-        </Label>
+                <span className="font-medium text-sm text-gray-700 flex-1">{label}</span>
+                <div className="h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center peer-data-[state=checked]:border-[#0055D4] peer-data-[state=checked]:bg-transparent">
+                    <div className="h-2.5 w-2.5 rounded-full bg-[#0055D4] opacity-0 peer-data-[state=checked]:opacity-100 transition-opacity" />
+                </div>
+            </Label>
+        </div>
     )
 }
 
