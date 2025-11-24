@@ -19,8 +19,11 @@ declare global {
     }
 }
 
+import { PaymentMethodDialog } from "./payment-method-dialog"
+
 export function CheckoutForm({ productId, price }: CheckoutFormProps) {
     const [isLoading, setIsLoading] = useState(false)
+    const [paymentMethod, setPaymentMethod] = useState<string>("")
     const router = useRouter()
     const searchParams = useSearchParams()
     const ref = searchParams.get('ref')
@@ -136,15 +139,10 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
             {/* Payment Method Selection */}
             <div className="space-y-2">
                 <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Payment Method</h2>
-                <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center justify-between shadow-sm cursor-pointer hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center gap-3">
-                        <div className="h-8 w-10 bg-gray-100 rounded border border-gray-200 flex items-center justify-center">
-                            <span className="text-xs font-bold text-gray-500">PAY</span>
-                        </div>
-                        <span className="font-medium text-gray-900">Select Payment Method</span>
-                    </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
-                </div>
+                <PaymentMethodDialog
+                    selectedMethod={paymentMethod}
+                    onSelect={setPaymentMethod}
+                />
             </div>
 
             {/* Secure Payment Badge */}
