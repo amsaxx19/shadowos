@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Loader2, Lock } from "lucide-react"
+import { Loader2, Lock, ChevronRight } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter, useSearchParams } from "next/navigation"
 
@@ -130,6 +130,20 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
                         <span className="font-bold text-gray-900">TOTAL</span>
                         <span className="font-bold text-lg text-[#0055D4]">IDR {price.toLocaleString()}</span>
                     </div>
+                </div>
+            </div>
+
+            {/* Payment Method Selection */}
+            <div className="space-y-2">
+                <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Payment Method</h2>
+                <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center justify-between shadow-sm cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center gap-3">
+                        <div className="h-8 w-10 bg-gray-100 rounded border border-gray-200 flex items-center justify-center">
+                            <span className="text-xs font-bold text-gray-500">PAY</span>
+                        </div>
+                        <span className="font-medium text-gray-900">Select Payment Method</span>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-gray-400" />
                 </div>
             </div>
 

@@ -25,7 +25,7 @@ export function CartDrawer({ product }: CartDrawerProps) {
                     <ShoppingCart className="h-5 w-5" />
                 </Button>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="max-h-[85vh]">
                 <div className="mx-auto w-full max-w-md p-4 pb-8">
                     <DrawerHeader className="flex items-center justify-between px-0 pt-0 pb-4 border-b border-gray-100">
                         <DrawerTitle className="flex items-center gap-2 text-lg font-bold">
