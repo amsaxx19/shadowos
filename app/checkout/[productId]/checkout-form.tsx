@@ -30,7 +30,11 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setIsLoading(true)
+        if (!paymentMethod) {
+            toast.error("Please select a payment method")
+            setIsLoading(false)
+            return
+        }
 
         const formData = new FormData(e.currentTarget)
         const data = {
