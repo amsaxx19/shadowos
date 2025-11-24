@@ -109,15 +109,18 @@ function PaymentOption({ value, label, icon }: { value: string, label: string, i
             <Label
                 htmlFor={value}
                 className={cn(
-                    "flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 transition-all peer-data-[state=checked]:border-[#0055D4] peer-data-[state=checked]:bg-blue-50",
+                    "flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 transition-all",
+                    "peer-data-[state=checked]:border-[#0055D4] peer-data-[state=checked]:bg-blue-50",
+                    "peer-data-[state=checked]:[&_.inner-circle]:opacity-100",
+                    "peer-data-[state=checked]:[&_.outer-circle]:border-[#0055D4] peer-data-[state=checked]:[&_.outer-circle]:bg-transparent"
                 )}
             >
                 <div className="h-8 w-10 bg-white rounded border border-gray-200 flex items-center justify-center shrink-0 shadow-sm">
                     {icon}
                 </div>
                 <span className="font-medium text-sm text-gray-700 flex-1">{label}</span>
-                <div className="h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center peer-data-[state=checked]:border-[#0055D4] peer-data-[state=checked]:bg-transparent">
-                    <div className="h-2.5 w-2.5 rounded-full bg-[#0055D4] opacity-0 peer-data-[state=checked]:opacity-100 transition-opacity" />
+                <div className="outer-circle h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center transition-colors">
+                    <div className="inner-circle h-2.5 w-2.5 rounded-full bg-[#0055D4] opacity-0 transition-opacity" />
                 </div>
             </Label>
         </div>
