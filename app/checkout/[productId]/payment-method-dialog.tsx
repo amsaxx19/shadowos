@@ -50,27 +50,27 @@ export function PaymentMethodDialog({ onSelect, selectedMethod }: PaymentMethodD
                     <ChevronRight className="h-5 w-5 text-gray-400" />
                 </div>
             </DialogTrigger>
-            <DialogContent className="max-w-md max-h-[90vh] flex flex-col p-0 gap-0 bg-black border-zinc-800 text-white">
-                <DialogHeader className="p-4 border-b border-zinc-800 flex flex-row items-center justify-between">
-                    <DialogTitle className="text-white">Select Payment Method</DialogTitle>
+            <DialogContent className="max-w-md max-h-[90vh] flex flex-col p-0 gap-0 bg-white text-gray-900">
+                <DialogHeader className="p-4 border-b border-gray-100 flex flex-row items-center justify-between">
+                    <DialogTitle className="text-gray-900">Select Payment Method</DialogTitle>
                 </DialogHeader>
 
-                <div className="flex-1 overflow-y-auto p-4 bg-black">
+                <div className="flex-1 overflow-y-auto p-4 bg-white">
                     <RadioGroup value={tempSelected} onValueChange={setTempSelected} className="space-y-6">
                         {/* Instant Payment */}
                         <div className="space-y-3">
-                            <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Instant Payment</h3>
+                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Instant Payment</h3>
                             <div className="grid grid-cols-2 gap-3">
                                 <PaymentOption value="shopeepay" label="ShopeePay" icon={<Wallet className="h-4 w-4 text-orange-500" />} />
                                 <PaymentOption value="ovo" label="OVO" icon={<span className="font-bold text-purple-600 text-xs">OVO</span>} />
-                                <PaymentOption value="qris" label="QRIS" icon={<span className="font-bold text-black text-xs">QRIS</span>} />
+                                <PaymentOption value="qris" label="QRIS" icon={<span className="font-bold text-gray-900 text-xs">QRIS</span>} />
                                 <PaymentOption value="dana" label="DANA" icon={<span className="font-bold text-blue-500 text-xs">DANA</span>} />
                             </div>
                         </div>
 
                         {/* Virtual Account */}
                         <div className="space-y-3">
-                            <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Virtual Account</h3>
+                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Virtual Account</h3>
                             <div className="grid grid-cols-2 gap-3">
                                 <PaymentOption value="bca_va" label="BCA" icon={<span className="font-bold text-blue-700 text-xs">BCA</span>} />
                                 <PaymentOption value="mandiri_va" label="Mandiri" icon={<span className="font-bold text-yellow-600 text-xs">MANDIRI</span>} />
@@ -81,7 +81,7 @@ export function PaymentMethodDialog({ onSelect, selectedMethod }: PaymentMethodD
 
                         {/* Credit Card */}
                         <div className="space-y-3">
-                            <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Credit Card</h3>
+                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Credit Card</h3>
                             <div className="grid grid-cols-1 gap-3">
                                 <PaymentOption value="cc" label="Credit / Debit Card" icon={<CreditCard className="h-4 w-4 text-gray-600" />} />
                             </div>
@@ -89,9 +89,9 @@ export function PaymentMethodDialog({ onSelect, selectedMethod }: PaymentMethodD
                     </RadioGroup>
                 </div>
 
-                <div className="p-4 border-t border-zinc-800 bg-black">
+                <div className="p-4 border-t border-gray-100 bg-white">
                     <Button
-                        className="w-full h-12 bg-[#00C458] hover:bg-[#00A048] text-white font-bold text-lg shadow-lg shadow-green-900/20 rounded-xl"
+                        className="w-full h-12 bg-[#0055D4] hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-100 rounded-xl"
                         onClick={handleConfirm}
                     >
                         Confirm Method
@@ -107,17 +107,17 @@ function PaymentOption({ value, label, icon }: { value: string, label: string, i
         <Label
             htmlFor={value}
             className={cn(
-                "flex items-center gap-3 p-3 border border-zinc-800 rounded-xl cursor-pointer hover:bg-zinc-900 transition-all [&:has(:checked)]:border-[#00C458] [&:has(:checked)]:bg-zinc-900",
+                "flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 transition-all [&:has(:checked)]:border-[#0055D4] [&:has(:checked)]:bg-blue-50",
             )}
         >
-            <div className="h-8 w-10 bg-white rounded border border-zinc-700 flex items-center justify-center shrink-0 shadow-sm">
+            <div className="h-8 w-10 bg-white rounded border border-gray-200 flex items-center justify-center shrink-0 shadow-sm">
                 {icon}
             </div>
-            <span className="font-medium text-sm text-zinc-300 flex-1">{label}</span>
+            <span className="font-medium text-sm text-gray-700 flex-1">{label}</span>
             <div className="relative h-5 w-5">
                 <RadioGroupItem value={value} id={value} className="sr-only" />
-                <div className="h-5 w-5 rounded-full border border-zinc-600 flex items-center justify-center group-has-[:checked]:border-[#00C458] group-has-[:checked]:bg-transparent">
-                    <div className="h-2.5 w-2.5 rounded-full bg-[#00C458] opacity-0 group-has-[:checked]:opacity-100 transition-opacity" />
+                <div className="h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center group-has-[:checked]:border-[#0055D4] group-has-[:checked]:bg-transparent">
+                    <div className="h-2.5 w-2.5 rounded-full bg-[#0055D4] opacity-0 group-has-[:checked]:opacity-100 transition-opacity" />
                 </div>
             </div>
         </Label>
