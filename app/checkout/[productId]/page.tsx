@@ -83,23 +83,7 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
                         </div>
                     </div>
 
-                    {/* Stats / Trust */}
-                    <div className="grid grid-cols-3 gap-4 py-4 border-y border-gray-100">
-                        <div className="text-center">
-                            <div className="text-lg font-bold text-gray-900">{soldCount}</div>
-                            <div className="text-[10px] text-gray-500 uppercase tracking-wide">Terjual</div>
-                        </div>
-                        <div className="text-center border-l border-gray-100">
-                            <div className="text-lg font-bold text-gray-900 flex items-center justify-center gap-1">
-                                4.9 <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            </div>
-                            <div className="text-[10px] text-gray-500 uppercase tracking-wide">Rating</div>
-                        </div>
-                        <div className="text-center border-l border-gray-100">
-                            <div className="text-lg font-bold text-gray-900">Instant</div>
-                            <div className="text-[10px] text-gray-500 uppercase tracking-wide">Pengiriman</div>
-                        </div>
-                    </div>
+
 
                     {/* Creator */}
                     <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
