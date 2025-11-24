@@ -1,10 +1,19 @@
 'use server'
 
-import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 import { redirect } from "next/navigation"
 
 export async function processPayment(orderId: string, status: 'success' | 'failed') {
-    const supabase = await createClient()
+    // Handle Mock Orders
+    if (orderId.startsWith('mock-')) {
+        if (status === 'success') {
+            redirect(`/payment/${orderId}/success`)
+        } else {
+            return { error: "Payment failed (Simulation)" }
+        }
+    }
+
+    const supabase = createAdminClient()
 
     // Update order status
     const { error } = await supabase
@@ -13,6 +22,7 @@ export async function processPayment(orderId: string, status: 'success' | 'faile
         .eq('id', orderId)
 
     if (error) {
+        console.error("Payment processing error:", error)
         throw new Error('Failed to update order status')
     }
 
