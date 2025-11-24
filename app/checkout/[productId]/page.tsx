@@ -74,7 +74,7 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
                             {product.title}
                         </h1>
                         <div className="flex items-baseline gap-2">
-                            <span className="text-2xl font-bold text-green-600">
+                            <span className="text-2xl font-bold text-[#0055D4]">
                                 IDR {product.price.toLocaleString()}
                             </span>
                             <span className="text-sm text-gray-400 line-through decoration-gray-400">
@@ -130,13 +130,13 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
             {/* Sticky Bottom Action Bar */}
             <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
                 <div className="max-w-md mx-auto flex gap-3">
-                    <Button variant="outline" size="icon" className="h-12 w-12 border-green-600 text-green-600 hover:bg-green-50 shrink-0 rounded-xl">
+                    <Button variant="outline" size="icon" className="h-12 w-12 border-blue-600 text-blue-600 hover:bg-blue-50 shrink-0 rounded-xl">
                         <ShoppingCart className="h-5 w-5" />
                     </Button>
 
                     <Drawer>
                         <DrawerTrigger asChild>
-                            <Button className="flex-1 h-12 bg-green-500 hover:bg-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-100">
+                            <Button className="flex-1 h-12 bg-[#0055D4] hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-100">
                                 BELI SEKARANG
                             </Button>
                         </DrawerTrigger>

@@ -107,7 +107,7 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
 
             <Button
                 type="submit"
-                className="w-full h-12 bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-200 mt-4"
+                className="w-full h-12 bg-[#0055D4] hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-200 mt-4"
                 disabled={isLoading}
             >
                 {isLoading ? (
