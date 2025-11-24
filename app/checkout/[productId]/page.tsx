@@ -12,7 +12,7 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
     // Fetch Product with Creator Details
     const { data: product } = await supabase
         .from('products')
-        .select('*, creator:users!creator_id(user_metadata)')
+        .select('*, creator:users!creator_id(full_name, email)')
         .eq('id', productId)
         .single()
 
@@ -20,8 +20,8 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
         notFound()
     }
 
-    const creatorName = product.creator?.user_metadata?.full_name || "Shadow Creator"
-    const creatorAvatar = product.creator?.user_metadata?.avatar_url
+    const creatorName = product.creator?.full_name || "Shadow Creator"
+    // const creatorAvatar = product.creator?.avatar_url // Avatar not in public.users yet, use placeholder
 
     return (
         <div className="min-h-screen bg-gray-50 font-sans">
@@ -71,7 +71,6 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
                         {/* Creator Profile */}
                         <div className="flex items-center gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm">
                             <Avatar className="h-16 w-16 border-2 border-blue-100">
-                                <AvatarImage src={creatorAvatar} />
                                 <AvatarFallback className="bg-blue-50 text-blue-600 text-xl font-bold">
                                     {creatorName.charAt(0)}
                                 </AvatarFallback>
