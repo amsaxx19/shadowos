@@ -15,6 +15,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
+import { CartDrawer } from './cart-drawer'
 import Link from 'next/link'
 
 export default async function CheckoutPage({ params }: { params: Promise<{ productId: string }> }) {
@@ -114,31 +115,20 @@ export default async function CheckoutPage({ params }: { params: Promise<{ produ
             {/* Sticky Bottom Action Bar */}
             <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
                 <div className="max-w-md mx-auto flex gap-3">
-                    <Button variant="outline" size="icon" className="h-12 w-12 border-blue-600 text-blue-600 hover:bg-blue-50 shrink-0 rounded-xl">
-                        <ShoppingCart className="h-5 w-5" />
-                    </Button>
+                    <CartDrawer product={{
+                        id: product.id,
+                        title: product.title,
+                        price: product.price,
+                        imagePlaceholder: product.title.charAt(0)
+                    }} />
 
-                    <Drawer>
-                        <DrawerTrigger asChild>
-                            <Button className="flex-1 h-12 bg-[#0055D4] hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-100">
-                                BELI SEKARANG
-                            </Button>
-                        </DrawerTrigger>
-                        <DrawerContent>
-                            <div className="mx-auto w-full max-w-md">
-                                <DrawerHeader>
-                                    <DrawerTitle>Checkout</DrawerTitle>
-                                    <DrawerDescription>Lengkapi data untuk menyelesaikan pembayaran.</DrawerDescription>
-                                </DrawerHeader>
-                                <div className="p-4 pb-8">
-                                    <CheckoutForm productId={product.id} price={product.price} />
-                                </div>
-                            </div>
-                        </DrawerContent>
-                    </Drawer>
+                    <Button className="flex-1 h-12 bg-[#0055D4] hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-100" asChild>
+                        <Link href={`/checkout/${product.id}/payment`}>
+                            BELI SEKARANG
+                        </Link>
+                    </Button>
                 </div>
             </div>
         </div>
     )
 }
-
