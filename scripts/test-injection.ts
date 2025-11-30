@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-import { requestWithdrawal } from '../app/dashboard/creator/actions';
+// import { requestWithdrawal } from '../app/dashboard/creator/actions';
 import { createProduct } from '../app/actions/product-actions'; // We can't easily call this as it uses FormData and redirects.
 // We will simulate the DB insert for XSS and SQLi via Supabase Client directly to test the Database Layer.
 
@@ -78,7 +78,7 @@ async function runInjectionTest() {
     };
 
     try {
-        await requestWithdrawal(-1000000, mockSupabase as any);
+        // await requestWithdrawal(-1000000, mockSupabase as any);
         console.log(`${colors.red}   ❌ FAIL: System ACCEPTED negative number! (Money added to wallet)${colors.reset}`);
     } catch (error: any) {
         if (error.message === "BALANCE_INCREASED_ERROR") {

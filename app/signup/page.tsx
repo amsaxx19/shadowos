@@ -2,10 +2,8 @@ import { signup } from '../login/actions'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { User, Briefcase } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 export default function SignupPage() {
     return (
@@ -58,31 +56,7 @@ export default function SignupPage() {
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <Label className="text-neutral-400 text-xs uppercase font-bold tracking-wider">I am a...</Label>
-                            <RadioGroup defaultValue="creator" name="role" className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <RadioGroupItem value="creator" id="creator" className="peer sr-only" />
-                                    <Label
-                                        htmlFor="creator"
-                                        className="flex flex-col items-center justify-between rounded-lg border border-[#333] bg-[#1c1c1c] p-4 hover:bg-[#222] hover:text-white peer-data-[state=checked]:border-blue-600 peer-data-[state=checked]:bg-blue-600/10 peer-data-[state=checked]:text-blue-500 cursor-pointer transition-all"
-                                    >
-                                        <User className="mb-2 h-6 w-6" />
-                                        Creator
-                                    </Label>
-                                </div>
-                                <div>
-                                    <RadioGroupItem value="operator" id="operator" className="peer sr-only" />
-                                    <Label
-                                        htmlFor="operator"
-                                        className="flex flex-col items-center justify-between rounded-lg border border-[#333] bg-[#1c1c1c] p-4 hover:bg-[#222] hover:text-white peer-data-[state=checked]:border-blue-600 peer-data-[state=checked]:bg-blue-600/10 peer-data-[state=checked]:text-blue-500 cursor-pointer transition-all"
-                                    >
-                                        <Briefcase className="mb-2 h-6 w-6" />
-                                        Operator
-                                    </Label>
-                                </div>
-                            </RadioGroup>
-                        </div>
+
 
                         <Button
                             type="submit"

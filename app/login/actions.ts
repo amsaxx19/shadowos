@@ -20,7 +20,7 @@ export async function login(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard/operator') // Default redirect, middleware will handle role-based routing later if needed
+    redirect('/dashboard')
 }
 
 export async function signup(formData: FormData) {
@@ -29,7 +29,8 @@ export async function signup(formData: FormData) {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
     const fullName = formData.get('full_name') as string
-    const role = formData.get('role') as 'operator' | 'creator'
+    // Default role to 'owner' for all new users
+    const role = 'owner'
 
     const { error } = await supabase.auth.signUp({
         email,
@@ -47,5 +48,5 @@ export async function signup(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard/' + role)
+    redirect('/dashboard')
 }
