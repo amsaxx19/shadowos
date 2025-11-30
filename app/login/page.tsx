@@ -72,8 +72,8 @@ export default function LoginPage() {
                     </form>
                     <div className="mt-4 text-center text-sm text-zinc-500">
                         Belum punya akun?{" "}
-                        <Link href="/apply" className="text-blue-400 hover:text-blue-300 hover:underline">
-                            Ajukan akses
+                        <Link href="/signup" className="text-blue-400 hover:text-blue-300 hover:underline">
+                            Daftar
                         </Link>
                     </div>
                 </CardContent>

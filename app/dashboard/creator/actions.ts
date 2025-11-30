@@ -48,8 +48,8 @@ export async function getCreatorStats() {
     }
 }
 
-export async function requestWithdrawal(amount: number) {
-    const supabase = await createClient()
+export async function requestWithdrawal(amount: number, injectedSupabase?: any) {
+    const supabase = injectedSupabase || await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) throw new Error("Unauthorized")
@@ -62,6 +62,7 @@ export async function requestWithdrawal(amount: number) {
         .single()
 
     if (!wallet) throw new Error("Wallet not found")
+    if (amount <= 0) throw new Error("Invalid amount: Must be positive")
     if (wallet.balance < amount) throw new Error("Insufficient funds")
 
     // Create Withdrawal Request
@@ -96,6 +97,8 @@ export async function requestWithdrawal(amount: number) {
 
     if (walletError) throw new Error("Failed to update wallet")
 
-    revalidatePath('/dashboard/creator')
+    if (!injectedSupabase) {
+        revalidatePath('/dashboard/creator')
+    }
     return { success: true }
 }
