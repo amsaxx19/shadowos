@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -13,8 +11,12 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { CreateProductModal } from "@/components/products/create-product-modal"
+import { createClient } from "@/lib/supabase/server"
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+    const supabase = await createClient()
+    const { data: products } = await supabase.from('products').select('*').order('created_at', { ascending: false })
+
     return (
         <div className="p-8 space-y-6 max-w-[1600px] mx-auto text-white">
             {/* Header */}
@@ -23,21 +25,21 @@ export default function ProductsPage() {
                     <div className="h-8 w-8 rounded bg-[#222] flex items-center justify-center text-xs font-bold text-neutral-300 border border-[#333]">
                         EC
                     </div>
-                    <h1 className="text-xl font-bold">Elevate Academy...</h1>
+                    <h1 className="text-xl font-bold">My Products</h1>
                     <Search className="h-4 w-4 text-neutral-500" />
-                    <CreateProductModal>
+                    <Link href="/dashboard/biz_1/products/create">
                         <Button size="icon" className="h-6 w-6 bg-blue-600 hover:bg-blue-700 rounded-md">
                             <Plus className="h-4 w-4 text-white" />
                         </Button>
-                    </CreateProductModal>
+                    </Link>
                 </div>
                 <div className="flex items-center gap-2">
-                    <CreateProductModal>
+                    <Link href="/dashboard/biz_1/products/create">
                         <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium">
                             <Plus className="mr-2 h-4 w-4" />
                             Create product
                         </Button>
-                    </CreateProductModal>
+                    </Link>
                     <Button variant="outline" className="border-[#333] bg-[#161616] text-white hover:bg-[#222]">
                         <Settings className="mr-2 h-4 w-4" />
                         Edit
@@ -76,40 +78,56 @@ export default function ProductsPage() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow className="border-[#222] hover:bg-[#161616]">
-                            <TableCell className="font-medium text-white">Elevate Clipping Mastery</TableCell>
-                            <TableCell className="text-white">$100.00</TableCell>
-                            <TableCell>
-                                <span className="bg-green-500/20 text-green-500 text-xs font-medium px-2 py-0.5 rounded">
-                                    Visible
-                                </span>
-                            </TableCell>
-                            <TableCell>
-                                <div className="flex items-center gap-2 text-neutral-400 text-sm">
-                                    <div className="h-4 w-4 rounded-full border border-neutral-600 flex items-center justify-center">
-                                        <div className="h-2 w-2 rounded-full bg-neutral-600" />
-                                    </div>
-                                    Not listed on Discover
-                                </div>
-                            </TableCell>
-                            <TableCell className="text-neutral-400">-</TableCell>
-                            <TableCell className="text-neutral-400">-</TableCell>
-                            <TableCell className="text-right text-white">$0.00</TableCell>
-                            <TableCell>
-                                <div className="flex items-center justify-end gap-2">
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-neutral-400 hover:text-white hover:bg-[#222]">
-                                        <LinkIcon className="h-4 w-4" />
-                                    </Button>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-neutral-400 hover:text-white hover:bg-[#222]">
-                                        <MoreVertical className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                            </TableCell>
-                        </TableRow>
+                        {products?.length === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={8} className="h-24 text-center text-neutral-500">
+                                    No products found. Create one to get started.
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            products?.map((product) => (
+                                <TableRow key={product.id} className="border-[#222] hover:bg-[#161616]">
+                                    <TableCell className="font-medium text-white">
+                                        <Link href={`/product/${product.id}`} className="hover:underline">
+                                            {product.title}
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell className="text-white">${product.price}</TableCell>
+                                    <TableCell>
+                                        <span className="bg-green-500/20 text-green-500 text-xs font-medium px-2 py-0.5 rounded">
+                                            Visible
+                                        </span>
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center gap-2 text-neutral-400 text-sm">
+                                            <div className="h-4 w-4 rounded-full border border-neutral-600 flex items-center justify-center">
+                                                <div className="h-2 w-2 rounded-full bg-neutral-600" />
+                                            </div>
+                                            Not listed
+                                        </div>
+                                    </TableCell>
+                                    <TableCell className="text-neutral-400">-</TableCell>
+                                    <TableCell className="text-neutral-400">-</TableCell>
+                                    <TableCell className="text-right text-white">$0.00</TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center justify-end gap-2">
+                                            <Link href={`/product/${product.id}`} target="_blank">
+                                                <Button variant="ghost" size="icon" className="h-8 w-8 text-neutral-400 hover:text-white hover:bg-[#222]">
+                                                    <LinkIcon className="h-4 w-4" />
+                                                </Button>
+                                            </Link>
+                                            <Button variant="ghost" size="icon" className="h-8 w-8 text-neutral-400 hover:text-white hover:bg-[#222]">
+                                                <MoreVertical className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
                     </TableBody>
                 </Table>
                 <div className="p-4 border-t border-[#222] text-xs text-neutral-500 flex justify-between items-center">
-                    <span>Showing 1 to 1 of 1</span>
+                    <span>Showing {products?.length || 0} products</span>
                     <div className="flex gap-2">
                         {/* Pagination arrows would go here */}
                     </div>
