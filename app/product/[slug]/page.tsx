@@ -13,9 +13,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
     const { data: product, error } = await supabase
         .from('products')
         .select('*, users:creator_id(full_name, avatar_url)')
-        .eq('slug', slug) // Assuming we have a slug column, if not we use ID? The user said [slug].
-        // If schema doesn't have slug, we might need to use ID or add slug.
-        // Let's check schema first. If no slug, we use ID for now or assume ID is passed as slug.
+        .eq('id', slug) // Treat the URL param as ID since we don't have a slug column yet
         .single()
 
     if (error || !product) {
