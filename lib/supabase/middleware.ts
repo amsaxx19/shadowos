@@ -100,7 +100,7 @@ export async function updateSession(request: NextRequest) {
         } = await supabase.auth.getUser()
 
         // Protected Routes Logic
-        if (request.nextUrl.pathname.startsWith('/dashboard') && !user) {
+        if ((request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/home')) && !user) {
             return NextResponse.redirect(new URL('/login', request.url))
         }
 
@@ -136,8 +136,7 @@ export async function updateSession(request: NextRequest) {
             // With multi-tenancy, roles are per-business. We'll defer role checking to the page/layout level or RLS.
 
             if (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup') {
-                const lastBusinessId = request.cookies.get('shadow_last_business')?.value || 'biz_1'
-                return NextResponse.redirect(new URL(`/dashboard/${lastBusinessId}/home`, request.url))
+                return NextResponse.redirect(new URL('/home', request.url))
             }
         }
     } catch (err: any) {

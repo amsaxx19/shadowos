@@ -30,7 +30,7 @@ export function MainSidebar() {
     const dashboardHref = activeBusiness ? `/dashboard/${activeBusiness.id}/home` : (userBusinesses.length > 0 ? `/dashboard/${userBusinesses[0].id}/home` : "/dashboard")
 
     const mainLinks = [
-        { href: "/dashboard", label: "Home", icon: Home },
+        { href: "/home", label: "Home", icon: Home },
         { href: "/discover", label: "Discover", icon: Compass },
         { href: "/messages", label: "Messages", icon: MessageCircle, badge: 1 },
         { href: "/notifications", label: "Notifications", icon: Bell },
