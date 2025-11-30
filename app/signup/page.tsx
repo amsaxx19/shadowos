@@ -12,6 +12,7 @@ import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
+    InputOTPSeparator,
 } from "@/components/ui/input-otp"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -139,24 +140,22 @@ export default function SignupPage() {
                     ) : (
                         <div className="space-y-6 flex flex-col items-center">
                             <InputOTP
-                                maxLength={8}
+                                maxLength={6}
                                 value={""}
                                 onChange={(value: string) => {
-                                    if (value.length === 8) handleVerifyOtp(value)
+                                    if (value.length === 6) handleVerifyOtp(value)
                                 }}
                             >
                                 <InputOTPGroup>
                                     <InputOTPSlot index={0} />
                                     <InputOTPSlot index={1} />
                                     <InputOTPSlot index={2} />
-                                    <InputOTPSlot index={3} />
                                 </InputOTPGroup>
                                 <InputOTPSeparator />
                                 <InputOTPGroup>
+                                    <InputOTPSlot index={3} />
                                     <InputOTPSlot index={4} />
                                     <InputOTPSlot index={5} />
-                                    <InputOTPSlot index={6} />
-                                    <InputOTPSlot index={7} />
                                 </InputOTPGroup>
                             </InputOTP>
                             <div className="text-center text-sm text-neutral-500">
