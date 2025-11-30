@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card'
 import { Check, Star, ChevronLeft, Globe, Twitter, Instagram, Youtube, MessageCircle, ChevronDown } from 'lucide-react'
 import CheckoutButton from './checkout-button'
 import Link from 'next/link'
+import { ReviewForm } from '@/components/product/review-form'
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
     const supabase = createAdminClient()
@@ -21,40 +22,46 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         return notFound()
     }
 
-    // Mock Data for Whop-style sections (since not in DB yet)
+    // Fetch Reviews
+    const { data: reviews } = await supabase
+        .from('reviews')
+        .select('*, users(full_name)')
+        .eq('product_id', slug)
+        .order('created_at', { ascending: false })
+
+    // Fetch Member Count (Orders)
+    const { count: memberCount } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true })
+        .eq('product_id', slug)
+        .eq('status', 'paid')
+
     const features = [
-        "Daily Live Trading - #1 In The World",
-        "Real Time Day Trade & Swing Alerts",
-        "Weekly Classes & Giveaways",
-        "Extensive Library Of Educational Videos",
-        "Collaborative & Supportive Community"
+        "Trading Live Harian - #1 Di Dunia",
+        "Sinyal Day Trade & Swing Real Time",
+        "Kelas Mingguan & Giveaway",
+        "Perpustakaan Video Edukasi Lengkap",
+        "Komunitas Kolaboratif & Suportif"
     ]
 
-    const reviews = [
-        { user: "$AYACHE", rating: 5, text: "Amazing cash flow trades" },
-        { user: "Stephen Borrell", rating: 5, text: "Great signals if you're looking for just that. In terms of education and analysis, I think FST is well worth joining." },
-        { user: "Kyle L", rating: 5, text: "As a mentee, I see this as an investment in my future. There's a ton of value in both the platform and Team Felony." }
-    ]
+    const faqs = product.faqs || []
 
-    const faqs = [
-        "Is this server beginner friendly?",
-        "Do I need a large account?",
-        "Do you offer a course or mentorship?",
-        "What makes First Step Trading different?"
-    ]
+    const averageRating = reviews && reviews.length > 0
+        ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length
+        : 0
 
     return (
         <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-blue-500/30">
             {/* Header */}
             <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                    <Link href="/home" className="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors">
                         <ChevronLeft className="h-4 w-4" />
-                        Back
+                        Kembali
                     </Link>
                     <div className="flex items-center gap-4">
                         <Button variant="ghost" className="text-neutral-400 hover:text-white hover:bg-white/5">
-                            Sign in
+                            Masuk
                         </Button>
                     </div>
                 </div>
@@ -78,7 +85,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                     />
                                 ) : (
                                     <div className="flex items-center justify-center h-full text-neutral-500 bg-gradient-to-br from-neutral-900 to-neutral-800">
-                                        <span className="text-lg font-medium">No Preview Available</span>
+                                        <span className="text-lg font-medium">Tidak Ada Preview</span>
                                     </div>
                                 )}
                             </div>
@@ -88,20 +95,20 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                 <div className="flex items-center gap-2 text-yellow-500">
                                     <div className="flex">
                                         {[1, 2, 3, 4, 5].map((_, i) => (
-                                            <Star key={i} className="h-5 w-5 fill-current" />
+                                            <Star key={i} className={`h-5 w-5 ${i < Math.round(averageRating) ? "fill-current" : "text-neutral-600"}`} />
                                         ))}
                                     </div>
-                                    <span className="text-neutral-400 text-sm ml-2">4.8 (568) • Trading</span>
+                                    <span className="text-neutral-400 text-sm ml-2">{averageRating.toFixed(1)} ({reviews?.length || 0}) • Trading</span>
                                 </div>
                                 <p className="text-lg text-neutral-300 leading-relaxed">
-                                    {product.description || "Stay calm and let us navigate the market for you. Watch the most consistent, thorough and transparent trading in the world. Join the best trading community that cares about your success on and off the charts."}
+                                    {product.description || "Tetap tenang dan biarkan kami menavigasi pasar untuk Anda. Saksikan trading paling konsisten, menyeluruh, dan transparan di dunia. Bergabunglah dengan komunitas trading terbaik yang peduli dengan kesuksesan Anda di dalam dan di luar grafik."}
                                 </p>
                             </div>
                         </div>
 
                         {/* Features */}
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">Features</h2>
+                            <h2 className="text-2xl font-bold">Fitur</h2>
                             <div className="grid gap-4">
                                 {features.map((feature, i) => (
                                     <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-neutral-900/50 border border-white/5">
@@ -115,58 +122,62 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         {/* Reviews */}
-                        <div className="space-y-6">
-                            <div className="flex items-center justify-between">
-                                <h2 className="text-2xl font-bold">Reviews</h2>
-                                <div className="flex items-center gap-2 text-yellow-500">
-                                    <Star className="h-5 w-5 fill-current" />
-                                    <span className="font-bold text-white">4.77</span>
-                                    <span className="text-neutral-500 text-sm">out of 5</span>
+                        {reviews && reviews.length > 0 && (
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-2xl font-bold">Ulasan</h2>
+                                    <div className="flex items-center gap-2 text-yellow-500">
+                                        <Star className="h-5 w-5 fill-current" />
+                                        <span className="font-bold text-white">{averageRating.toFixed(2)}</span>
+                                        <span className="text-neutral-500 text-sm">dari 5</span>
+                                    </div>
+                                </div>
+                                <div className="grid gap-4">
+                                    {reviews.map((review, i) => (
+                                        <div key={i} className="p-6 rounded-2xl bg-neutral-900/50 border border-white/5 space-y-4">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="h-10 w-10 rounded-full bg-neutral-800 flex items-center justify-center font-bold text-neutral-400">
+                                                        {review.users?.full_name?.[0] || 'U'}
+                                                    </div>
+                                                    <span className="font-semibold">{review.users?.full_name || 'Pengguna'}</span>
+                                                </div>
+                                                <div className="flex text-yellow-500">
+                                                    {[...Array(review.rating)].map((_, j) => (
+                                                        <Star key={j} className="h-4 w-4 fill-current" />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <p className="text-neutral-300 leading-relaxed">{review.comment}</p>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="grid gap-4">
-                                {reviews.map((review, i) => (
-                                    <div key={i} className="p-6 rounded-2xl bg-neutral-900/50 border border-white/5 space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-3">
-                                                <div className="h-10 w-10 rounded-full bg-neutral-800 flex items-center justify-center font-bold text-neutral-400">
-                                                    {review.user[0]}
-                                                </div>
-                                                <span className="font-semibold">{review.user}</span>
-                                            </div>
-                                            <div className="flex text-yellow-500">
-                                                {[...Array(review.rating)].map((_, j) => (
-                                                    <Star key={j} className="h-4 w-4 fill-current" />
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <p className="text-neutral-300 leading-relaxed">{review.text}</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-neutral-400">
-                                See all reviews <ChevronDown className="ml-2 h-4 w-4" />
-                            </Button>
+                        )}
+
+                        {/* Add Review Button (Always visible to allow simulation) */}
+                        <div className="pt-4">
+                            <ReviewForm productId={product.id} />
                         </div>
 
                         {/* Creator Profile */}
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">About the creator</h2>
+                            <h2 className="text-2xl font-bold">Tentang Kreator</h2>
                             <div className="p-8 rounded-3xl bg-neutral-900/50 border border-white/5 space-y-6">
                                 <div className="flex items-center gap-4">
                                     <div className="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-2xl font-bold">
                                         {product.users?.full_name?.[0] || 'C'}
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-bold">{product.users?.full_name || 'Creator'}</h3>
-                                        <p className="text-neutral-400">@creator • Joined May 2023</p>
+                                        <h3 className="text-xl font-bold">{product.users?.full_name || 'Kreator'}</h3>
+                                        <p className="text-neutral-400">@creator • Bergabung Mei 2023</p>
                                     </div>
                                     <Button variant="outline" className="ml-auto border-white/10 hover:bg-white/5">
-                                        View profile
+                                        Lihat profil
                                     </Button>
                                 </div>
                                 <p className="text-neutral-300">
-                                    Our motto is learn and earn. We are here to help you unlock your full potential and achieve consistent profitability. Your time is NOW!
+                                    Motto kami adalah belajar dan menghasilkan. Kami di sini untuk membantu Anda membuka potensi penuh Anda dan mencapai profitabilitas yang konsisten. Waktu Anda adalah SEKARANG!
                                 </p>
                                 <div className="flex gap-4">
                                     {[Instagram, Twitter, Youtube, Globe].map((Icon, i) => (
@@ -178,7 +189,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                 <div className="relative">
                                     <input
                                         type="text"
-                                        placeholder="Send creator a message..."
+                                        placeholder="Kirim pesan ke kreator..."
                                         className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                                     />
                                     <div className="absolute right-3 top-3 p-1 bg-white/10 rounded-full cursor-pointer hover:bg-white/20">
@@ -189,17 +200,22 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         {/* FAQ */}
-                        <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">FAQs</h2>
-                            <div className="space-y-2">
-                                {faqs.map((faq, i) => (
-                                    <div key={i} className="p-4 rounded-xl bg-neutral-900/30 border border-white/5 flex items-center justify-between cursor-pointer hover:bg-neutral-900/50 transition-colors">
-                                        <span className="font-medium">{faq}</span>
-                                        <ChevronDown className="h-5 w-5 text-neutral-500" />
-                                    </div>
-                                ))}
+                        {faqs.length > 0 && (
+                            <div className="space-y-6">
+                                <h2 className="text-2xl font-bold">Tanya Jawab (FAQ)</h2>
+                                <div className="space-y-2">
+                                    {faqs.map((faq: any, i: number) => (
+                                        <div key={i} className="p-4 rounded-xl bg-neutral-900/30 border border-white/5 space-y-2 cursor-pointer hover:bg-neutral-900/50 transition-colors">
+                                            <div className="flex items-center justify-between font-medium">
+                                                {faq.question}
+                                                <ChevronDown className="h-5 w-5 text-neutral-500" />
+                                            </div>
+                                            <p className="text-neutral-400 text-sm">{faq.answer}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                     </div>
 
@@ -220,16 +236,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                                     maximumFractionDigits: 0
                                                 }).format(product.price)}
                                             </span>
-                                            <span className="text-neutral-400">/ month</span>
+                                            <span className="text-neutral-400">/ bulan</span>
                                         </div>
-                                        <p className="text-xs text-neutral-500 mt-1">+ Rp 5.000 initial fee</p>
+                                        <p className="text-xs text-neutral-500 mt-1">+ Rp 5.000 biaya awal</p>
                                     </div>
 
                                     <CheckoutButton product={product} />
 
                                     <div className="flex items-center justify-center gap-2 text-xs text-neutral-500 font-medium">
                                         <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                                        Join 693 members
+                                        Bergabung dengan {memberCount || 0} member
                                     </div>
                                 </div>
                             </Card>
@@ -247,7 +263,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                     </div>
                                 </div>
                                 <Button variant="outline" size="sm" className="h-8 text-xs border-white/10">
-                                    Become an affiliate
+                                    Jadi afiliasi
                                 </Button>
                             </div>
                         </div>
@@ -266,7 +282,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                 currency: 'IDR',
                                 maximumFractionDigits: 0
                             }).format(product.price)}
-                            <span className="text-neutral-400 font-normal"> / month</span>
+                            <span className="text-neutral-400 font-normal"> / bulan</span>
                         </p>
                     </div>
                     <div className="w-1/2">

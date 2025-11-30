@@ -17,6 +17,7 @@ export async function createProduct(formData: FormData) {
     const title = formData.get('name') as string
     const description = formData.get('description') as string
     const price = parseFloat(formData.get('price') as string)
+    const faqs = JSON.parse(formData.get('faqs') as string || '[]')
 
     // 2. Use Admin Client for DB operations to bypass RLS
     const adminSupabase = createAdminClient()
@@ -32,6 +33,7 @@ export async function createProduct(formData: FormData) {
         operator_id,
         split_percentage_creator: 100,
         split_percentage_operator: 0,
+        faqs: faqs
     })
 
     if (error) {

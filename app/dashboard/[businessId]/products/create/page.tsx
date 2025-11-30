@@ -11,7 +11,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Plus, Sparkles, Image as ImageIcon, Video, Eye } from "lucide-react"
+import { ArrowLeft, Plus, Sparkles, Image as ImageIcon, Video, Eye, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
@@ -19,9 +19,26 @@ import { createProduct } from "../actions"
 
 export default function CreateProductPage() {
     const [visibility, setVisibility] = useState(true)
+    const [faqs, setFaqs] = useState([{ question: "", answer: "" }])
+
+    const addFaq = () => {
+        setFaqs([...faqs, { question: "", answer: "" }])
+    }
+
+    const removeFaq = (index: number) => {
+        setFaqs(faqs.filter((_, i) => i !== index))
+    }
+
+    const updateFaq = (index: number, field: 'question' | 'answer', value: string) => {
+        const newFaqs = [...faqs]
+        newFaqs[index][field] = value
+        setFaqs(newFaqs)
+    }
 
     return (
         <form action={createProduct} className="flex h-full bg-[#0e0e0e] text-white overflow-hidden">
+            <input type="hidden" name="faqs" value={JSON.stringify(faqs)} />
+
             {/* Left Column: Form (Scrollable) */}
             <div className="w-full max-w-[600px] flex flex-col border-r border-[#222] overflow-y-auto">
                 {/* Header */}
@@ -32,16 +49,16 @@ export default function CreateProductPage() {
                         </Button>
                     </Link>
                     <div className="flex items-center gap-2 text-sm text-neutral-500">
-                        <span>Products</span>
+                        <span>Produk</span>
                         <span>/</span>
-                        <span className="text-white font-medium">Create product</span>
+                        <span className="text-white font-medium">Buat produk</span>
                     </div>
                 </div>
 
                 <div className="p-6 space-y-8 pb-32">
                     {/* Product Type */}
                     <div className="space-y-4">
-                        <h3 className="text-lg font-bold">Product type</h3>
+                        <h3 className="text-lg font-bold">Tipe Produk</h3>
                         <div className="p-4 rounded-lg border border-[#222] bg-[#161616]">
                             <Select defaultValue="coaching" name="type">
                                 <SelectTrigger className="bg-transparent border-none text-white focus:ring-0 px-0 h-auto">
@@ -49,12 +66,12 @@ export default function CreateProductPage() {
                                         <div className="h-8 w-8 rounded bg-yellow-500/20 flex items-center justify-center text-yellow-500">
                                             <Sparkles className="h-4 w-4" />
                                         </div>
-                                        <SelectValue placeholder="Select type" />
+                                        <SelectValue placeholder="Pilih tipe" />
                                     </div>
                                 </SelectTrigger>
                                 <SelectContent className="bg-[#161616] border-[#222] text-white">
-                                    <SelectItem value="coaching">Coaching and courses</SelectItem>
-                                    <SelectItem value="community">Community</SelectItem>
+                                    <SelectItem value="coaching">Coaching dan kursus</SelectItem>
+                                    <SelectItem value="community">Komunitas</SelectItem>
                                     <SelectItem value="software">Software</SelectItem>
                                 </SelectContent>
                             </Select>
@@ -63,14 +80,14 @@ export default function CreateProductPage() {
 
                     {/* Category */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-medium text-neutral-400">Category</h3>
+                        <h3 className="text-sm font-medium text-neutral-400">Kategori</h3>
                         <Select defaultValue="clipping" name="category">
                             <SelectTrigger className="bg-[#161616] border-[#222] text-white h-12">
                                 <div className="flex items-center gap-2">
                                     <div className="h-5 w-5 rounded bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs">
                                         📺
                                     </div>
-                                    <SelectValue placeholder="Select category" />
+                                    <SelectValue placeholder="Pilih kategori" />
                                 </div>
                             </SelectTrigger>
                             <SelectContent className="bg-[#161616] border-[#222] text-white">
@@ -83,14 +100,14 @@ export default function CreateProductPage() {
 
                     {/* Product Details */}
                     <div className="space-y-6 pt-4 border-t border-[#222]">
-                        <h3 className="text-lg font-bold">Product details</h3>
+                        <h3 className="text-lg font-bold">Detail Produk</h3>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-neutral-400">Name</label>
+                            <label className="text-sm font-medium text-neutral-400">Nama</label>
                             <div className="relative">
                                 <Input
                                     name="name"
-                                    defaultValue="Basic Access"
+                                    defaultValue="Akses Dasar"
                                     className="bg-[#161616] border-[#222] text-white h-12 pr-10"
                                     required
                                 />
@@ -106,7 +123,7 @@ export default function CreateProductPage() {
                             <div className="relative">
                                 <Input
                                     name="headline"
-                                    defaultValue="How to Build a Viral App: $0 to $100k/mo"
+                                    defaultValue="Cara Membangun Aplikasi Viral: $0 sampai $100k/bln"
                                     className="bg-[#161616] border-[#222] text-white h-12 pr-10"
                                 />
                                 <div className="absolute right-3 top-3 h-6 w-6 rounded bg-[#222] border border-[#333] flex items-center justify-center">
@@ -117,10 +134,10 @@ export default function CreateProductPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-neutral-400">Description</label>
+                            <label className="text-sm font-medium text-neutral-400">Deskripsi</label>
                             <Textarea
                                 name="description"
-                                placeholder="Describe your offer in detail..."
+                                placeholder="Jelaskan penawaran Anda secara detail..."
                                 className="bg-[#161616] border-[#222] text-white min-h-[120px] resize-none"
                             />
                             <div className="text-right text-xs text-neutral-600">0 / 1500</div>
@@ -129,7 +146,7 @@ export default function CreateProductPage() {
 
                     {/* Product Media */}
                     <div className="space-y-4 pt-4 border-t border-[#222]">
-                        <h3 className="text-lg font-bold">Product media</h3>
+                        <h3 className="text-lg font-bold">Media Produk</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="aspect-video rounded-lg bg-gradient-to-br from-blue-900 to-purple-900 border border-[#222] flex items-center justify-center relative group cursor-pointer">
                                 <div className="text-center">
@@ -144,23 +161,23 @@ export default function CreateProductPage() {
                                     <Video className="h-5 w-5 text-neutral-500" />
                                     <ImageIcon className="h-5 w-5 text-neutral-500" />
                                 </div>
-                                <span className="text-sm font-medium text-neutral-400">Add videos and photos</span>
-                                <span className="text-xs text-neutral-600">Or drag and drop</span>
+                                <span className="text-sm font-medium text-neutral-400">Tambah video dan foto</span>
+                                <span className="text-xs text-neutral-600">Atau drag and drop</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Pricing */}
                     <div className="space-y-4 pt-4 border-t border-[#222]">
-                        <h3 className="text-lg font-bold">Pricing</h3>
-                        <div className="text-sm text-neutral-400 mb-2">$100.00 once</div>
+                        <h3 className="text-lg font-bold">Harga</h3>
+                        <div className="text-sm text-neutral-400 mb-2">$100.00 sekali bayar</div>
 
                         <div className="p-4 rounded-lg border border-[#222] bg-[#161616] space-y-4">
                             <Tabs defaultValue="one-time" className="w-full">
                                 <TabsList className="w-full bg-[#0e0e0e] border border-[#222]">
-                                    <TabsTrigger value="free" className="flex-1 data-[state=active]:bg-[#222] data-[state=active]:text-white">Free</TabsTrigger>
-                                    <TabsTrigger value="one-time" className="flex-1 data-[state=active]:bg-[#222] data-[state=active]:text-white">One-time</TabsTrigger>
-                                    <TabsTrigger value="recurring" className="flex-1 data-[state=active]:bg-[#222] data-[state=active]:text-white">Recurring</TabsTrigger>
+                                    <TabsTrigger value="free" className="flex-1 data-[state=active]:bg-[#222] data-[state=active]:text-white">Gratis</TabsTrigger>
+                                    <TabsTrigger value="one-time" className="flex-1 data-[state=active]:bg-[#222] data-[state=active]:text-white">Sekali Bayar</TabsTrigger>
+                                    <TabsTrigger value="recurring" className="flex-1 data-[state=active]:bg-[#222] data-[state=active]:text-white">Berlangganan</TabsTrigger>
                                 </TabsList>
                             </Tabs>
 
@@ -195,24 +212,58 @@ export default function CreateProductPage() {
 
                         <Button variant="outline" className="w-full border-[#222] bg-[#161616] text-blue-500 hover:bg-[#222] hover:text-blue-400">
                             <Plus className="mr-2 h-4 w-4" />
-                            Add another pricing option
+                            Tambah opsi harga lain
                         </Button>
                     </div>
 
-                    {/* Features & FAQs Placeholders */}
+                    {/* Features & FAQs */}
                     <div className="space-y-4 pt-4 border-t border-[#222]">
-                        <h3 className="text-lg font-bold">Features</h3>
+                        <h3 className="text-lg font-bold">Fitur</h3>
                         <Button variant="outline" className="w-full justify-start border-[#222] bg-[#161616] text-blue-500 hover:bg-[#222] hover:text-blue-400">
                             <Plus className="mr-2 h-4 w-4" />
-                            Add a feature
+                            Tambah fitur
                         </Button>
                     </div>
 
                     <div className="space-y-4 pt-4 border-t border-[#222]">
-                        <h3 className="text-lg font-bold">FAQs</h3>
-                        <Button variant="outline" className="w-full justify-start border-[#222] bg-[#161616] text-blue-500 hover:bg-[#222] hover:text-blue-400">
+                        <h3 className="text-lg font-bold">FAQ (Tanya Jawab)</h3>
+                        <div className="space-y-4">
+                            {faqs.map((faq, index) => (
+                                <div key={index} className="space-y-2 p-4 rounded-lg bg-[#161616] border border-[#222] relative group">
+                                    <Input
+                                        placeholder="Pertanyaan (Contoh: Apakah ini cocok untuk pemula?)"
+                                        value={faq.question}
+                                        onChange={(e) => updateFaq(index, 'question', e.target.value)}
+                                        className="bg-[#0e0e0e] border-[#333] text-white mb-2"
+                                    />
+                                    <Textarea
+                                        placeholder="Jawaban"
+                                        value={faq.answer}
+                                        onChange={(e) => updateFaq(index, 'answer', e.target.value)}
+                                        className="bg-[#0e0e0e] border-[#333] text-white min-h-[80px]"
+                                    />
+                                    {faqs.length > 1 && (
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => removeFaq(index)}
+                                            className="absolute top-2 right-2 text-neutral-500 hover:text-red-500"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                        <Button
+                            type="button"
+                            onClick={addFaq}
+                            variant="outline"
+                            className="w-full justify-start border-[#222] bg-[#161616] text-blue-500 hover:bg-[#222] hover:text-blue-400"
+                        >
                             <Plus className="mr-2 h-4 w-4" />
-                            Add FAQ item...
+                            Tambah item FAQ...
                         </Button>
                     </div>
 
@@ -222,9 +273,9 @@ export default function CreateProductPage() {
                             <div className="flex gap-3">
                                 <Eye className="h-5 w-5 text-neutral-400 mt-1" />
                                 <div>
-                                    <div className="font-medium text-white">Visible on your store page</div>
+                                    <div className="font-medium text-white">Terlihat di halaman toko</div>
                                     <div className="text-sm text-neutral-500 max-w-[300px]">
-                                        By default, this product will be visible to the public on your store page.
+                                        Secara default, produk ini akan terlihat oleh publik di halaman toko Anda.
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +298,7 @@ export default function CreateProductPage() {
                 {/* Sticky Footer */}
                 <div className="p-4 border-t border-[#222] bg-[#0e0e0e] sticky bottom-0 z-10">
                     <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 font-medium">
-                        Save
+                        Simpan
                     </Button>
                 </div>
             </div>
@@ -255,7 +306,7 @@ export default function CreateProductPage() {
             {/* Right Column: Preview */}
             <div className="flex-1 bg-[#000] p-8 flex flex-col items-center justify-center">
                 <div className="w-full max-w-2xl space-y-4">
-                    <h2 className="text-lg font-medium text-white">Product page preview</h2>
+                    <h2 className="text-lg font-medium text-white">Preview halaman produk</h2>
 
                     {/* Browser Mockup */}
                     <div className="rounded-xl border border-[#222] bg-[#0e0e0e] overflow-hidden shadow-2xl">
@@ -287,10 +338,10 @@ export default function CreateProductPage() {
                             {/* Pricing Card */}
                             <div className="rounded-xl border border-[#222] bg-[#161616] p-4">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="font-bold text-white">$100.00 once</span>
+                                    <span className="font-bold text-white">$100.00 sekali</span>
                                 </div>
                                 <Button className="w-full bg-[#222] hover:bg-[#333] text-white h-12 font-medium border border-[#333]">
-                                    Join
+                                    Gabung
                                 </Button>
                             </div>
                         </div>
