@@ -1,3 +1,4 @@
+import { BusinessProvider } from "@/components/providers/business-provider"
 import { MainSidebar } from "@/components/dashboard/main-sidebar"
 
 export default function NotificationsLayout({
@@ -6,11 +7,13 @@ export default function NotificationsLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="flex h-screen w-full bg-[#0e0e0e]">
-            <MainSidebar />
-            <main className="flex-1 overflow-auto">
-                {children}
-            </main>
-        </div>
+        <BusinessProvider>
+            <div className="flex h-screen w-full bg-[#0e0e0e]">
+                <MainSidebar />
+                <main className="flex-1 overflow-auto">
+                    {children}
+                </main>
+            </div>
+        </BusinessProvider>
     )
 }

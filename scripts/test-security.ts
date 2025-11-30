@@ -126,7 +126,7 @@ async function runSecurityAudit() {
         } else {
             // Check if it actually changed (sometimes RLS silently ignores update)
             const { data: checkProduct } = await supabaseA.from('products').select('price').eq('id', productId).single();
-            if (checkProduct.price === 1) {
+            if (checkProduct?.price === 1) {
                 console.log(`${colors.red}   ❌ FAIL: Creator A successfully changed the price!${colors.reset}`);
             } else {
                 console.log(`${colors.green}   ✅ PASS: Update Silently Ignored (RLS Filtered)${colors.reset}`);

@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 
+import { BusinessProvider } from "@/components/providers/business-provider"
+
 export default async function DiscoverLayout({
     children,
 }: {
@@ -18,16 +20,18 @@ export default async function DiscoverLayout({
 
     return (
         <DashboardProvider>
-            <div className="flex h-screen w-full bg-[#0e0e0e] text-white overflow-hidden font-sans">
-                {/* Sidebar (240px) */}
-                <MainSidebar />
+            <BusinessProvider>
+                <div className="flex h-screen w-full bg-[#0e0e0e] text-white overflow-hidden font-sans">
+                    {/* Sidebar (240px) */}
+                    <MainSidebar />
 
-                {/* Main Content (Rest) */}
-                <main className="flex-1 overflow-y-auto bg-[#0e0e0e]">
-                    {children}
-                </main>
-                <Toaster />
-            </div>
+                    {/* Main Content (Rest) */}
+                    <main className="flex-1 overflow-y-auto bg-[#0e0e0e]">
+                        {children}
+                    </main>
+                    <Toaster />
+                </div>
+            </BusinessProvider>
         </DashboardProvider>
     )
 }

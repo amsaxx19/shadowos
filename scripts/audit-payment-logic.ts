@@ -218,9 +218,9 @@ async function auditPaymentLogic() {
 
         // Verify Order Status
         const { data: finalOrder } = await supabase.from('orders').select('status').eq('id', order.id).single();
-        if (finalOrder.status === 'paid') checklist.statusUpdated = true;
+        if (finalOrder?.status === 'paid') checklist.statusUpdated = true;
 
-    } catch (error) {
+    } catch (error: any) {
         console.error(`\n${colors.red}❌ AUDIT FAILED:${colors.reset}`, error.message);
     } finally {
         console.log("\n========================================");

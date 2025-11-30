@@ -107,10 +107,10 @@ async function testRevenueSplit() {
         const { data: finalCreator } = await supabase.from('wallets').select('balance').eq('user_id', creatorId).single();
         const { data: finalOperator } = await supabase.from('wallets').select('balance').eq('user_id', operatorId).single();
 
-        console.log(`   💰 Creator Balance:  ${finalCreator.balance} (Expected: 70000)`);
-        console.log(`   💰 Operator Balance: ${finalOperator.balance} (Expected: 30000)`);
+        console.log(`   💰 Creator Balance:  ${finalCreator?.balance} (Expected: 70000)`);
+        console.log(`   💰 Operator Balance: ${finalOperator?.balance} (Expected: 30000)`);
 
-        if (finalCreator.balance === 70000 && finalOperator.balance === 30000) {
+        if (finalCreator?.balance === 70000 && finalOperator?.balance === 30000) {
             console.log(`\n${colors.green}${colors.bold}FINAL STATUS: PASS${colors.reset}`);
         } else {
             console.log(`\n${colors.red}${colors.bold}FINAL STATUS: FAIL${colors.reset}`);
@@ -140,25 +140,34 @@ async function runMockTest() {
     const mockSupabase = {
         from: (table: string) => ({
             select: () => ({
-                eq: (f, v) => ({
+                eq: (f: string, v: any) => ({
                     single: async () => {
                         if (table === 'orders') return { data: { id: MOCK_ORDER_ID, amount: 100000, product: { creator_id: MOCK_CREATOR_ID } } };
                         if (table === 'users') return { data: { id: MOCK_OPERATOR_ID } };
-                        if (table === 'wallets') return { data: { id: 'w_' + v, balance: db.wallets[v]?.balance || 0, user_id: v } };
+                        if (table === 'wallets') return { data: (db.wallets as any)[v] }; // Mock wallet fetch
                         return { data: null };
                     }
                 })
             }),
-            update: (data) => ({
-                eq: (f, v) => {
-                    // Update mock db
-                    // We need to find who owns this wallet id
-                    const userId = v === 'w_' + MOCK_CREATOR_ID ? MOCK_CREATOR_ID : MOCK_OPERATOR_ID;
-                    db.wallets[userId].balance = data.balance;
-                    return Promise.resolve({ error: null });
+            insert: async (data: any) => {
+                // Mock Insert (e.g. transaction log)
+                return { error: null };
+            },
+            update: async (data: any) => {
+                // Mock Update (Wallet Balance)
+                // We need to know WHICH wallet is being updated.
+                // In a real mock, we'd track the 'eq' call.
+                // For simplicity, we'll just log it or assume it works for this specific test structure.
+                return { error: null };
+            },
+            rpc: async (func: string, args: any) => {
+                if (func === 'increment_balance') {
+                    // Simulate atomic increment
+                    if (args.user_id === MOCK_CREATOR_ID) db.wallets.mock_creator.balance += args.amount;
+                    if (args.user_id === MOCK_OPERATOR_ID) db.wallets.mock_operator.balance += args.amount;
                 }
-            }),
-            insert: () => Promise.resolve({ error: null })
+                return { error: null };
+            }
         })
     };
 

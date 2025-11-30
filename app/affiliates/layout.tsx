@@ -1,16 +1,21 @@
 import { SidebarWrapper } from "@/components/dashboard/sidebar-wrapper"
 
+import { BusinessProvider } from "@/components/providers/business-provider"
+import { MainSidebar } from "@/components/dashboard/main-sidebar"
+
 export default function AffiliatesLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
     return (
-        <div className="flex h-screen w-full bg-[#0e0e0e] text-white overflow-hidden font-sans">
-            <SidebarWrapper />
-            <main className="flex-1 overflow-y-auto bg-[#0e0e0e]">
-                {children}
-            </main>
-        </div>
+        <BusinessProvider>
+            <div className="flex h-screen bg-[#0e0e0e]">
+                <MainSidebar />
+                <main className="flex-1 overflow-y-auto">
+                    {children}
+                </main>
+            </div>
+        </BusinessProvider>
     )
 }

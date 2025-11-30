@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import { requestWithdrawal } from '../app/dashboard/creator/actions';
-import { createProduct } from '../app/dashboard/operator/products/actions'; // We can't easily call this as it uses FormData and redirects.
+import { createProduct } from '../app/actions/product-actions'; // We can't easily call this as it uses FormData and redirects.
 // We will simulate the DB insert for XSS and SQLi via Supabase Client directly to test the Database Layer.
 
 dotenv.config({ path: '.env.local' });

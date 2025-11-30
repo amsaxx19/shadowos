@@ -43,7 +43,7 @@ const createMockSupabase = () => {
                                     if (table === 'orders' && value === MOCK_ORDER_ID) return { data: db.orders, error: null };
                                     if (table === 'users' && field === 'email' && value === 'operator_test@shadowos.com') return { data: db.users, error: null };
                                     if (table === 'wallets' && field === 'user_id') {
-                                        return { data: db.wallets[value], error: null };
+                                        return { data: db.wallets[value as keyof typeof db.wallets], error: null };
                                     }
                                     return { data: null, error: "Not found" };
                                 }
