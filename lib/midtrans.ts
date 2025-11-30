@@ -1,3 +1,5 @@
+import midtransClient from 'midtrans-client'
+
 export const createMidtransTransaction = async (params: {
     orderId: string
     amount: number
@@ -13,16 +15,43 @@ export const createMidtransTransaction = async (params: {
         name: string
     }[]
 }) => {
-    // In a real app, this would call the Midtrans API
-    // For now, we'll return a mock Snap Token
-    console.log("Creating Midtrans Transaction:", params)
+    const serverKey = process.env.MIDTRANS_SERVER_KEY
+    const isProduction = process.env.MIDTRANS_IS_PRODUCTION === 'true'
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    if (!serverKey) {
+        console.error("MIDTRANS_SERVER_KEY is missing")
+        throw new Error("Midtrans Server Key is missing")
+    }
 
-    // Return a mock token (in a real app, this comes from Midtrans)
-    // We can't actually open the Snap popup without a real token in production,
-    // but for dev we can simulate the success flow or use a sandbox key if provided.
-    // If no key is provided, we'll just return a dummy token.
-    return "MOCK_SNAP_TOKEN_" + Math.random().toString(36).substring(7)
+    const clientKey = process.env.MIDTRANS_CLIENT_KEY || ""
+
+    const snap = new midtransClient.Snap({
+        isProduction: isProduction,
+        serverKey: serverKey,
+        clientKey: clientKey
+    })
+
+    const parameter = {
+        transaction_details: {
+            order_id: params.orderId,
+            gross_amount: params.amount,
+        },
+        customer_details: {
+            first_name: params.customerDetails.firstName,
+            email: params.customerDetails.email,
+            phone: params.customerDetails.phone,
+        },
+        item_details: params.itemDetails,
+        credit_card: {
+            secure: true,
+        },
+    }
+
+    try {
+        const transaction = await snap.createTransaction(parameter)
+        return transaction.token
+    } catch (error) {
+        console.error("Midtrans API Error:", error)
+        throw error
+    }
 }
