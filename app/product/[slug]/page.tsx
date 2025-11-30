@@ -12,7 +12,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
     const { data: product, error } = await supabase
         .from('products')
-        .select('*, users:creator_id(full_name, avatar_url)')
+        .select('*, users:creator_id(full_name)') // Removed avatar_url as it doesn't exist in schema
         .eq('id', slug) // Treat the URL param as ID since we don't have a slug column yet
         .single()
 
