@@ -14,9 +14,8 @@ export default function DashboardRootPage() {
             if (businesses.length > 0) {
                 router.push(`/dashboard/${businesses[0].id}/home`)
             } else {
-                // TODO: Redirect to create business page or show empty state
-                // For now, let's assume there's always a default business from the provider mock
-                console.warn("No businesses found")
+                // Redirect to create business page if no businesses found
+                router.push('/dashboard/create')
             }
         }
     }, [businesses, isLoading, router])
