@@ -15,12 +15,13 @@ import { ArrowLeft, Plus, Sparkles, Image as ImageIcon, Video, Eye } from "lucid
 import Link from "next/link"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { createProduct } from "../actions"
 
 export default function CreateProductPage() {
     const [visibility, setVisibility] = useState(true)
 
     return (
-        <div className="flex h-full bg-[#0e0e0e] text-white overflow-hidden">
+        <form action={createProduct} className="flex h-full bg-[#0e0e0e] text-white overflow-hidden">
             {/* Left Column: Form (Scrollable) */}
             <div className="w-full max-w-[600px] flex flex-col border-r border-[#222] overflow-y-auto">
                 {/* Header */}
@@ -42,7 +43,7 @@ export default function CreateProductPage() {
                     <div className="space-y-4">
                         <h3 className="text-lg font-bold">Product type</h3>
                         <div className="p-4 rounded-lg border border-[#222] bg-[#161616]">
-                            <Select defaultValue="coaching">
+                            <Select defaultValue="coaching" name="type">
                                 <SelectTrigger className="bg-transparent border-none text-white focus:ring-0 px-0 h-auto">
                                     <div className="flex items-center gap-3">
                                         <div className="h-8 w-8 rounded bg-yellow-500/20 flex items-center justify-center text-yellow-500">
@@ -63,7 +64,7 @@ export default function CreateProductPage() {
                     {/* Category */}
                     <div className="space-y-4">
                         <h3 className="text-sm font-medium text-neutral-400">Category</h3>
-                        <Select defaultValue="clipping">
+                        <Select defaultValue="clipping" name="category">
                             <SelectTrigger className="bg-[#161616] border-[#222] text-white h-12">
                                 <div className="flex items-center gap-2">
                                     <div className="h-5 w-5 rounded bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs">
@@ -88,8 +89,10 @@ export default function CreateProductPage() {
                             <label className="text-sm font-medium text-neutral-400">Name</label>
                             <div className="relative">
                                 <Input
+                                    name="name"
                                     defaultValue="Basic Access"
                                     className="bg-[#161616] border-[#222] text-white h-12 pr-10"
+                                    required
                                 />
                                 <div className="absolute right-3 top-3 h-6 w-6 rounded bg-[#222] border border-[#333] flex items-center justify-center">
                                     <Sparkles className="h-3 w-3 text-purple-500" />
@@ -102,6 +105,7 @@ export default function CreateProductPage() {
                             <label className="text-sm font-medium text-neutral-400">Headline</label>
                             <div className="relative">
                                 <Input
+                                    name="headline"
                                     defaultValue="How to Build a Viral App: $0 to $100k/mo"
                                     className="bg-[#161616] border-[#222] text-white h-12 pr-10"
                                 />
@@ -115,6 +119,7 @@ export default function CreateProductPage() {
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-neutral-400">Description</label>
                             <Textarea
+                                name="description"
                                 placeholder="Describe your offer in detail..."
                                 className="bg-[#161616] border-[#222] text-white min-h-[120px] resize-none"
                             />
@@ -163,8 +168,10 @@ export default function CreateProductPage() {
                                 <div className="relative flex-1">
                                     <span className="absolute left-3 top-3 text-neutral-500">$</span>
                                     <Input
+                                        name="price"
                                         defaultValue="100"
                                         className="bg-[#0e0e0e] border-[#222] text-white h-12 pl-8"
+                                        required
                                     />
                                 </div>
                                 <div className="w-[100px]">
@@ -239,7 +246,7 @@ export default function CreateProductPage() {
 
                 {/* Sticky Footer */}
                 <div className="p-4 border-t border-[#222] bg-[#0e0e0e] sticky bottom-0 z-10">
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 font-medium">
+                    <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 font-medium">
                         Save
                     </Button>
                 </div>
@@ -290,6 +297,6 @@ export default function CreateProductPage() {
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     )
 }
