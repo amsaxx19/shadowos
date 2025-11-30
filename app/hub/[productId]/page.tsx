@@ -5,7 +5,7 @@ import { Lock } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function HubPage({ params }: { params: Promise<{ productId: string }> }) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { productId } = await params
 
     const { data: { user } } = await supabase.auth.getUser()
