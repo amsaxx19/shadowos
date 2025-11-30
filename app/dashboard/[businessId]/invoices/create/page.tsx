@@ -105,12 +105,12 @@ export default function CreateInvoicePage() {
                                     className="bg-[#161616] border-[#333] text-white pl-7 focus-visible:ring-blue-600"
                                 />
                             </div>
-                            <Select defaultValue="usd">
+                            <Select defaultValue="idr">
                                 <SelectTrigger className="w-[80px] bg-[#161616] border-[#333] text-white">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent className="bg-[#161616] border-[#333] text-white">
-                                    <SelectItem value="usd">USD</SelectItem>
+                                    <SelectItem value="idr">IDR</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>

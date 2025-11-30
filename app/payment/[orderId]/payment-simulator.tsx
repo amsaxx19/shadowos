@@ -38,7 +38,7 @@ export function PaymentSimulator({ orderId, amount, customerName }: { orderId: s
                     </div>
                     <div className="flex justify-between pt-2 border-t border-gray-200">
                         <span className="font-bold text-gray-900">Total Amount</span>
-                        <span className="font-bold text-blue-600">IDR {amount.toLocaleString()}</span>
+                        <span className="font-bold text-blue-600">Rp {amount.toLocaleString('id-ID')}</span>
                     </div>
                 </div>
 

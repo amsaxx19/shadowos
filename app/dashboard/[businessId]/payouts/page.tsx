@@ -50,7 +50,7 @@ export default function PayoutsPage() {
                             <div>
                                 <div className="text-sm font-medium text-white mb-1">Available balance</div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-3xl font-bold text-white">$0.00</span>
+                                    <span className="text-3xl font-bold text-white">Rp 0</span>
                                     <Info className="h-4 w-4 text-neutral-500" />
                                 </div>
                             </div>

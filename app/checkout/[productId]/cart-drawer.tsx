@@ -47,7 +47,7 @@ export function CartDrawer({ product }: CartDrawerProps) {
                                 <h4 className="font-bold text-sm text-gray-900 line-clamp-2">{product.title}</h4>
                                 <div className="flex items-center justify-between mt-2">
                                     <span className="text-xs text-gray-500">Qty: 1</span>
-                                    <span className="font-bold text-blue-600 text-sm">IDR {product.price.toLocaleString()}</span>
+                                    <span className="font-bold text-blue-600 text-sm">Rp {product.price.toLocaleString('id-ID')}</span>
                                 </div>
                             </div>
                         </div>
@@ -57,11 +57,11 @@ export function CartDrawer({ product }: CartDrawerProps) {
                             <h5 className="font-bold text-xs text-gray-500 uppercase tracking-wider">Order Summary</h5>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Total (1 Items)</span>
-                                <span className="font-bold text-gray-900">IDR {product.price.toLocaleString()}</span>
+                                <span className="font-bold text-gray-900">Rp {product.price.toLocaleString('id-ID')}</span>
                             </div>
                             <div className="flex justify-between text-sm pt-2 border-t border-gray-100">
                                 <span className="font-bold text-gray-900">Grand Total</span>
-                                <span className="font-bold text-blue-600">IDR {product.price.toLocaleString()}</span>
+                                <span className="font-bold text-blue-600">Rp {product.price.toLocaleString('id-ID')}</span>
                             </div>
                         </div>
 

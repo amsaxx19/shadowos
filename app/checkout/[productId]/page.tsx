@@ -99,10 +99,10 @@ function renderProductPage(product: any, params: any) {
                         </h1>
                         <div className="flex items-baseline gap-2">
                             <span className="text-2xl font-bold text-primary">
-                                Rp {product.price.toLocaleString()}
+                                Rp {product.price.toLocaleString('id-ID')}
                             </span>
                             <span className="text-sm text-muted-foreground line-through decoration-muted-foreground">
-                                Rp {originalPrice.toLocaleString()}
+                                Rp {originalPrice.toLocaleString('id-ID')}
                             </span>
                         </div>
                     </div>
@@ -173,7 +173,7 @@ function renderProductPage(product: any, params: any) {
                 <div className="max-w-md mx-auto flex flex-col gap-3">
                     <div className="flex items-center justify-between">
                         <span className="text-sm text-muted-foreground">Harga Akses</span>
-                        <span className="font-bold text-foreground text-lg">Rp {product.price.toLocaleString()}</span>
+                        <span className="font-bold text-foreground text-lg">Rp {product.price.toLocaleString('id-ID')}</span>
                     </div>
                     <div className="flex gap-3">
                         <CartDrawer product={{

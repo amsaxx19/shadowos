@@ -21,6 +21,7 @@ import {
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useBusiness } from "@/components/providers/business-provider"
+import { CreateBusinessModal } from "@/components/business/create-business-modal"
 
 interface SidebarLink {
     href: string
@@ -95,10 +96,7 @@ export function BusinessSidebar() {
                                 </button>
                             ))}
                             <div className="border-t border-[#333] my-1" />
-                            <button className="flex items-center gap-3 w-full px-2 py-2 rounded-md text-sm text-neutral-400 hover:text-white hover:bg-[#222]">
-                                <Plus className="h-4 w-4" />
-                                <span>Create new business</span>
-                            </button>
+                            <CreateBusinessModal />
                         </div>
                     </div>
                 </div>

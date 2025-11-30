@@ -29,7 +29,7 @@ export async function createProduct(data: ProductData) {
                 title: data.title,
                 description: data.description,
                 price: data.price,
-                currency: data.currency || 'USD',
+                currency: data.currency || 'IDR',
                 type: data.type,
                 pricing_type: data.pricingType,
                 is_visible: data.isVisible ?? true,

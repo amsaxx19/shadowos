@@ -23,50 +23,50 @@ export default function DiscoverPage() {
     }, [])
 
     const tags = [
-        "View Trends",
-        "Learn to code in 30 days",
-        "Spiritual growth groups",
-        "Style guide for men",
-        "Writing better essays",
-        "Fitness plans",
-        "Crypto signals",
-        "Dropshipping courses",
-        "AI tools for business",
-        "Meditation guides",
-        "Stock market alerts"
+        "Lihat Tren",
+        "Belajar Saham",
+        "Tips Affiliate",
+        "Cara FYP TikTok",
+        "Ide Bisnis 2025",
+        "Tutorial Coding",
+        "Diet Sehat",
+        "Investasi Pemula",
+        "Dropshipping",
+        "Tools AI Bisnis",
+        "Komunitas Lari"
     ]
 
     const trendingSearches = [
-        { icon: Dumbbell, text: "Fitness plans with meal prep" },
-        { icon: Rocket, text: "AI tools for small business" },
-        { icon: PenTool, text: "Automation software packs" },
-        { icon: Coins, text: "NFT flipping secrets" },
-        { icon: GraduationCap, text: "Wellness accountability group" },
+        { icon: Dumbbell, text: "Program diet & gym pemula" },
+        { icon: Rocket, text: "Tools AI untuk konten kreator" },
+        { icon: PenTool, text: "Template Notion untuk produktivitas" },
+        { icon: Coins, text: "Cara cuan dari Shopee Affiliate" },
+        { icon: GraduationCap, text: "Komunitas belajar bahasa Inggris" },
     ]
 
     const categories = [
         {
-            name: "Trading",
+            name: "Trading & Kripto",
             image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60"
         },
         {
-            name: "Sports",
-            image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop&q=60"
+            name: "Bisnis & Affiliate",
+            image: "https://images.unsplash.com/photo-1664575602276-acd073f104c1?w=800&auto=format&fit=crop&q=60"
         },
         {
-            name: "Social media",
+            name: "Konten Kreator",
             image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=60"
         },
         {
-            name: "Clipping",
-            image: "https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=800&auto=format&fit=crop&q=60"
+            name: "E-Course & Skill",
+            image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=60"
         },
         {
-            name: "Reselling",
-            image: "https://images.unsplash.com/photo-1556740758-90de2929450a?w=800&auto=format&fit=crop&q=60"
+            name: "Kesehatan & Hobi",
+            image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop&q=60"
         },
         {
-            name: "Real estate",
+            name: "Properti & Investasi",
             image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=60"
         },
     ]
@@ -76,7 +76,7 @@ export default function DiscoverPage() {
             {/* Header / Top Bar */}
             <div className="flex items-center justify-end p-4">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-6 h-9 text-sm">
-                    Start selling
+                    Mulai Jualan
                 </Button>
             </div>
 
@@ -92,7 +92,7 @@ export default function DiscoverPage() {
                                 key={i}
                                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1c1c1c] border border-[#333] text-xs font-medium text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
                             >
-                                {tag === "View Trends" && <Rocket className="h-3 w-3 text-blue-500" />}
+                                {tag === "Lihat Tren" && <Rocket className="h-3 w-3 text-blue-500" />}
                                 {tag}
                             </button>
                         ))}
@@ -108,7 +108,7 @@ export default function DiscoverPage() {
                         <div className="flex items-center gap-3 text-5xl font-bold tracking-tight">
                             <span className="text-orange-500">⚡</span> CUANBOSS
                         </div>
-                        <p className="text-neutral-500 text-lg">Where the internet does business</p>
+                        <p className="text-neutral-500 text-lg">Tempat internet berbisnis</p>
                     </div>
 
                     <div ref={searchRef} className="relative w-full">
@@ -116,7 +116,12 @@ export default function DiscoverPage() {
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-500" />
                             <Input
                                 onFocus={() => setIsSearchFocused(true)}
-                                placeholder="Search CUANBOSS..."
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        window.location.href = `/discover/search?q=${encodeURIComponent(e.currentTarget.value)}`
+                                    }
+                                }}
+                                placeholder="Cari di CUANBOSS..."
                                 className="w-full h-12 pl-12 bg-[#1c1c1c] border-[#333] text-white placeholder:text-neutral-500 rounded-xl focus:ring-0 focus:border-neutral-500 text-base"
                             />
                         </div>
@@ -125,13 +130,17 @@ export default function DiscoverPage() {
                         {isSearchFocused && (
                             <div className="absolute top-full left-0 right-0 mt-2 bg-[#1c1c1c] border border-[#333] rounded-xl shadow-2xl overflow-hidden p-2 z-10 animate-in fade-in zoom-in-95 duration-200">
                                 <div className="p-2">
-                                    <h3 className="text-xs font-medium text-neutral-500 mb-2 px-2">Trending searches</h3>
+                                    <h3 className="text-xs font-medium text-neutral-500 mb-2 px-2">Pencarian populer</h3>
                                     <div className="space-y-1">
                                         {trendingSearches.map((item, i) => (
-                                            <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#2a2a2a] cursor-pointer group transition-colors">
+                                            <Link
+                                                href={`/discover/search?q=${encodeURIComponent(item.text)}`}
+                                                key={i}
+                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#2a2a2a] cursor-pointer group transition-colors"
+                                            >
                                                 <item.icon className="h-4 w-4 text-neutral-500 group-hover:text-white" />
                                                 <span className="text-sm text-neutral-300 group-hover:text-white">{item.text}</span>
-                                            </div>
+                                            </Link>
                                         ))}
                                     </div>
                                 </div>
@@ -143,9 +152,10 @@ export default function DiscoverPage() {
                 {/* Categories Grid */}
                 <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {categories.map((cat) => (
-                        <div
+                        <Link
+                            href={`/discover/search?q=${encodeURIComponent(cat.name)}`}
                             key={cat.name}
-                            className="group relative h-40 rounded-xl overflow-hidden cursor-pointer border border-[#222]"
+                            className="group relative h-40 rounded-xl overflow-hidden cursor-pointer border border-[#222] block"
                         >
                             {/* Background Image */}
                             <div
@@ -159,14 +169,14 @@ export default function DiscoverPage() {
                             <div className="absolute bottom-4 left-4">
                                 <h3 className="text-lg font-bold text-white group-hover:translate-x-1 transition-transform">{cat.name}</h3>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
                 {/* Payouts Counter */}
                 <div className="mt-24 text-center">
                     <div className="text-xl font-medium text-neutral-500">
-                        <span className="text-white font-bold">$2,095,837,524</span> in payouts
+                        <span className="text-white font-bold">$2,095,837,524</span> telah dibayarkan ke kreator
                     </div>
                 </div>
             </div>
@@ -175,12 +185,12 @@ export default function DiscoverPage() {
             <footer className="border-t border-[#222] py-8 px-8 mt-auto">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex flex-wrap justify-center gap-6 text-xs font-medium text-neutral-500">
-                        <Link href="#" className="hover:text-white transition-colors">Learn</Link>
-                        <Link href="#" className="hover:text-white transition-colors">Careers</Link>
-                        <Link href="#" className="hover:text-white transition-colors">Press</Link>
+                        <Link href="#" className="hover:text-white transition-colors">Belajar</Link>
+                        <Link href="#" className="hover:text-white transition-colors">Karir</Link>
+                        <Link href="#" className="hover:text-white transition-colors">Pers</Link>
                         <Link href="#" className="hover:text-white transition-colors">Brand</Link>
-                        <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
-                        <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+                        <Link href="#" className="hover:text-white transition-colors">Privasi</Link>
+                        <Link href="#" className="hover:text-white transition-colors">Syarat & Ketentuan</Link>
                     </div>
                     <div className="flex gap-6 text-neutral-500">
                         <Youtube className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />

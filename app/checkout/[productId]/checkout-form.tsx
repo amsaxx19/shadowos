@@ -123,7 +123,7 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
                 <div className="bg-white p-4 rounded-xl border border-gray-100 space-y-3 shadow-sm">
                     <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Subtotal</span>
-                        <span className="font-medium text-gray-900">IDR {price.toLocaleString()}</span>
+                        <span className="font-medium text-gray-900">Rp {price.toLocaleString('id-ID')}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Discount</span>
@@ -135,7 +135,7 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
                     </div>
                     <div className="border-t border-gray-100 pt-3 flex justify-between items-center">
                         <span className="font-bold text-gray-900">TOTAL</span>
-                        <span className="font-bold text-lg text-[#0055D4]">IDR {price.toLocaleString()}</span>
+                        <span className="font-bold text-lg text-[#0055D4]">Rp {price.toLocaleString('id-ID')}</span>
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@ export function CheckoutForm({ productId, price }: CheckoutFormProps) {
                             </>
                         ) : (
                             <>
-                                Buy Now - IDR {price.toLocaleString()}
+                                Buy Now - Rp {price.toLocaleString('id-ID')}
                             </>
                         )}
                     </Button>

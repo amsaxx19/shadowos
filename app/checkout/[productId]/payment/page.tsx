@@ -40,7 +40,7 @@ export default async function PaymentPage({ params }: { params: Promise<{ produc
                             <p className="text-xs text-gray-500 mt-1">1x</p>
                         </div>
                         <div className="font-bold text-gray-900 text-sm">
-                            IDR {product.price.toLocaleString()}
+                            Rp {product.price.toLocaleString('id-ID')}
                         </div>
                     </div>
                 </Card>

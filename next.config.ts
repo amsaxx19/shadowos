@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
     // Optimize package imports
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'recharts'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.dicebear.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

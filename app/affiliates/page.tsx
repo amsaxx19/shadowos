@@ -86,7 +86,7 @@ export default function AffiliatesPage() {
                                 <div className="flex items-center gap-1 text-xs font-medium text-neutral-400">
                                     Net commission <Info className="h-3 w-3" />
                                 </div>
-                                <div className="text-2xl font-bold text-white">$0.00</div>
+                                <div className="text-2xl font-bold text-white">Rp 0</div>
                             </div>
                             <div className="h-24 flex items-center justify-center">
                                 <div className="text-xs font-medium text-neutral-600 bg-[#161616] px-3 py-1 rounded-full border border-[#222]">
@@ -105,7 +105,7 @@ export default function AffiliatesPage() {
                                 <div className="flex items-center gap-1 text-xs font-medium text-neutral-400">
                                     Refunds & disputes (Gross) <Info className="h-3 w-3" />
                                 </div>
-                                <div className="text-2xl font-bold text-white">$0.00</div>
+                                <div className="text-2xl font-bold text-white">Rp 0</div>
                             </div>
                             <div className="h-24 flex items-center justify-center">
                                 <div className="text-xs font-medium text-neutral-600 bg-[#161616] px-3 py-1 rounded-full border border-[#222]">
@@ -162,7 +162,7 @@ export default function AffiliatesPage() {
                                 <div className="flex items-center gap-1 text-xs font-medium text-neutral-400">
                                     Revenue produced <Info className="h-3 w-3" />
                                 </div>
-                                <div className="text-2xl font-bold text-white">$0.00</div>
+                                <div className="text-2xl font-bold text-white">Rp 0</div>
                             </div>
                             <div className="h-24 flex items-center justify-center">
                                 <div className="text-xs font-medium text-neutral-600 bg-[#161616] px-3 py-1 rounded-full border border-[#222]">
@@ -349,7 +349,7 @@ export default function AffiliatesPage() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between text-sm">
                                             <span className="text-white font-medium">Monthly Whop seller volume</span>
-                                            <span className="text-white font-bold">${sellerVolume[0].toLocaleString()}</span>
+                                            <span className="text-white font-bold">Rp {sellerVolume[0].toLocaleString('id-ID')}</span>
                                         </div>
                                         <Slider
                                             defaultValue={[250000]}
@@ -360,8 +360,8 @@ export default function AffiliatesPage() {
                                             className="py-4"
                                         />
                                         <div className="flex justify-between text-xs text-neutral-500">
-                                            <span>$0</span>
-                                            <span>$1,000,000</span>
+                                            <span>Rp 0</span>
+                                            <span>Rp 15.000.000.000</span>
                                         </div>
                                     </div>
 
@@ -370,15 +370,15 @@ export default function AffiliatesPage() {
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="rounded-lg bg-[#161616] p-4 border border-[#222]">
                                                 <div className="text-xs text-neutral-500 mb-1">Monthly</div>
-                                                <div className="text-lg font-bold text-white">${earnings.monthly.toLocaleString()}</div>
+                                                <div className="text-lg font-bold text-white">Rp {earnings.monthly.toLocaleString('id-ID')}</div>
                                             </div>
                                             <div className="rounded-lg bg-[#161616] p-4 border border-[#222]">
                                                 <div className="text-xs text-neutral-500 mb-1">Yearly</div>
-                                                <div className="text-lg font-bold text-white">${earnings.yearly.toLocaleString()}</div>
+                                                <div className="text-lg font-bold text-white">Rp {earnings.yearly.toLocaleString('id-ID')}</div>
                                             </div>
                                             <div className="rounded-lg bg-[#161616] p-4 border border-[#222]">
                                                 <div className="text-xs text-neutral-500 mb-1">10 years</div>
-                                                <div className="text-lg font-bold text-white">${earnings.tenYears.toLocaleString()}</div>
+                                                <div className="text-lg font-bold text-white">Rp {earnings.tenYears.toLocaleString('id-ID')}</div>
                                             </div>
                                         </div>
                                     </div>

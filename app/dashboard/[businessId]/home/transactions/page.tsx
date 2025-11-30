@@ -85,7 +85,7 @@ export default async function TransactionsPage() {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 text-right font-bold text-blue-950">
-                                                IDR {order.amount.toLocaleString()}
+                                                Rp {order.amount.toLocaleString('id-ID')}
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex flex-col items-end gap-1">

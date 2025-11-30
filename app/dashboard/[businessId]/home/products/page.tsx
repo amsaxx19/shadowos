@@ -59,7 +59,7 @@ export default async function ProductsPage() {
                                         <CardTitle className="text-base font-bold text-blue-950 line-clamp-1">
                                             {product.title}
                                         </CardTitle>
-                                        <p className="text-xs font-medium text-blue-500">IDR {product.price.toLocaleString()}</p>
+                                        <p className="text-xs font-medium text-blue-500">Rp {product.price.toLocaleString('id-ID')}</p>
                                     </div>
                                 </div>
                                 <DropdownMenu>

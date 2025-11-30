@@ -230,11 +230,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                     <div>
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-3xl font-bold text-white">
-                                                {new Intl.NumberFormat('id-ID', {
-                                                    style: 'currency',
-                                                    currency: 'IDR',
-                                                    maximumFractionDigits: 0
-                                                }).format(product.price)}
+                                                Rp {product.price.toLocaleString('id-ID')}
                                             </span>
                                             <span className="text-neutral-400">/ bulan</span>
                                         </div>
@@ -277,11 +273,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <div className="flex items-center gap-4">
                     <div className="flex-1">
                         <p className="text-sm font-bold text-white">
-                            {new Intl.NumberFormat('id-ID', {
-                                style: 'currency',
-                                currency: 'IDR',
-                                maximumFractionDigits: 0
-                            }).format(product.price)}
+                            Rp {product.price.toLocaleString('id-ID')}
                             <span className="text-neutral-400 font-normal"> / bulan</span>
                         </p>
                     </div>

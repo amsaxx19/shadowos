@@ -1,243 +1,157 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Star, Filter, ChevronDown, Rocket } from "lucide-react"
+import { Search, Star, ChevronDown, Crown } from "lucide-react"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { useState, useEffect } from "react"
-import { supabase } from "@/lib/supabase/client"
+import Image from "next/image"
+import { createAdminClient } from "@/lib/supabase/admin"
+import { SearchHeader } from "./search-header"
 
-// Mock data fallback in case DB is not running
-const MOCK_PRODUCTS = [
-    {
-        id: '1',
-        title: "UK's Top Cookgroup for Resellers",
-        description: "Loot Notify Monthly. The best group for reselling sneakers and more.",
-        price: 29.99,
-        rating: 4.74,
-        review_count: 141,
-        image_url: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800&auto=format&fit=crop&q=60",
-        creator_name: "Loot Notify"
-    },
-    {
-        id: '2',
-        title: "Beste Deutsche Cookgroup für Reseller",
-        description: "VenomCooks Germany. Join the best German cookgroup.",
-        price: 35.00,
-        rating: 4.91,
-        review_count: 78,
-        image_url: "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=800&auto=format&fit=crop&q=60",
-        creator_name: "VenomCooks"
-    },
-    {
-        id: '3',
-        title: "Your #1 snkrs resell group",
-        description: "Limitless Sneakers. Master the art of sneaker reselling.",
-        price: 40.00,
-        rating: 5.0,
-        review_count: 117,
-        image_url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=60",
-        creator_name: "Limitless Sneakers"
-    },
-    {
-        id: '4',
-        title: "All In One UK/EU Resell Group",
-        description: "Kaikicks Apprentice AIO. Sneakers, Pokemon, Vinted Monitor.",
-        price: 35.00,
-        rating: 4.83,
-        review_count: 121,
-        image_url: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=60",
-        creator_name: "Kaikicks"
-    },
-    {
-        id: '5',
-        title: "SnipeGang - Free Reselling Group",
-        description: "Start your reselling journey for free with SnipeGang.",
-        price: 0,
-        rating: 4.5,
-        review_count: 320,
-        image_url: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=800&auto=format&fit=crop&q=60",
-        creator_name: "SnipeGang"
-    },
-    {
-        id: '6',
-        title: "Sales & Profits Tracker",
-        description: "Track your reselling profits with ease.",
-        price: 15.00,
-        rating: 4.9,
-        review_count: 56,
-        image_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=60",
-        creator_name: "ProfitMaster"
+export default async function SearchPage({
+    searchParams
+}: {
+    searchParams: Promise<{ q?: string, category?: string }>
+}) {
+    const { q, category: cat } = await searchParams
+    const query = q || ""
+    const category = cat || ""
+
+    const supabase = createAdminClient()
+
+    let dbQuery = supabase
+        .from('products')
+        .select('*')
+
+    if (query) {
+        dbQuery = dbQuery.ilike('title', `%${query}%`)
     }
-]
 
-export default function SearchPage() {
-    const searchParams = useSearchParams()
-    const query = searchParams.get('q') || ''
-    const [products, setProducts] = useState<any[]>(MOCK_PRODUCTS)
-    const [loading, setLoading] = useState(true)
+    if (category && category !== 'all') {
+        dbQuery = dbQuery.eq('category', category)
+    }
 
-    useEffect(() => {
-        async function fetchProducts() {
-            setLoading(true)
-            try {
-                const { data, error } = await supabase
-                    .from('products')
-                    .select('*')
-                    .ilike('title', `%${query}%`)
+    const { data: products, error } = await dbQuery
 
-                if (error) throw error
-                if (data && data.length > 0) {
-                    setProducts(data)
-                } else {
-                    // Fallback to mock data if no results or error (simulating "Best products" if search empty)
-                    setProducts(MOCK_PRODUCTS.filter(p => p.title.toLowerCase().includes(query.toLowerCase())))
-                }
-            } catch (err) {
-                console.error("Failed to fetch products, using mock data", err)
-                // Fallback to mock data
-                setProducts(MOCK_PRODUCTS.filter(p => p.title.toLowerCase().includes(query.toLowerCase())))
-            } finally {
-                setLoading(false)
-            }
-        }
+    if (error) {
+        console.error("Error fetching products:", error)
+    }
 
-        if (query) {
-            fetchProducts()
-        } else {
-            setProducts(MOCK_PRODUCTS)
-            setLoading(false)
-        }
-    }, [query])
+    const relatedSearches = [
+        "Belajar Trading Pemula",
+        "Signal Crypto VIP",
+        "Robot Trading Forex",
+        "Indikator Saham",
+        "Komunitas Scalping"
+    ]
 
     return (
-        <div className="min-h-screen bg-[#0e0e0e] text-white font-sans">
-            {/* Navbar */}
-            <nav className="border-b border-[#222] bg-[#0e0e0e] sticky top-0 z-50">
-                <div className="container mx-auto px-4 h-16 flex items-center gap-4">
-                    <Link href="/" className="flex items-center gap-2 mr-4">
-                        <span className="text-orange-500 text-2xl font-bold">⚡</span>
-                    </Link>
-
-                    <div className="flex-1 max-w-2xl relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
-                        <Input
-                            defaultValue={query}
-                            className="w-full bg-[#1a1a1a] border-[#333] pl-10 h-10 rounded-lg text-sm focus:ring-1 focus:ring-neutral-500"
-                            placeholder="Search..."
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    window.location.href = `/discover/search?q=${e.currentTarget.value}`
-                                }
-                            }}
-                        />
-                    </div>
-
-                    <div className="flex items-center gap-4 ml-auto">
-                        <Link href="#" className="text-sm font-medium text-neutral-400 hover:text-white">API</Link>
-                        <Link href="/login" className="text-sm font-medium text-neutral-400 hover:text-white">Sign in</Link>
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-4 h-9 text-sm">
-                            Start selling
-                        </Button>
-                    </div>
-                </div>
-
-                {/* Filters Bar */}
-                <div className="border-t border-[#222] bg-[#0e0e0e]">
-                    <div className="container mx-auto px-4 h-12 flex items-center gap-6 overflow-x-auto no-scrollbar text-sm font-medium text-neutral-400">
-                        <button className="text-white border-b-2 border-white h-full px-1">All</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Paid groups</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Agencies</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Coaching and courses</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Physical products</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Software</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Newsletters</button>
-                        <button className="hover:text-white transition-colors whitespace-nowrap">Events</button>
-                    </div>
-                </div>
-            </nav>
+        <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col">
+            <SearchHeader initialQuery={query} initialCategory={category} />
 
             {/* Main Content */}
-            <div className="container mx-auto px-4 py-8">
+            <div className="max-w-7xl mx-auto px-4 py-8 w-full">
+
                 {/* Related Searches */}
-                <div className="flex items-center gap-3 mb-8 text-sm overflow-x-auto no-scrollbar">
-                    <span className="text-neutral-500 whitespace-nowrap">Related Searches</span>
-                    <div className="flex gap-2">
-                        {[
-                            "Master sneaker flipping tips",
-                            "Start a reselling community",
-                            "Learn profit strategies for sneakers",
-                            "Join exclusive sneaker flip groups"
-                        ].map((tag) => (
-                            <div key={tag} className="px-3 py-1.5 rounded-md border border-[#333] bg-[#161616] text-neutral-400 hover:text-white hover:border-neutral-500 cursor-pointer transition-colors whitespace-nowrap flex items-center gap-2">
-                                <Search className="h-3 w-3" />
-                                {tag}
-                            </div>
-                        ))}
-                    </div>
+                <div className="flex items-center gap-3 mb-8 overflow-x-auto pb-2">
+                    <span className="text-sm text-neutral-500 whitespace-nowrap">Pencarian Terkait:</span>
+                    {relatedSearches.map((term, i) => (
+                        <Link
+                            href={`/discover/search?q=${encodeURIComponent(term)}`}
+                            key={i}
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1c1c1c] border border-[#333] text-xs text-neutral-300 hover:bg-[#222] cursor-pointer whitespace-nowrap transition-colors"
+                        >
+                            <Search className="h-3 w-3" />
+                            {term}
+                        </Link>
+                    ))}
                 </div>
 
                 {/* Results Header */}
-                <div className="flex items-center gap-2 mb-6">
-                    <div className="h-8 w-8 rounded bg-orange-500/10 flex items-center justify-center text-orange-500">
-                        <span className="text-lg">👍</span>
+                <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                        {query.toLowerCase().includes("trading") && <span className="text-2xl">📈</span>}
+                        <h1 className="text-2xl font-bold text-white capitalize">{query || "Semua Produk"}</h1>
+                        <span className="text-neutral-500 text-sm">{products?.length || 0} hasil</span>
                     </div>
-                    <div>
-                        <h1 className="text-xl font-bold text-white">Best products</h1>
-                        <p className="text-sm text-neutral-500">Based on our <span className="text-blue-500">ranking system</span></p>
+                    <div className="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-white">
+                        <span>Urutkan:</span>
+                        <span className="text-white font-medium">Paling Relevan</span>
+                        <ChevronDown className="h-4 w-4" />
                     </div>
-                    <span className="ml-2 text-sm text-neutral-600">{products.length} results</span>
                 </div>
 
-                {/* Results Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {products.map((product) => (
-                        <div key={product.id} className="group bg-[#161616] rounded-xl overflow-hidden hover:bg-[#1f1f1f] transition-colors cursor-pointer">
-                            {/* Image */}
-                            <div className="aspect-video relative overflow-hidden">
-                                <img
-                                    src={product.image_url}
-                                    alt={product.title}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                />
-                                {product.price > 0 && (
-                                    <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                        ${product.price.toFixed(2)} / month
+                {/* Products Grid or Not Found */}
+                {products && products.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {products.map((product) => (
+                            <Link href={`/product/${product.id}`} key={product.id} className="group block">
+                                <div className="bg-[#161616] border border-[#222] rounded-xl overflow-hidden hover:border-neutral-600 transition-all duration-300 h-full flex flex-col">
+                                    {/* Thumbnail */}
+                                    <div className="aspect-video relative bg-neutral-800 overflow-hidden">
+                                        {/* Use a placeholder if no image, or the product image */}
+                                        <Image
+                                            src={product.image_url || "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&auto=format&fit=crop&q=60"}
+                                            alt={product.title}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                        {product.is_affiliate_enabled && (
+                                            <div className="absolute top-2 left-2 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">
+                                                <Crown className="h-3 w-3 fill-current" />
+                                                {product.affiliate_percentage}% KOMISI
+                                            </div>
+                                        )}
+                                        {product.price === 0 && (
+                                            <div className="absolute top-2 right-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded">
+                                                GRATIS
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                                {product.price === 0 && (
-                                    <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                        Free
+
+                                    {/* Content */}
+                                    <div className="p-4 flex-1 flex flex-col">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <div className="h-5 w-5 rounded-full bg-neutral-700 flex-shrink-0" />
+                                            <span className="text-xs text-neutral-400 truncate">Creator</span>
+                                        </div>
+
+                                        <h3 className="font-bold text-white mb-2 line-clamp-2 group-hover:text-blue-400 transition-colors">
+                                            {product.title}
+                                        </h3>
+
+                                        <div className="flex items-center gap-1 mb-4">
+                                            <Star className="h-3.5 w-3.5 text-orange-500 fill-orange-500" />
+                                            <span className="text-sm font-medium text-white">5.0</span>
+                                            <span className="text-xs text-neutral-500">(0)</span>
+                                        </div>
+
+                                        <div className="mt-auto pt-3 border-t border-[#222] flex items-center justify-between">
+                                            <div className="text-sm font-bold text-white">
+                                                {product.price === 0 ? "Gratis" : `Rp ${product.price.toLocaleString('id-ID')}`}
+                                            </div>
+                                        </div>
                                     </div>
-                                )}
-                            </div>
-
-                            {/* Content */}
-                            <div className="p-4 space-y-2">
-                                <div className="flex items-start justify-between gap-2">
-                                    <h3 className="font-bold text-white leading-tight line-clamp-2">{product.title}</h3>
                                 </div>
-
-                                <div className="flex items-center gap-2 text-xs text-neutral-400">
-                                    <span>{product.creator_name}</span>
-                                </div>
-
-                                <div className="flex items-center gap-1 text-yellow-500 text-sm">
-                                    <div className="flex">
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <Star
-                                                key={star}
-                                                className={`h-3 w-3 ${star <= Math.round(product.rating) ? 'fill-current' : 'text-neutral-600'}`}
-                                            />
-                                        ))}
-                                    </div>
-                                    <span className="text-neutral-400 ml-1">{product.rating} ({product.review_count})</span>
-                                </div>
-                            </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                        <div className="h-20 w-20 bg-[#1c1c1c] rounded-full flex items-center justify-center mb-6">
+                            <Search className="h-10 w-10 text-neutral-500" />
                         </div>
-                    ))}
-                </div>
+                        <h2 className="text-xl font-bold text-white mb-2">Tidak ditemukan hasil untuk "{query}"</h2>
+                        <p className="text-neutral-500 max-w-md">
+                            Coba gunakan kata kunci lain atau periksa ejaan Anda.
+                        </p>
+                        <Link href="/discover">
+                            <Button
+                                variant="outline"
+                                className="mt-6 border-[#333] text-white hover:bg-[#222]"
+                            >
+                                Kembali ke Discover
+                            </Button>
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     )

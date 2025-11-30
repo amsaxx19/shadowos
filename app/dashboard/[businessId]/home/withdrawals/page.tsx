@@ -52,7 +52,7 @@ export default async function WithdrawalsPage() {
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-3">
                                             <h3 className="font-bold text-2xl text-blue-950">
-                                                IDR {Number(withdrawal.amount).toLocaleString()}
+                                                Rp {Number(withdrawal.amount).toLocaleString('id-ID')}
                                             </h3>
                                             <span className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700 uppercase tracking-wide">
                                                 Menunggu

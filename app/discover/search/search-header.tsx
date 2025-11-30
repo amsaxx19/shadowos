@@ -1,0 +1,90 @@
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react"
+import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
+import { cn } from "@/lib/utils"
+
+export function SearchHeader({
+    initialQuery,
+    initialCategory
+}: {
+    initialQuery: string
+    initialCategory: string
+}) {
+    const router = useRouter()
+
+    const tabs = [
+        { id: "all", label: "Semua" },
+        { id: "paid_groups", label: "Grup Berbayar" },
+        { id: "courses", label: "Kursus & Coaching" },
+        { id: "software", label: "Software" },
+        { id: "community", label: "Komunitas" },
+        { id: "other", label: "Lainnya" },
+    ]
+
+    const handleSearch = (term: string) => {
+        const params = new URLSearchParams()
+        if (term) params.set("q", term)
+        if (initialCategory && initialCategory !== "all") params.set("category", initialCategory)
+        router.push(`/discover/search?${params.toString()}`)
+    }
+
+    const handleTabChange = (tabId: string) => {
+        const params = new URLSearchParams()
+        if (initialQuery) params.set("q", initialQuery)
+        if (tabId !== "all") params.set("category", tabId)
+        router.push(`/discover/search?${params.toString()}`)
+    }
+
+    return (
+        <div className="sticky top-0 z-50 bg-[#0e0e0e] border-b border-[#222]">
+            <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-4">
+                <Link href="/discover" className="flex items-center gap-2 text-xl font-bold mr-4">
+                    <span className="text-orange-500">⚡</span> CUANBOSS
+                </Link>
+
+                <div className="flex-1 max-w-2xl relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
+                    <Input
+                        defaultValue={initialQuery}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                handleSearch(e.currentTarget.value)
+                            }
+                        }}
+                        className="w-full bg-[#1c1c1c] border-[#333] text-white pl-10 h-10 rounded-full focus:ring-0 focus:border-neutral-500"
+                    />
+                </div>
+
+                <div className="ml-auto">
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-4 h-9 text-sm">
+                        Mulai Jualan
+                    </Button>
+                </div>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="max-w-7xl mx-auto px-4 overflow-x-auto scrollbar-hide">
+                <div className="flex items-center gap-6 h-12 text-sm font-medium text-neutral-400">
+                    {tabs.map(tab => (
+                        <button
+                            key={tab.id}
+                            onClick={() => handleTabChange(tab.id)}
+                            className={cn(
+                                "h-full border-b-2 transition-colors whitespace-nowrap px-1",
+                                (initialCategory === tab.id || (initialCategory === "" && tab.id === "all"))
+                                    ? "text-white border-white"
+                                    : "border-transparent hover:text-white"
+                            )}
+                        >
+                            {tab.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}

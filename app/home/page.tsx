@@ -53,7 +53,7 @@ export default async function HomePage() {
             },
             timestamp: "Nov 22 at 2:59 AM",
             title: "Jon Law Clipping",
-            content: `RPM: $2.50 per 1k views
+            content: `RPM: Rp 35.000 per 1k views
 Budget: $5,000
 Platforms: IG, TT, YT, X
 

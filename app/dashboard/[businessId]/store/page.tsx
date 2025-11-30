@@ -70,7 +70,7 @@ export default function MyStorePage() {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between pt-2">
-                                    <div className="text-sm font-bold text-blue-400">$100</div>
+                                    <div className="text-sm font-bold text-blue-400">Rp 1.500.000</div>
                                 </div>
                                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-8 text-xs font-medium rounded-lg">
                                     Join

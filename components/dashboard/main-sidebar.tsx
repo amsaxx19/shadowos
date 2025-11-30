@@ -18,6 +18,7 @@ import {
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useBusiness } from "@/components/providers/business-provider"
+import { CreateBusinessModal } from "@/components/business/create-business-modal"
 
 export function MainSidebar() {
     const pathname = usePathname()
@@ -154,12 +155,16 @@ export function MainSidebar() {
                             </Link>
                         ))}
 
-                        <button className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all">
-                            <div className="h-8 w-8 rounded-md bg-[#161616] flex items-center justify-center border border-[#333]">
-                                <Plus className="h-4 w-4" />
-                            </div>
-                            <span>New business</span>
-                        </button>
+                        <CreateBusinessModal
+                            trigger={
+                                <button suppressHydrationWarning className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all">
+                                    <div className="h-8 w-8 rounded-md bg-[#161616] flex items-center justify-center border border-[#333]">
+                                        <Plus className="h-4 w-4" />
+                                    </div>
+                                    <span>New business</span>
+                                </button>
+                            }
+                        />
                     </nav>
                 </div>
             </div>

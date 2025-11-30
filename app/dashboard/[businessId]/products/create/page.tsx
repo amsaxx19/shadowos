@@ -17,8 +17,12 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { createProduct } from "../actions"
 
-export default function CreateProductPage() {
+import { use } from "react"
+
+export default function CreateProductPage({ params }: { params: Promise<{ businessId: string }> }) {
+    const { businessId } = use(params)
     const [visibility, setVisibility] = useState(true)
+    const [affiliateEnabled, setAffiliateEnabled] = useState(false)
     const [faqs, setFaqs] = useState([{ question: "", answer: "" }])
 
     const addFaq = () => {
@@ -37,6 +41,7 @@ export default function CreateProductPage() {
 
     return (
         <form action={createProduct} className="flex h-full bg-[#0e0e0e] text-white overflow-hidden">
+            <input type="hidden" name="business_id" value={businessId} />
             <input type="hidden" name="faqs" value={JSON.stringify(faqs)} />
 
             {/* Left Column: Form (Scrollable) */}
@@ -91,9 +96,11 @@ export default function CreateProductPage() {
                                 </div>
                             </SelectTrigger>
                             <SelectContent className="bg-[#161616] border-[#222] text-white">
-                                <SelectItem value="clipping">Clipping</SelectItem>
-                                <SelectItem value="trading">Trading</SelectItem>
-                                <SelectItem value="ecom">Ecommerce</SelectItem>
+                                <SelectItem value="paid_groups">Grup Berbayar</SelectItem>
+                                <SelectItem value="courses">Kursus & Coaching</SelectItem>
+                                <SelectItem value="software">Software</SelectItem>
+                                <SelectItem value="community">Komunitas</SelectItem>
+                                <SelectItem value="other">Lainnya</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -192,12 +199,12 @@ export default function CreateProductPage() {
                                     />
                                 </div>
                                 <div className="w-[100px]">
-                                    <Select defaultValue="usd">
+                                    <Select defaultValue="idr">
                                         <SelectTrigger className="bg-[#0e0e0e] border-[#222] text-white h-12">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent className="bg-[#161616] border-[#222] text-white">
-                                            <SelectItem value="usd">USD</SelectItem>
+                                            <SelectItem value="idr">IDR</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -265,6 +272,59 @@ export default function CreateProductPage() {
                             <Plus className="mr-2 h-4 w-4" />
                             Tambah item FAQ...
                         </Button>
+                    </div>
+
+                    {/* Affiliate Program */}
+                    <div className="space-y-4 pt-4 border-t border-[#222]">
+                        <div className="flex items-center justify-between p-4 rounded-lg border border-[#222] bg-[#161616]">
+                            <div className="flex gap-3">
+                                <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 mt-1">
+                                    <Sparkles className="h-3 w-3" />
+                                </div>
+                                <div>
+                                    <div className="font-medium text-white">Program Afiliasi</div>
+                                    <div className="text-sm text-neutral-500 max-w-[300px]">
+                                        Izinkan orang lain mempromosikan produk Anda dan dapatkan komisi.
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                className={cn(
+                                    "w-12 h-7 rounded-full p-1 cursor-pointer transition-colors",
+                                    affiliateEnabled ? "bg-green-600" : "bg-[#333]"
+                                )}
+                                onClick={() => setAffiliateEnabled(!affiliateEnabled)}
+                            >
+                                <div className={cn(
+                                    "h-5 w-5 rounded-full bg-white transition-transform",
+                                    affiliateEnabled ? "translate-x-5" : "translate-x-0"
+                                )} />
+                                <input type="hidden" name="is_affiliate_enabled" value={affiliateEnabled.toString()} />
+                            </div>
+                        </div>
+
+                        {affiliateEnabled && (
+                            <div className="p-4 rounded-lg bg-[#161616] border border-[#222] space-y-4 animate-in fade-in slide-in-from-top-2">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-neutral-400">Komisi Afiliasi (%)</label>
+                                    <div className="relative">
+                                        <Input
+                                            name="affiliate_percentage"
+                                            type="number"
+                                            min="0"
+                                            max="100"
+                                            defaultValue="20"
+                                            className="bg-[#0e0e0e] border-[#333] text-white h-12 pr-10"
+                                            required={affiliateEnabled}
+                                        />
+                                        <div className="absolute right-3 top-3 text-neutral-500">%</div>
+                                    </div>
+                                    <p className="text-xs text-neutral-500">
+                                        Afiliator akan mendapatkan persentase ini dari setiap penjualan yang mereka hasilkan.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Advanced: Visibility */}

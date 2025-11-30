@@ -48,7 +48,7 @@ export default async function HubPage({ params }: { params: Promise<{ productId:
                     </div>
                     <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
                         <Link href={`/product/${product.slug || product.id}`}>
-                            Buy Now for {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.price)}
+                            Buy Now for Rp {product.price.toLocaleString('id-ID')}
                         </Link>
                     </Button>
                 </div>
