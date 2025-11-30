@@ -139,10 +139,10 @@ export default function SignupPage() {
                     ) : (
                         <div className="space-y-6 flex flex-col items-center">
                             <InputOTP
-                                maxLength={6}
+                                maxLength={8}
                                 value={""}
                                 onChange={(value: string) => {
-                                    if (value.length === 6) handleVerifyOtp(value)
+                                    if (value.length === 8) handleVerifyOtp(value)
                                 }}
                             >
                                 <InputOTPGroup>
@@ -150,11 +150,15 @@ export default function SignupPage() {
                                     <InputOTPSlot index={1} />
                                     <InputOTPSlot index={2} />
                                     <InputOTPSlot index={3} />
+                                </InputOTPGroup>
+                                <InputOTPSeparator />
+                                <InputOTPGroup>
                                     <InputOTPSlot index={4} />
                                     <InputOTPSlot index={5} />
+                                    <InputOTPSlot index={6} />
+                                    <InputOTPSlot index={7} />
                                 </InputOTPGroup>
                             </InputOTP>
-
                             <div className="text-center text-sm text-neutral-500">
                                 <button
                                     onClick={() => setStep('email')}
