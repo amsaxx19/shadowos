@@ -99,13 +99,13 @@ export default function MessagesPage() {
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between mb-0.5">
                                     <div className="flex items-center gap-1.5">
-                                        <span className="font-semibold text-white text-sm">Team Whop</span>
+                                        <span className="font-semibold text-white text-sm">Team CUANBOSS</span>
                                         <CheckCircle2 className="h-3 w-3 text-red-500 fill-current" />
                                     </div>
                                     <span className="text-xs text-neutral-500">Thu</span>
                                 </div>
                                 <p className="text-sm text-neutral-400 truncate">
-                                    Welcome to Whop! Thousands of internet entrepreneurs...
+                                    Welcome to CUANBOSS! Thousands of internet entrepreneurs...
                                 </p>
                             </div>
 
@@ -173,7 +173,7 @@ export default function MessagesPage() {
                                 <div className="h-8 w-8 rounded-md bg-white flex items-center justify-center">
                                     <span className="text-orange-500 font-bold text-sm">⚡</span>
                                 </div>
-                                <span className="font-bold text-white">Team Whop</span>
+                                <span className="font-bold text-white">Team CUANBOSS</span>
                                 <CheckCircle2 className="h-4 w-4 text-red-500 fill-current" />
                             </div>
                             <Search className="h-5 w-5 text-neutral-500 hover:text-white cursor-pointer" />
@@ -198,29 +198,29 @@ export default function MessagesPage() {
                                 {/* Message Content */}
                                 <div className="flex-1 max-w-3xl">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="font-medium text-white text-sm">Team Whop</span>
+                                        <span className="font-medium text-white text-sm">Team CUANBOSS</span>
                                         <CheckCircle2 className="h-3 w-3 text-red-500 fill-current" />
                                         <span className="text-xs text-neutral-500">Yesterday at 4:26 PM</span>
                                     </div>
 
                                     <div className="bg-[#1c1c1c] rounded-r-xl rounded-bl-xl p-4 text-neutral-300 text-sm space-y-4 leading-relaxed relative">
-                                        <p>Welcome to Whop!</p>
+                                        <p>Welcome to CUANBOSS!</p>
                                         <p>
-                                            Thousands of internet entrepreneurs like you launch on Whop every day, and you're only 4 steps away from joining them:
+                                            Thousands of internet entrepreneurs like you launch on CUANBOSS every day, and you're only 4 steps away from joining them:
                                         </p>
                                         <ol className="list-decimal list-inside space-y-1 ml-1">
-                                            <li>Add apps to your whop</li>
+                                            <li>Add apps to your business</li>
                                             <li>Design your store page</li>
-                                            <li>Set up Whop Payments</li>
+                                            <li>Set up Payments</li>
                                             <li>Invite your first user</li>
                                         </ol>
                                         <p>
                                             To get started, head over to your Dashboard and complete the onboarding checklist we made for you:<br />
-                                            <a href="#" className="text-white underline decoration-neutral-500 underline-offset-2 hover:decoration-white">https://whop.com/dashboard</a>
+                                            <a href="#" className="text-white underline decoration-neutral-500 underline-offset-2 hover:decoration-white">https://cuanboss.com/dashboard</a>
                                         </p>
                                         <p>
-                                            If you've still got questions, head over to Whop University:<br />
-                                            <a href="#" className="text-white underline decoration-neutral-500 underline-offset-2 hover:decoration-white">https://whop.com/whop/</a>. We run live sessions twice a day where you can drop in and ask anything.
+                                            If you've still got questions, head over to CUANBOSS University:<br />
+                                            <a href="#" className="text-white underline decoration-neutral-500 underline-offset-2 hover:decoration-white">https://cuanboss.com/university/</a>. We run live sessions twice a day where you can drop in and ask anything.
                                         </p>
                                         <p>We're excited to see what you build!</p>
 
@@ -251,8 +251,8 @@ export default function MessagesPage() {
                                     <Check className="h-3 w-3 text-white stroke-[3]" />
                                 </div>
                                 <div>
-                                    <span className="font-medium text-white">This is the official Whop notification channel</span>
-                                    <p className="text-xs text-neutral-500">Whop will always use verified accounts to communicate with you</p>
+                                    <span className="font-medium text-white">This is the official CUANBOSS notification channel</span>
+                                    <p className="text-xs text-neutral-500">CUANBOSS will always use verified accounts to communicate with you</p>
                                 </div>
                             </div>
                         </div>
@@ -296,10 +296,10 @@ export default function MessagesPage() {
                                 </div>
                                 <div className="text-left">
                                     <div className="flex items-center gap-1">
-                                        <span className="font-medium text-sm">Team Whop</span>
+                                        <span className="font-medium text-sm">Team CUANBOSS</span>
                                         <CheckCircle2 className="h-3 w-3 text-red-500 fill-current" />
                                     </div>
-                                    <p className="text-xs text-neutral-500">@teamwhop</p>
+                                    <p className="text-xs text-neutral-500">@teamcuanboss</p>
                                 </div>
                             </button>
                         </div>

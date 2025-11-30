@@ -45,7 +45,7 @@ export function MainSidebar() {
         initials: b.name.substring(0, 2).toUpperCase(),
         href: `/dashboard/${b.id}/home`
     })) : [
-        { name: "ShadowOS Inc.", initials: "SO", href: dashboardHref },
+        { name: "CUANBOSS Inc.", initials: "CB", href: dashboardHref },
     ]
 
     if (isBusinessDashboard) {
@@ -103,7 +103,7 @@ export function MainSidebar() {
             {/* Header: Logo */}
             <div className="flex h-16 items-center px-6">
                 <div className="flex items-center gap-2 text-white font-bold text-xl">
-                    <span className="text-orange-500">⚡</span> Whop
+                    <span className="text-orange-500">⚡</span> CUANBOSS
                 </div>
             </div>
 
@@ -136,7 +136,7 @@ export function MainSidebar() {
                 <div>
                     <div className="flex items-center justify-between px-3 mb-2">
                         <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
-                            YOUR WHOPS
+                            BISNIS ANDA
                         </span>
                         <Search className="h-4 w-4 text-neutral-500 cursor-pointer hover:text-white" />
                     </div>

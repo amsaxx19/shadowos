@@ -75,15 +75,15 @@ export default function DiscoverPage() {
                 <div className="text-center mb-12 space-y-6">
                     <div className="flex flex-col items-center gap-2">
                         <div className="flex items-center gap-3 text-5xl font-bold">
-                            <span className="text-orange-500">⚡</span> Whop
+                            <span className="text-orange-500">⚡</span> CUANBOSS
                         </div>
-                        <p className="text-neutral-400 text-lg">Where the internet does business</p>
+                        <p className="text-neutral-400 text-lg">Tempat Internet Berbisnis</p>
                     </div>
 
                     <div className="relative w-full max-w-2xl mx-auto">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-500" />
                         <Input
-                            placeholder="Search Whop..."
+                            placeholder="Search CUANBOSS..."
                             className="w-full h-12 pl-12 bg-[#1c1c1c] border-[#333] text-white placeholder:text-neutral-500 rounded-xl focus:ring-0 focus:border-neutral-500"
                         />
                     </div>

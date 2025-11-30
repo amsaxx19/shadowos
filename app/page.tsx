@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Search, Rocket, Menu, X, Globe, Twitter, Instagram, Youtube } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { motion } from "framer-motion"
 
 export default function LandingPage() {
   const [isSearchFocused, setIsSearchFocused] = useState(false)
@@ -75,61 +76,76 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-40 pb-12 px-6 flex flex-col items-center text-center">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="text-orange-500 text-5xl font-bold">⚡</span>
-          <h1 className="text-5xl font-bold text-white tracking-tight">ShadowOS</h1>
-        </div>
-        <p className="text-neutral-400 text-lg mb-10">
-          Where the internet does business
-        </p>
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0a0a0a] to-[#0a0a0a]" />
 
-        {/* Search Bar */}
-        <div className="w-full max-w-2xl relative group z-50">
-          <div className="absolute inset-0 bg-white/5 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="relative">
-            <div className="flex items-center bg-[#1a1a1a] border border-[#333] rounded-full px-6 h-14 transition-all hover:border-neutral-600 focus-within:border-neutral-500 focus-within:ring-1 focus-within:ring-neutral-500">
-              <Search className="h-5 w-5 text-neutral-500 mr-3" />
-              <Input
-                className="border-0 bg-transparent text-lg placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 h-full w-full p-0"
-                placeholder="Search ShadowOS..."
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    window.location.href = `/discover/search?q=${e.currentTarget.value}`
-                  }
-                }}
-              />
-            </div>
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                CUANBOSS
+              </span>
+              <br />
+              <span className="text-white">Platform Bisnis Digital</span>
+            </h1>
 
-            {/* Trending Searches Dropdown */}
-            {isSearchFocused && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#333] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                <div className="p-4">
-                  <h3 className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-3 px-2">Trending searches</h3>
-                  <div className="space-y-1">
-                    {[
-                      "Sneaker resell groups",
-                      "Build your own SaaS",
-                      "Prediction markets 101",
-                      "Style guide for men",
-                      "How to get customers without ads"
-                    ].map((term) => (
-                      <Link
-                        key={term}
-                        href={`/discover/search?q=${term}`}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#222] text-neutral-300 hover:text-white transition-colors group/item"
-                      >
-                        <Rocket className="h-4 w-4 text-neutral-600 group-hover/item:text-blue-500 transition-colors" />
-                        <span>{term}</span>
-                      </Link>
-                    ))}
-                  </div>
+            <p className="text-xl text-neutral-400 mb-8 max-w-2xl mx-auto">
+              Jual produk digital, kelola affiliate, dan bangun komunitas dalam satu platform.
+              Tanpa biaya bulanan.
+            </p>
+
+            {/* Search Bar */}
+            <div className="w-full max-w-2xl relative group z-50 mx-auto">
+              <div className="absolute inset-0 bg-white/5 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <div className="flex items-center bg-[#1a1a1a] border border-[#333] rounded-full px-6 h-14 transition-all hover:border-neutral-600 focus-within:border-neutral-500 focus-within:ring-1 focus-within:ring-neutral-500">
+                  <Search className="h-5 w-5 text-neutral-500 mr-3" />
+                  <Input
+                    className="border-0 bg-transparent text-lg placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 h-full w-full p-0"
+                    placeholder="Search CUANBOSS..."
+                    onFocus={() => setIsSearchFocused(true)}
+                    onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        window.location.href = `/discover/search?q=${e.currentTarget.value}`
+                      }
+                    }}
+                  />
                 </div>
+
+                {/* Trending Searches Dropdown */}
+                {isSearchFocused && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#333] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 text-left">
+                    <div className="p-4">
+                      <h3 className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-3 px-2">Trending searches</h3>
+                      <div className="space-y-1">
+                        {[
+                          "Sneaker resell groups",
+                          "Build your own SaaS",
+                          "Prediction markets 101",
+                          "Style guide for men",
+                          "How to get customers without ads"
+                        ].map((term) => (
+                          <Link
+                            key={term}
+                            href={`/discover/search?q=${term}`}
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#222] text-neutral-300 hover:text-white transition-colors group/item"
+                          >
+                            <Rocket className="h-4 w-4 text-neutral-600 group-hover/item:text-blue-500 transition-colors" />
+                            <span>{term}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

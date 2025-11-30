@@ -52,7 +52,7 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
                     console.error("Error fetching businesses:", error)
                     // Fallback for dev/mock if DB not ready
                     setBusinesses([
-                        { id: 'biz_1', name: 'ShadowOS Inc.', slug: 'shadow-os', logo_url: null, currency: 'USD', role: 'owner' },
+                        { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
                         { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
                     ])
                 } else {
