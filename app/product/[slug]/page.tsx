@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
@@ -7,7 +7,7 @@ import { Check } from 'lucide-react'
 import CheckoutButton from './checkout-button'
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-    const supabase = await createClient()
+    const supabase = createAdminClient()
     const { slug } = await params
 
     const { data: product, error } = await supabase
