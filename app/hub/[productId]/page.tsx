@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Lock } from 'lucide-react'
 import Link from 'next/link'
 
-export default async function HubPage({ params }: { params: { productId: string } }) {
+export default async function HubPage({ params }: { params: Promise<{ productId: string }> }) {
     const supabase = createClient()
-    const { productId } = params
+    const { productId } = await params
 
     const { data: { user } } = await supabase.auth.getUser()
 

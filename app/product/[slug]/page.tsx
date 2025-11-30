@@ -6,9 +6,9 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Check } from 'lucide-react'
 import CheckoutButton from './checkout-button'
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
     const supabase = createClient()
-    const { slug } = params
+    const { slug } = await params
 
     const { data: product, error } = await supabase
         .from('products')
