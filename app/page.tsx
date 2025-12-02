@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
+import { User } from "@supabase/supabase-js"
 
 import { supabase } from "@/lib/supabase/client"
 
@@ -17,6 +18,7 @@ export default function LandingPage() {
   const [trendingProducts, setTrendingProducts] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
+  const [user, setUser] = useState<User | null>(null)
   const searchRef = useRef<HTMLDivElement>(null)
 
   const mockSuggestions = [
@@ -133,6 +135,14 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    getUser()
+  }, [])
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsSearchFocused(false)
@@ -153,9 +163,15 @@ export default function LandingPage() {
           <span className="text-orange-500 text-2xl font-bold">⚡</span>
         </Link>
         <div className="flex items-center gap-3">
-          <Link href="/login">
-            <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Log in</Button>
-          </Link>
+          {user ? (
+            <Link href="/dashboard">
+              <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Dashboard</Button>
+            </Link>
+          ) : (
+            <Link href="/login">
+              <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Log in</Button>
+            </Link>
+          )}
           <Link href="/sell">
             <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold rounded-full shadow-lg shadow-orange-500/20 border border-orange-500/50">
               Mulai Jualan
