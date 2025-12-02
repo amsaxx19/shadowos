@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 
 export async function sendOtp(email: string) {
+    console.log("sendOtp called with:", email)
+
     const supabase = await createClient()
 
     const { error } = await supabase.auth.signInWithOtp({
@@ -15,9 +17,11 @@ export async function sendOtp(email: string) {
     })
 
     if (error) {
+        console.error("sendOtp error:", error)
         return { error: error.message }
     }
 
+    console.log("sendOtp success")
     return { success: true }
 }
 

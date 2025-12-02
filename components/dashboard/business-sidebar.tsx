@@ -16,7 +16,9 @@ import {
     Share2,
     Plus,
     Search,
-    ChevronDown
+    ChevronDown,
+    ArrowLeft,
+    Megaphone
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -47,7 +49,7 @@ export function BusinessSidebar() {
 
     const paymentLinks: SidebarLink[] = [
         { href: `/dashboard/${activeBusiness?.id}/payments`, label: "Payments", icon: CreditCard },
-        { href: `/dashboard/${activeBusiness?.id}/invoices`, label: "Invoices", icon: FileText },
+
         { href: `/dashboard/${activeBusiness?.id}/payouts`, label: "Payouts", icon: DollarSign },
     ]
 
@@ -63,17 +65,17 @@ export function BusinessSidebar() {
         <div className="flex h-full w-[240px] flex-col border-r border-[#222] bg-[#0e0e0e] text-neutral-400">
             {/* Header */}
             <div className="flex h-16 items-center justify-between px-4 border-b border-[#222]">
-                <div className="relative group">
-                    <button className="flex items-center gap-2 hover:text-white transition-colors text-left">
-                        <div className="h-6 w-6 rounded bg-[#222] flex items-center justify-center border border-[#333] text-[10px] font-bold text-white overflow-hidden">
+                <div className="relative group flex-1 mr-2">
+                    <button className="flex items-center gap-2 hover:text-white transition-colors text-left w-full">
+                        <div className="h-6 w-6 rounded bg-[#222] flex items-center justify-center border border-[#333] text-[10px] font-bold text-white overflow-hidden shrink-0">
                             {activeBusiness.logo_url ? (
                                 <img src={activeBusiness.logo_url} alt={activeBusiness.name} className="h-full w-full object-cover" />
                             ) : (
                                 activeBusiness.name.substring(0, 2).toUpperCase()
                             )}
                         </div>
-                        <span className="text-sm font-bold text-white truncate max-w-[100px]">{activeBusiness.name}</span>
-                        <ChevronDown className="h-4 w-4" />
+                        <span className="text-sm font-bold text-white truncate">{activeBusiness.name}</span>
+                        <ChevronDown className="h-4 w-4 shrink-0" />
                     </button>
 
                     {/* Business Switcher Dropdown */}
@@ -105,11 +107,11 @@ export function BusinessSidebar() {
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-neutral-400 hover:text-white">
                         <Search className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 bg-blue-600 text-white hover:bg-blue-700 rounded-md">
-                        <Plus className="h-4 w-4" />
-                    </Button>
+
                 </div>
             </div>
+
+
 
             <div className="flex-1 overflow-auto py-4 px-2 space-y-6">
                 {/* General */}
@@ -138,6 +140,7 @@ export function BusinessSidebar() {
                                 )}
                             </Link>
                         ))}
+
                     </nav>
                 </div>
 
@@ -213,18 +216,7 @@ export function BusinessSidebar() {
                     </nav>
                 </div>
 
-                {/* Apps */}
-                <div>
-                    <div className="px-2 mb-2 text-[11px] font-bold text-neutral-500 uppercase tracking-wider flex items-center gap-1 cursor-pointer hover:text-neutral-300">
-                        APPS <ChevronDown className="h-3 w-3" />
-                    </div>
-                    <button className="flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all">
-                        <div className="h-4 w-4 rounded-full border border-neutral-500 flex items-center justify-center">
-                            <Plus className="h-3 w-3" />
-                        </div>
-                        <span>Add</span>
-                    </button>
-                </div>
+
             </div>
         </div>
     )

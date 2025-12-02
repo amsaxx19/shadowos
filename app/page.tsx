@@ -1,39 +1,30 @@
+
 "use client"
 
 import { Input } from "@/components/ui/input"
-import { Search, Rocket, Instagram, Twitter, Youtube, X, TrendingUp, GraduationCap, Dumbbell, Coins, PenTool } from "lucide-react"
+import { Search, Rocket, Instagram, Twitter, Youtube, X, TrendingUp, GraduationCap, Dumbbell, Coins, PenTool, Banknote, Briefcase, Clapperboard, Zap, Scissors, Building2, Cpu, Laptop, Heart, Gamepad2, UserCheck, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
+import { supabase } from "@/lib/supabase/client"
+
 export default function LandingPage() {
+  const [selectedCategory, setSelectedCategory] = useState<any>(null)
   const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const [trendingProducts, setTrendingProducts] = useState<any[]>([])
   const searchRef = useRef<HTMLDivElement>(null)
 
-  // Close search dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsSearchFocused(false)
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
-
   const tags = [
-    "Lihat Tren",
-    "Belajar Saham",
-    "Tips Affiliate",
-    "Cara FYP TikTok",
-    "Ide Bisnis 2025",
-    "Tutorial Coding",
-    "Diet Sehat",
-    "Investasi Pemula",
-    "Dropshipping",
-    "Tools AI Bisnis",
-    "Komunitas Lari"
+    { name: "Lihat Tren", icon: <Rocket className="h-3 w-3 text-blue-500" /> },
+    { name: "Belajar Saham", icon: <TrendingUp className="h-3 w-3 text-green-500" /> },
+    { name: "Tips Affiliate", icon: <Coins className="h-3 w-3 text-yellow-500" /> },
+    { name: "Cara FYP TikTok", icon: <Clapperboard className="h-3 w-3 text-pink-500" /> },
+    { name: "Ide Bisnis 2025", icon: <Zap className="h-3 w-3 text-orange-500" /> },
+    { name: "Tutorial Coding", icon: <Laptop className="h-3 w-3 text-purple-500" /> },
+    { name: "Diet Sehat", icon: <Heart className="h-3 w-3 text-red-500" /> },
+    { name: "Investasi Pemula", icon: <Banknote className="h-3 w-3 text-emerald-500" /> },
   ]
 
   const trendingSearches = [
@@ -46,105 +37,174 @@ export default function LandingPage() {
 
   const categories = [
     {
-      name: "Trading & Kripto",
-      image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60"
+      name: "Clipping",
+      icon: Scissors,
+      video: "/videos/clipping.mov",
+      pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
     },
     {
-      name: "Bisnis & Affiliate",
-      image: "https://images.unsplash.com/photo-1664575602276-acd073f104c1?w=800&auto=format&fit=crop&q=60"
+      name: "Trading",
+      icon: TrendingUp,
+      video: "/videos/trading.mov",
+      pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
     },
     {
-      name: "Konten Kreator",
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=60"
+      name: "Bisnis",
+      icon: Briefcase,
+      video: "/videos/business.mov",
+      pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
     },
     {
-      name: "E-Course & Skill",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=60"
+      name: "Karir",
+      icon: Building2,
+      video: "/videos/career.mov",
+      pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
     },
     {
-      name: "Kesehatan & Hobi",
-      image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop&q=60"
+      name: "Teknologi",
+      icon: Cpu,
+      video: "/videos/tech.mov",
+      pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
     },
     {
-      name: "Properti & Investasi",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=60"
+      name: "Lifestyle",
+      icon: Heart,
+      video: "/videos/lifestyle.mov",
+      pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
     },
   ]
 
+  useEffect(() => {
+    const fetchTrending = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('id, title')
+          .limit(5)
+
+        if (error) {
+          console.error('Error fetching trending:', error)
+          return
+        }
+
+        if (data && data.length > 0) {
+          setTrendingProducts(data)
+        } else {
+          // Fallback if no data
+          console.log('No trending products found')
+        }
+      } catch (err) {
+        console.error('Unexpected error:', err)
+      }
+    }
+    fetchTrending()
+  }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [searchRef])
+
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col overflow-x-hidden">
-      {/* Header / Top Bar */}
-      <div className="flex items-center justify-end p-4">
-        <Link href="/dashboard/creator">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-6 h-9 text-sm">
-            Mulai Jualan
-          </Button>
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/80 backdrop-blur-xl h-16 flex items-center px-4 md:px-6 gap-4">
+        <Link href="/" className="flex items-center gap-2 mr-4">
+          <span className="text-orange-500 text-2xl font-bold">⚡</span>
         </Link>
-      </div>
+        <div className="hidden md:flex items-center gap-1 bg-[#1c1c1c] rounded-full p-1 border border-[#333]">
+          <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs font-medium text-white bg-[#333]">Discover</Button>
+          <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs font-medium text-neutral-400 hover:text-white">Creators</Button>
+        </div>
+        <div className="flex-1 max-w-md mx-4 hidden md:block relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
+          <Input
+            className="w-full bg-[#1c1c1c] border-[#333] pl-9 h-9 text-sm focus:ring-0 rounded-full placeholder:text-neutral-600"
+            placeholder="Find software, communities, and more..."
+          />
+        </div>
+        <div className="ml-auto flex items-center gap-3">
+          <Link href="/login">
+            <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Log in</Button>
+          </Link>
+          <Link href="/signup">
+            <Button className="bg-white text-black hover:bg-neutral-200 font-bold rounded-full">Sign up</Button>
+          </Link>
+        </div>
+      </nav>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 w-full">
 
         {/* Marquee Tags Row */}
-        <div className="w-full mb-16 overflow-hidden relative group">
+        <div className="w-full mb-16 overflow-hidden relative group mt-24">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0e0e0e] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0e0e0e] to-transparent z-10" />
+
           <div className="flex gap-3 animate-scroll whitespace-nowrap hover:pause">
-            {/* Duplicate tags for seamless loop */}
-            {[...tags, ...tags, ...tags].map((tag, i) => (
-              <button
-                key={i}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1c1c1c] border border-[#333] text-xs font-medium text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
-              >
-                {tag === "Lihat Tren" && <Rocket className="h-3 w-3 text-blue-500" />}
-                {tag}
-              </button>
+            {[...tags, ...tags].map((tag, i) => (
+              <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#222] text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer">
+                {tag.icon}
+                <span className="text-sm font-medium">{tag.name}</span>
+              </div>
             ))}
           </div>
-          {/* Gradient Fade Edges */}
-          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0e0e0e] to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#0e0e0e] to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Logo & Search */}
         <div className="text-center mb-16 space-y-8 w-full max-w-2xl relative z-10">
-          <div className="flex flex-col items-center gap-2">
-            <div className="flex items-center gap-3 text-5xl font-bold tracking-tight">
-              <span className="text-orange-500">⚡</span> CUANBOSS
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-2xl shadow-orange-500/20">
+              <span className="text-4xl">⚡</span>
             </div>
-            <p className="text-neutral-500 text-lg">Tempat internet berbisnis</p>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white">
+              CUAN<span className="text-orange-500">BOSS</span>
+            </h1>
+            <p className="text-xl text-neutral-400">
+              The operating system for <span className="text-white font-medium">digital entrepreneurs</span>
+            </p>
           </div>
 
           <div ref={searchRef} className="relative w-full">
-            <div className="relative z-20">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-500" />
-              <Input
-                onFocus={() => setIsSearchFocused(true)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    window.location.href = `/discover/search?q=${encodeURIComponent(e.currentTarget.value)}`
-                  }
-                }}
-                placeholder="Cari di CUANBOSS..."
-                className="w-full h-12 pl-12 bg-[#1c1c1c] border-[#333] text-white placeholder:text-neutral-500 rounded-xl focus:ring-0 focus:border-neutral-500 text-base"
-              />
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-2xl p-2 shadow-2xl">
+                <Search className="ml-4 h-6 w-6 text-neutral-500" />
+                <input
+                  type="text"
+                  placeholder="Search for products, creators, or categories..."
+                  className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg px-4 text-white placeholder:text-neutral-600 h-12"
+                  onFocus={() => setIsSearchFocused(true)}
+                />
+                <div className="hidden md:flex items-center gap-2 mr-2">
+                  <span className="px-2 py-1 rounded bg-[#222] text-xs text-neutral-500 border border-[#333]">⌘K</span>
+                </div>
+              </div>
             </div>
 
             {/* Search Dropdown */}
             {isSearchFocused && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1c1c1c] border border-[#333] rounded-xl shadow-2xl overflow-hidden p-2 z-10 animate-in fade-in zoom-in-95 duration-200">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[#161616] border border-[#333] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
                 <div className="p-2">
-                  <h3 className="text-xs font-medium text-neutral-500 mb-2 px-2">Pencarian populer</h3>
-                  <div className="space-y-1">
-                    {trendingSearches.map((item, i) => (
-                      <Link
-                        href={`/discover/search?q=${encodeURIComponent(item.text)}`}
-                        key={i}
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#2a2a2a] cursor-pointer group transition-colors"
-                      >
-                        <item.icon className="h-4 w-4 text-neutral-500 group-hover:text-white" />
-                        <span className="text-sm text-neutral-300 group-hover:text-white">{item.text}</span>
+                  <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Trending Products</div>
+                  {trendingProducts.length > 0 ? (
+                    trendingProducts.map((product) => (
+                      <Link href={`/product/${product.id}`} key={product.id} className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
+                        <TrendingUp className="h-4 w-4 text-neutral-500" />
+                        <span>{product.title}</span>
                       </Link>
-                    ))}
-                  </div>
+                    ))
+                  ) : (
+                    <div className="px-3 py-3 text-neutral-500 text-sm">Loading trending products...</div>
+                  )}
                 </div>
               </div>
             )}
@@ -152,69 +212,112 @@ export default function LandingPage() {
         </div>
 
         {/* Categories Grid */}
-        <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat) => (
-            <Link
-              href={`/discover/search?q=${encodeURIComponent(cat.name)}`}
+            <div
               key={cat.name}
-              className="group relative h-40 rounded-xl overflow-hidden cursor-pointer border border-[#222] block"
+              onClick={() => setSelectedCategory(cat)}
+              className="group relative h-[200px] rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95"
             >
-              {/* Background Image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                style={{ backgroundImage: `url(${cat.image})` }}
-              />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 transition-all" />
-
-              {/* Text */}
-              <div className="absolute bottom-4 left-4">
-                <h3 className="text-lg font-bold text-white group-hover:translate-x-1 transition-transform">{cat.name}</h3>
+              {/* Video Background */}
+              <div className="absolute inset-0 z-0">
+                <video
+                  src={cat.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
               </div>
-            </Link>
-          ))}
-        </div>
 
-        {/* Payouts Counter */}
-        <div className="mt-24 text-center">
-          <div className="text-xl font-medium text-neutral-500">
-            <span className="text-white font-bold">Rp 32.087.269.766</span> telah dibayarkan ke kreator
-          </div>
+              {/* Content: Title Bottom Left */}
+              <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
+                <h3 className="text-2xl font-bold text-white drop-shadow-lg transform translate-y-0 transition-transform duration-300">
+                  {cat.name}
+                </h3>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-[#222] py-8 px-8 mt-auto">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-wrap justify-center gap-6 text-xs font-medium text-neutral-500">
-            <Link href="#" className="hover:text-white transition-colors">Belajar</Link>
-            <Link href="#" className="hover:text-white transition-colors">Karir</Link>
-            <Link href="#" className="hover:text-white transition-colors">Pers</Link>
-            <Link href="#" className="hover:text-white transition-colors">Brand</Link>
-            <Link href="#" className="hover:text-white transition-colors">Privasi</Link>
-            <Link href="#" className="hover:text-white transition-colors">Syarat & Ketentuan</Link>
-          </div>
-          <div className="flex gap-6 text-neutral-500">
-            <Youtube className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
-            <Twitter className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
-            <Instagram className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
-            <X className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
+      {/* Expanded Category Modal */}
+      {selectedCategory && (
+        <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => setSelectedCategory(null)}
+          />
+
+          {/* Modal Content */}
+          <div className="relative w-full md:max-w-2xl bg-[#0e0e0e] md:rounded-3xl rounded-t-3xl overflow-hidden shadow-2xl animate-in slide-in-from-bottom-10 fade-in duration-300 border border-[#222]">
+
+            {/* Header Banner */}
+            <div className="relative h-48 w-full">
+              <video
+                src={selectedCategory.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover opacity-70"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-transparent to-transparent" />
+
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white backdrop-blur-md transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              {/* Title */}
+              <div className="absolute bottom-4 left-6">
+                <h2 className="text-3xl font-bold text-white">{selectedCategory.name}</h2>
+              </div>
+            </div>
+
+            {/* Body Content */}
+            <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
+
+              {/* Featured Ad Placeholder */}
+              <div className="bg-[#1c1c1c] border border-[#333] rounded-xl p-4 flex items-center gap-4">
+                <div className="h-12 w-12 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
+                  <Rocket className="h-6 w-6" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white">Featured in {selectedCategory.name}</h4>
+                  <p className="text-xs text-neutral-400">Top trending opportunities this week</p>
+                </div>
+                <Button size="sm" variant="outline" className="ml-auto border-[#333] bg-transparent hover:bg-[#333] text-xs">
+                  View
+                </Button>
+              </div>
+
+              {/* Sub-niche List */}
+              <div className="grid grid-cols-1 gap-3">
+                {selectedCategory.pills.map((pill: string, i: number) => (
+                  <Link
+                    key={i}
+                    href={`/discover/search?q=${encodeURIComponent(pill)}`}
+                    className="flex items-center justify-between p-4 rounded-xl bg-[#161616] border border-[#222] hover:bg-[#222] hover:border-neutral-700 transition-all group"
+                  >
+                    <span className="font-medium text-neutral-200 group-hover:text-white">{pill}</span>
+                    <div className="h-8 w-8 rounded-full bg-[#222] flex items-center justify-center group-hover:bg-[#333] transition-colors">
+                      <ArrowRight className="h-4 w-4 text-neutral-500 group-hover:text-white" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
-      </footer>
-
-      <style jsx global>{`
-                @keyframes scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-                .animate-scroll {
-                    animation: scroll 40s linear infinite;
-                }
-                .hover\\:pause:hover {
-                    animation-play-state: paused;
-                }
-            `}</style>
+      )}
     </div>
   )
 }

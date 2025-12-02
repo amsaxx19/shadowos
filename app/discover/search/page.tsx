@@ -82,7 +82,7 @@ export default async function SearchPage({
                 {products && products.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {products.map((product) => (
-                            <Link href={`/product/${product.id}`} key={product.id} className="group block">
+                            <Link href={`/product/${product.id}`} key={product.id} className="group block active:scale-95 transition-transform duration-200">
                                 <div className="bg-[#161616] border border-[#222] rounded-xl overflow-hidden hover:border-neutral-600 transition-all duration-300 h-full flex flex-col">
                                     {/* Thumbnail */}
                                     <div className="aspect-video relative bg-neutral-800 overflow-hidden">
@@ -144,8 +144,7 @@ export default async function SearchPage({
                         </p>
                         <Link href="/discover">
                             <Button
-                                variant="outline"
-                                className="mt-6 border-[#333] text-white hover:bg-[#222]"
+                                className="mt-6 bg-white text-black hover:bg-neutral-200 font-bold"
                             >
                                 Kembali ke Discover
                             </Button>

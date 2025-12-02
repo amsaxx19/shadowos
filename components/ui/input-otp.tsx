@@ -3,6 +3,7 @@
 import * as React from "react"
 import { OTPInput, OTPInputContext } from "input-otp"
 import { Dot } from "lucide-react"
+import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 
@@ -51,7 +52,16 @@ const InputOTPSlot = React.forwardRef<
             )}
             {...props}
         >
-            {char}
+            {char && (
+                <motion.div
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.5, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                >
+                    {char}
+                </motion.div>
+            )}
             {hasFakeCaret && (
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                     <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />

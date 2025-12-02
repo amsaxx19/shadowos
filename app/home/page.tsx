@@ -66,13 +66,7 @@ Join Here: https://whop.com/jon-law-clipping/`,
     ]
     */
 
-    // Mock Chat Data
-    const activeChats = [
-        { name: "Whop Clips Chat", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=WC", active: true },
-        { name: "Chat", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=C", active: false },
-        { name: "Dawson Gant...", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=DG", active: false },
-        { name: "Free Chat", avatar: "https://api.dicebear.com/7.x/initials/svg?seed=FC", active: false },
-    ]
+
 
     return (
         <div className="flex h-full">
@@ -177,76 +171,7 @@ Join Here: https://whop.com/jon-law-clipping/`,
                 )}
             </div>
 
-            {/* Right Sidebar (Chat) */}
-            <div className="w-80 border-l border-[#222] bg-[#0e0e0e] hidden xl:flex flex-col">
-                <div className="p-4 border-b border-[#222]">
-                    <h2 className="font-bold text-neutral-400 mb-4">Chatting now</h2>
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                        {activeChats.map((chat, i) => (
-                            <div key={i} className="flex flex-col items-center gap-1 min-w-[60px] cursor-pointer group">
-                                <div className={`h-12 w-12 rounded-xl overflow-hidden relative border-2 ${chat.active ? 'border-orange-500' : 'border-transparent group-hover:border-neutral-700'}`}>
-                                    <Image src={chat.avatar} alt={chat.name} fill className="object-cover" />
-                                </div>
-                                <span className="text-[10px] text-neutral-500 truncate w-full text-center">{chat.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
 
-                <div className="flex-1 flex flex-col">
-                    <div className="p-3 bg-[#161616] border-b border-[#222] flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <div className="h-2 w-2 rounded-full bg-green-500" />
-                            <span className="font-bold text-sm text-white">Whop Clips Chat</span>
-                            <span className="text-xs text-neutral-500 bg-[#222] px-1.5 py-0.5 rounded">80</span>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 p-4 space-y-4 overflow-y-auto">
-                        {/* Mock Messages */}
-                        <div className="flex gap-3">
-                            <div className="h-8 w-8 rounded-full bg-red-500 flex items-center justify-center text-xs font-bold text-white shrink-0">
-                                👹
-                            </div>
-                            <div>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-sm font-bold text-neutral-300">Demon</span>
-                                    <span className="text-[10px] text-neutral-600">10:28 PM</span>
-                                </div>
-                                <p className="text-sm text-neutral-400 bg-[#222] p-2 rounded-lg rounded-tl-none mt-1">
-                                    professional clippers . If u good hit me up
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3">
-                            <div className="h-8 w-8 rounded-full bg-neutral-700 shrink-0" />
-                            <div>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-sm font-bold text-neutral-300">Okx</span>
-                                    <span className="text-[10px] text-neutral-600">10:28 PM</span>
-                                </div>
-                                <p className="text-sm text-neutral-400 bg-[#222] p-2 rounded-lg rounded-tl-none mt-1">
-                                    Anyone has a good instagram page, i have a opportunity for you to make a bank out of it,Tier 1 audience,1-2 mil reach
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="p-4 border-t border-[#222]">
-                        <div className="relative">
-                            <input
-                                type="text"
-                                placeholder="Message Whop Clips Chat..."
-                                className="w-full bg-[#161616] border border-[#333] rounded-full px-4 py-2.5 text-sm text-white focus:outline-none focus:border-neutral-500 transition-colors pr-10"
-                            />
-                            <button className="absolute right-2 top-2 p-1 bg-blue-600 rounded-full text-white hover:bg-blue-500 transition-colors">
-                                <Send className="h-3 w-3" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }

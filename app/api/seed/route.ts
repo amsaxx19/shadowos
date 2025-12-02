@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase/client'
 import { createClient } from '@supabase/supabase-js'
 
 export async function GET() {
     // Use a timestamp to ensure uniqueness and guarantee we get a fresh session
     const timestamp = Date.now()
+
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
 
     const createUserWithSession = async (email: string, role: 'operator' | 'creator', name: string) => {
         // 1. Sign Up (This should succeed since email is unique)

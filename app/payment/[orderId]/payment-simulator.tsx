@@ -23,7 +23,7 @@ export function PaymentSimulator({ orderId, amount, customerName }: { orderId: s
     return (
         <Card className="w-full max-w-md mx-auto shadow-xl border-t-4 border-t-[#0055D4] bg-white text-gray-900 border-gray-200">
             <CardHeader className="text-center">
-                <CardTitle className="text-xl text-gray-900">ShadowOS Payment Gateway</CardTitle>
+                <CardTitle className="text-xl text-gray-900">CuanBoss Payment Gateway</CardTitle>
                 <CardDescription className="text-gray-500">Mock Payment Simulator (Midtrans)</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

@@ -39,7 +39,7 @@ export default function CreateBusinessPage() {
 
                         <Button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 rounded-lg transition-all"
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 rounded-lg transition-all active:scale-95"
                         >
                             Create Business & Continue
                         </Button>

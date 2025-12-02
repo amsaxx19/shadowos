@@ -37,29 +37,40 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
         async function fetchBusinesses() {
             try {
                 const { data: { user } } = await supabase.auth.getUser()
+
+                // For development/demo purposes, if no user or error, use mock data
                 if (!user) {
+                    console.log("No user found, using mock businesses")
+                    setBusinesses([
+                        { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
+                        { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
+                    ])
                     setIsLoading(false)
                     return
                 }
 
                 // Fetch businesses the user is a member of
-                // Note: This query depends on the policies set up in migration
                 const { data, error } = await supabase
                     .from('businesses')
                     .select('*')
 
-                if (error) {
-                    console.error("Error fetching businesses:", error)
-                    // Fallback for dev/mock if DB not ready
+                if (error || !data || data.length === 0) {
+                    console.warn("No businesses found in DB, using mock data for development.")
+                    // Fallback for dev/mock
                     setBusinesses([
                         { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
                         { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
                     ])
                 } else {
-                    setBusinesses(data || [])
+                    setBusinesses(data)
                 }
             } catch (err) {
                 console.error("Failed to fetch businesses", err)
+                // Fallback
+                setBusinesses([
+                    { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
+                    { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
+                ])
             } finally {
                 setIsLoading(false)
             }

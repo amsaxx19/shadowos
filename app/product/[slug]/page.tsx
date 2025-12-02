@@ -67,7 +67,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </div>
             </header>
 
-            <main className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+            <main className="max-w-7xl mx-auto px-4 py-8 md:py-12 pb-32 lg:pb-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
 
                     {/* LEFT COLUMN (Content) */}
@@ -252,7 +252,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                         <Star className="h-5 w-5 fill-current" />
                                     </div>
                                     <div>
-                                        <p className="font-bold text-sm">ShadowOS</p>
+                                        <p className="font-bold text-sm">CuanBoss</p>
                                         <div className="flex items-center gap-1 text-xs text-green-500">
                                             <span className="px-1.5 py-0.5 rounded bg-green-500/20">20% reward</span>
                                         </div>

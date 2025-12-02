@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import React from "react"
 import { sendOtp, verifyOtp } from "./actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,28 +15,46 @@ import {
     InputOTPSlot,
     InputOTPSeparator,
 } from "@/components/ui/input-otp"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 
 export default function SignupPage() {
-    const [step, setStep] = useState<'email' | 'otp'>('email')
-    const [email, setEmail] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
+    return (
+        <React.Suspense fallback={<div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center"><Loader2 className="animate-spin text-white" /></div>}>
+            <SignupForm />
+        </React.Suspense>
+    )
+}
+
+function SignupForm() {
+    const searchParams = useSearchParams()
     const router = useRouter()
 
-    const handleSendOtp = async (formData: FormData) => {
+    const step = searchParams.get('step') === 'otp' ? 'otp' : 'email'
+    const emailParam = searchParams.get('email') || ""
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSendOtp = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         setIsLoading(true)
+        const formData = new FormData(e.currentTarget)
         const emailInput = formData.get('email') as string
-        setEmail(emailInput)
 
-        const result = await sendOtp(emailInput)
-        setIsLoading(false)
+        try {
+            const result = await sendOtp(emailInput)
 
-        if (result.error) {
-            toast.error(result.error)
-        } else {
-            setStep('otp')
-            toast.success("Code sent to your email!")
+            if (result.error) {
+                toast.error(result.error)
+            } else {
+                toast.success("Code sent to your email!")
+                router.push(`/signup?step=otp&email=${encodeURIComponent(emailInput)}`)
+            }
+        } catch (error) {
+            toast.error("An unexpected error occurred")
+            console.error(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -43,7 +62,7 @@ export default function SignupPage() {
         if (token.length !== 6) return
 
         setIsLoading(true)
-        const result = await verifyOtp(email, token)
+        const result = await verifyOtp(emailParam, token)
         setIsLoading(false)
 
         if (result.error) {
@@ -70,14 +89,14 @@ export default function SignupPage() {
                     <CardDescription className="text-center text-neutral-500">
                         {step === 'email'
                             ? "Start your digital business journey with CUANBOSS."
-                            : `Enter the code we sent to ${email}`
+                            : `Enter the code we sent to ${emailParam}`
                         }
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     {step === 'email' ? (
                         <>
-                            <form action={handleSendOtp} className="space-y-4">
+                            <form onSubmit={handleSendOtp} className="space-y-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="email" className="text-neutral-400 text-xs uppercase font-bold tracking-wider">Email</Label>
                                     <Input
@@ -85,6 +104,7 @@ export default function SignupPage() {
                                         name="email"
                                         type="email"
                                         placeholder="name@example.com"
+                                        defaultValue={emailParam}
                                         required
                                         className="bg-[#1c1c1c] border-[#333] text-white placeholder:text-neutral-600 focus:border-blue-600 focus:ring-0 h-11 rounded-lg"
                                         autoFocus
@@ -160,7 +180,7 @@ export default function SignupPage() {
                             </InputOTP>
                             <div className="text-center text-sm text-neutral-500">
                                 <button
-                                    onClick={() => setStep('email')}
+                                    onClick={() => router.push('/signup')}
                                     className="text-blue-500 hover:text-blue-400 font-medium flex items-center gap-2 mx-auto"
                                 >
                                     <ArrowLeft className="h-4 w-4" />

@@ -176,7 +176,7 @@ export default async function NewProductPage() {
                                 Create Product
                             </Button>
                             <p className="text-xs text-center text-blue-200 mt-4">
-                                By creating this product, you agree to the ShadowOS terms of service.
+                                By creating this product, you agree to the CuanBoss terms of service.
                             </p>
                         </div>
                     </div>
