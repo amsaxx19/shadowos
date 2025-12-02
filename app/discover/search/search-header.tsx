@@ -6,7 +6,7 @@ import { Search } from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { createClient } from "@/lib/supabase/client"
+import { supabase } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { User } from "@supabase/supabase-js"
 
@@ -19,7 +19,6 @@ export function SearchHeader({
 }) {
     const router = useRouter()
     const [user, setUser] = useState<User | null>(null)
-    const supabase = createClient()
 
     useEffect(() => {
         const getUser = async () => {
@@ -73,6 +72,11 @@ export function SearchHeader({
                 </div>
 
                 <div className="ml-auto flex items-center gap-3">
+                    {/* DEBUG: Temporary Indicator */}
+                    <div className="text-xs text-neutral-500 mr-2 border border-neutral-800 px-2 py-1 rounded">
+                        {user ? `Logged in: ${user.email}` : "Mode: Guest"}
+                    </div>
+
                     {user ? (
                         <Link href="/dashboard">
                             <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
