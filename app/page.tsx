@@ -39,37 +39,43 @@ export default function LandingPage() {
     {
       name: "Clipping",
       icon: Scissors,
-      video: "/videos/clipping.mov",
+      // video: "/videos/clipping.mov",
+      gradient: "from-purple-900 to-indigo-900",
       pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
     },
     {
       name: "Trading",
       icon: TrendingUp,
-      video: "/videos/trading.mov",
+      // video: "/videos/trading.mov",
+      gradient: "from-emerald-900 to-teal-900",
       pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
     },
     {
       name: "Bisnis",
       icon: Briefcase,
-      video: "/videos/business.mov",
+      // video: "/videos/business.mov",
+      gradient: "from-blue-900 to-slate-900",
       pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
     },
     {
       name: "Karir",
       icon: Building2,
-      video: "/videos/career.mov",
+      // video: "/videos/career.mov",
+      gradient: "from-orange-900 to-red-900",
       pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
     },
     {
       name: "Teknologi",
       icon: Cpu,
-      video: "/videos/tech.mov",
+      // video: "/videos/tech.mov",
+      gradient: "from-cyan-900 to-blue-900",
       pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
     },
     {
       name: "Lifestyle",
       icon: Heart,
-      video: "/videos/lifestyle.mov",
+      // video: "/videos/lifestyle.mov",
+      gradient: "from-pink-900 to-rose-900",
       pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
     },
   ]
@@ -219,18 +225,15 @@ export default function LandingPage() {
               onClick={() => setSelectedCategory(cat)}
               className="group relative h-[200px] rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95"
             >
-              {/* Video Background */}
-              <div className="absolute inset-0 z-0">
-                <video
-                  src={cat.video}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+              {/* Gradient Background (Replaces Video) */}
+              <div className={cn("absolute inset-0 z-0 bg-gradient-to-br opacity-40 group-hover:opacity-60 transition-opacity duration-500", cat.gradient)} />
+
+              {/* Icon Background Pattern */}
+              <div className="absolute inset-0 z-0 opacity-10 flex items-center justify-center scale-150 group-hover:scale-125 transition-transform duration-700">
+                <cat.icon className="w-48 h-48 text-white" />
               </div>
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
               {/* Content: Title Bottom Left */}
               <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
