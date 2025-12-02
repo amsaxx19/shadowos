@@ -131,22 +131,11 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col overflow-x-hidden">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/80 backdrop-blur-xl h-16 flex items-center px-4 md:px-6 gap-4">
-        <Link href="/" className="flex items-center gap-2 mr-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/80 backdrop-blur-xl h-16 flex items-center px-4 md:px-6 justify-between">
+        <Link href="/" className="flex items-center gap-2">
           <span className="text-orange-500 text-2xl font-bold">⚡</span>
         </Link>
-        <div className="hidden md:flex items-center gap-1 bg-[#1c1c1c] rounded-full p-1 border border-[#333]">
-          <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs font-medium text-white bg-[#333]">Discover</Button>
-          <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs font-medium text-neutral-400 hover:text-white">Creators</Button>
-        </div>
-        <div className="flex-1 max-w-md mx-4 hidden md:block relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
-          <Input
-            className="w-full bg-[#1c1c1c] border-[#333] pl-9 h-9 text-sm focus:ring-0 rounded-full placeholder:text-neutral-600"
-            placeholder="Find software, communities, and more..."
-          />
-        </div>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="flex items-center gap-3">
           <Link href="/login">
             <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Log in</Button>
           </Link>
