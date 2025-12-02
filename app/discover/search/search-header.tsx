@@ -6,6 +6,9 @@ import { Search } from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { createClient } from "@/lib/supabase/client"
+import { useEffect, useState } from "react"
+import { User } from "@supabase/supabase-js"
 
 export function SearchHeader({
     initialQuery,
@@ -15,6 +18,16 @@ export function SearchHeader({
     initialCategory: string
 }) {
     const router = useRouter()
+    const [user, setUser] = useState<User | null>(null)
+    const supabase = createClient()
+
+    useEffect(() => {
+        const getUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+            setUser(user)
+        }
+        getUser()
+    }, [])
 
     const tabs = [
         { id: "all", label: "Semua" },
@@ -60,11 +73,19 @@ export function SearchHeader({
                 </div>
 
                 <div className="ml-auto flex items-center gap-3">
-                    <Link href="/login">
-                        <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
-                            Log in
-                        </Button>
-                    </Link>
+                    {user ? (
+                        <Link href="/dashboard">
+                            <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
+                                Dashboard
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Link href="/login">
+                            <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
+                                Log in
+                            </Button>
+                        </Link>
+                    )}
                     <Link href="/sell">
                         <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium rounded-md px-4 h-9 text-sm shadow-lg shadow-orange-500/20 border border-orange-500/50">
                             Mulai Jualan
