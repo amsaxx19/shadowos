@@ -59,7 +59,12 @@ export function SearchHeader({
                     />
                 </div>
 
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-3">
+                    <Link href="/login">
+                        <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
+                            Log in
+                        </Button>
+                    </Link>
                     <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-4 h-9 text-sm">
                         Mulai Jualan
                     </Button>

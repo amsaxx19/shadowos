@@ -35,11 +35,11 @@ export default async function SearchPage({
     }
 
     const relatedSearches = [
-        "Belajar Trading Pemula",
-        "Signal Crypto VIP",
-        "Robot Trading Forex",
-        "Indikator Saham",
-        "Komunitas Scalping"
+        "Master TikTok shop success",
+        "Start scaling your brand",
+        "Learn TikTok ads strategies",
+        "Build a TikTok community",
+        "Earn more with TikTok creators"
     ]
 
     return (
@@ -50,32 +50,30 @@ export default async function SearchPage({
             <div className="max-w-7xl mx-auto px-4 py-8 w-full">
 
                 {/* Related Searches */}
-                <div className="flex items-center gap-3 mb-8 overflow-x-auto pb-2">
-                    <span className="text-sm text-neutral-500 whitespace-nowrap">Pencarian Terkait:</span>
+                <div className="flex items-center gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+                    <span className="text-sm text-neutral-500 whitespace-nowrap font-medium">Related Searches</span>
                     {relatedSearches.map((term, i) => (
                         <Link
                             href={`/discover/search?q=${encodeURIComponent(term)}`}
                             key={i}
-                            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1c1c1c] border border-[#333] text-xs text-neutral-300 hover:bg-[#222] cursor-pointer whitespace-nowrap transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1c1c1c] border border-[#333] text-xs text-neutral-300 hover:bg-[#222] hover:text-white cursor-pointer whitespace-nowrap transition-colors"
                         >
-                            <Search className="h-3 w-3" />
+                            <Search className="h-3 w-3 text-neutral-500" />
                             {term}
                         </Link>
                     ))}
                 </div>
 
                 {/* Results Header */}
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                        {query.toLowerCase().includes("trading") && <span className="text-2xl">📈</span>}
-                        <h1 className="text-2xl font-bold text-white capitalize">{query || "Semua Produk"}</h1>
-                        <span className="text-neutral-500 text-sm">{products?.length || 0} hasil</span>
+                <div className="mb-8">
+                    <div className="flex items-center gap-3 mb-1">
+                        <span className="text-2xl">🔥</span>
+                        <h1 className="text-2xl font-bold text-white">Best products</h1>
+                        <span className="text-neutral-500 text-sm ml-1">{products?.length || 0} results</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-white">
-                        <span>Urutkan:</span>
-                        <span className="text-white font-medium">Paling Relevan</span>
-                        <ChevronDown className="h-4 w-4" />
-                    </div>
+                    <p className="text-neutral-500 text-sm">
+                        Based on our <span className="text-blue-500 cursor-pointer hover:underline">ranking system</span>
+                    </p>
                 </div>
 
                 {/* Products Grid or Not Found */}
