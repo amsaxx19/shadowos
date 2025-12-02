@@ -65,9 +65,11 @@ export function SearchHeader({
                             Log in
                         </Button>
                     </Link>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-4 h-9 text-sm">
-                        Mulai Jualan
-                    </Button>
+                    <Link href="/sell">
+                        <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium rounded-md px-4 h-9 text-sm shadow-lg shadow-orange-500/20 border border-orange-500/50">
+                            Mulai Jualan
+                        </Button>
+                    </Link>
                 </div>
             </div>
 

@@ -156,8 +156,10 @@ export default function LandingPage() {
           <Link href="/login">
             <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Log in</Button>
           </Link>
-          <Link href="/signup">
-            <Button className="bg-white text-black hover:bg-neutral-200 font-bold rounded-full">Sign up</Button>
+          <Link href="/sell">
+            <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold rounded-full shadow-lg shadow-orange-500/20 border border-orange-500/50">
+              Mulai Jualan
+            </Button>
           </Link>
         </div>
       </nav>

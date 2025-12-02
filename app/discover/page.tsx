@@ -106,7 +106,11 @@ export default function DiscoverPage() {
         <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col overflow-x-hidden">
             {/* Header / Top Bar */}
             <div className="flex items-center justify-end p-4">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full px-6">Mulai Jualan</Button>
+                <Link href="/sell">
+                    <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold rounded-full px-6 shadow-lg shadow-orange-500/20 border border-orange-500/50">
+                        Mulai Jualan
+                    </Button>
+                </Link>
             </div>
 
             {/* Main Content */}
