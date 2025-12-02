@@ -78,11 +78,23 @@ export function SearchHeader({
                     </div>
 
                     {user ? (
-                        <Link href="/dashboard">
-                            <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
-                                Dashboard
+                        <div className="flex items-center gap-2">
+                            <Link href="/dashboard">
+                                <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
+                                    Dashboard
+                                </Button>
+                            </Link>
+                            <Button
+                                variant="ghost"
+                                className="text-red-500 hover:text-red-400 hover:bg-red-500/10 font-medium"
+                                onClick={async () => {
+                                    await supabase.auth.signOut()
+                                    window.location.reload()
+                                }}
+                            >
+                                Logout
                             </Button>
-                        </Link>
+                        </div>
                     ) : (
                         <Link href="/login">
                             <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
