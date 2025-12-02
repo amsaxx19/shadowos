@@ -16,7 +16,32 @@ export default function LandingPage() {
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [trendingProducts, setTrendingProducts] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
+  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
   const searchRef = useRef<HTMLDivElement>(null)
+
+  const mockSuggestions = [
+    "TikTok Shop Accelerator",
+    "TikTok Prodigies",
+    "TikTok Growth Community",
+    "TikTok Profit Playbook",
+    "Crypto Trading Signals",
+    "Dropshipping Mastery",
+    "Affiliate Marketing 101",
+    "Content Creator Tools"
+  ]
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value
+    setSearchQuery(query)
+    if (query.length > 0) {
+      const filtered = mockSuggestions.filter(item =>
+        item.toLowerCase().includes(query.toLowerCase())
+      )
+      setFilteredSuggestions(filtered)
+    } else {
+      setFilteredSuggestions([])
+    }
+  }
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -34,14 +59,6 @@ export default function LandingPage() {
     { name: "Tutorial Coding", icon: <Laptop className="h-3 w-3 text-purple-500" /> },
     { name: "Diet Sehat", icon: <Heart className="h-3 w-3 text-red-500" /> },
     { name: "Investasi Pemula", icon: <Banknote className="h-3 w-3 text-emerald-500" /> },
-  ]
-
-  const trendingSearches = [
-    { icon: Dumbbell, text: "Program diet & gym pemula" },
-    { icon: Rocket, text: "Tools AI untuk konten kreator" },
-    { icon: PenTool, text: "Template Notion untuk produktivitas" },
-    { icon: Coins, text: "Cara cuan dari Shopee Affiliate" },
-    { icon: GraduationCap, text: "Komunitas belajar bahasa Inggris" },
   ]
 
   const categories = [
@@ -149,17 +166,23 @@ export default function LandingPage() {
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 w-full">
 
         {/* Marquee Tags Row */}
-        <div className="w-full mb-16 overflow-hidden relative group mt-24">
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0e0e0e] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0e0e0e] to-transparent z-10" />
+        <div className="w-full mb-16 mt-24 max-w-6xl flex items-center gap-4">
+          <div className="flex items-center gap-2 text-neutral-400 whitespace-nowrap">
+            <Rocket className="h-4 w-4 text-orange-500" />
+            <span className="font-medium text-sm">View Trends</span>
+          </div>
+          <div className="flex-1 overflow-hidden relative group mask-linear-fade">
+            <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#0e0e0e] to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#0e0e0e] to-transparent z-10" />
 
-          <div className="flex gap-3 animate-scroll whitespace-nowrap hover:pause">
-            {[...tags, ...tags].map((tag, i) => (
-              <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#222] text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer">
-                {tag.icon}
-                <span className="text-sm font-medium">{tag.name}</span>
-              </div>
-            ))}
+            <div className="flex gap-3 animate-marquee whitespace-nowrap hover:pause">
+              {[...tags, ...tags, ...tags].map((tag, i) => (
+                <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#222] text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer">
+                  {tag.icon}
+                  <span className="text-sm font-medium">{tag.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -187,7 +210,7 @@ export default function LandingPage() {
                   placeholder="Search for products, creators, or categories..."
                   className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg px-4 text-white placeholder:text-neutral-600 h-12"
                   onFocus={() => setIsSearchFocused(true)}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={handleSearchChange}
                   onKeyDown={handleSearch}
                   value={searchQuery}
                 />
@@ -199,18 +222,43 @@ export default function LandingPage() {
 
             {/* Search Dropdown */}
             {isSearchFocused && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#161616] border border-[#333] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[#161616] border border-[#333] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 text-left">
                 <div className="p-2">
-                  <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Trending Products</div>
-                  {trendingProducts.length > 0 ? (
-                    trendingProducts.map((product) => (
-                      <Link href={`/product/${product.id}`} key={product.id} className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
-                        <TrendingUp className="h-4 w-4 text-neutral-500" />
-                        <span>{product.title}</span>
-                      </Link>
-                    ))
+                  <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Suggestions</div>
+
+                  {searchQuery.length > 0 ? (
+                    filteredSuggestions.length > 0 ? (
+                      filteredSuggestions.map((suggestion, i) => (
+                        <div
+                          key={i}
+                          onClick={() => {
+                            setSearchQuery(suggestion)
+                            router.push(`/discover/search?q=${encodeURIComponent(suggestion)}`)
+                          }}
+                          className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
+                        >
+                          <Search className="h-4 w-4 text-neutral-500" />
+                          <span>{suggestion}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-3 py-3 text-neutral-500 text-sm">No suggestions found</div>
+                    )
                   ) : (
-                    <div className="px-3 py-3 text-neutral-500 text-sm">Loading trending products...</div>
+                    // Default suggestions when empty
+                    mockSuggestions.slice(0, 5).map((suggestion, i) => (
+                      <div
+                        key={i}
+                        onClick={() => {
+                          setSearchQuery(suggestion)
+                          router.push(`/discover/search?q=${encodeURIComponent(suggestion)}`)
+                        }}
+                        className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
+                      >
+                        <Search className="h-4 w-4 text-neutral-500" />
+                        <span>{suggestion}</span>
+                      </div>
+                    ))
                   )}
                 </div>
               </div>
