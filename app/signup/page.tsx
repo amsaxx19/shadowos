@@ -188,7 +188,7 @@ function SignupForm() {
                             </div>
 
                             <div className="text-center text-sm text-neutral-500 mt-8">
-                                Don't have an account? <Link href="/signup" className="text-blue-500 hover:underline font-medium">Sign up</Link>
+                                Already have an account? <Link href="/login" className="text-blue-500 hover:underline font-medium">Log in</Link>
                             </div>
 
                             <div className="text-center text-[10px] text-neutral-600 mt-4 max-w-xs mx-auto">
