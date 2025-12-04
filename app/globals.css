@@ -150,7 +150,7 @@
 /* Glassmorphism Utilities */
 @layer utilities {
   .glass {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+    @apply bg-black/60 backdrop-blur-md border border-white/10 shadow-2xl;
   }
 
   .glass-card {

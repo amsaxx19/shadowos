@@ -11,6 +11,73 @@ import { User } from "@supabase/supabase-js"
 
 import { supabase } from "@/lib/supabase/client"
 
+const MOCK_SUGGESTIONS = [
+  "TikTok Shop Accelerator",
+  "TikTok Prodigies",
+  "TikTok Growth Community",
+  "TikTok Profit Playbook",
+  "Crypto Trading Signals",
+  "Dropshipping Mastery",
+  "Affiliate Marketing 101",
+  "Content Creator Tools"
+]
+
+const TAGS = [
+  { name: "Lihat Tren", icon: <Rocket className="h-3 w-3 text-blue-500" /> },
+  { name: "Belajar Saham", icon: <TrendingUp className="h-3 w-3 text-green-500" /> },
+  { name: "Tips Affiliate", icon: <Coins className="h-3 w-3 text-yellow-500" /> },
+  { name: "Cara FYP TikTok", icon: <Clapperboard className="h-3 w-3 text-pink-500" /> },
+  { name: "Ide Bisnis 2025", icon: <Zap className="h-3 w-3 text-orange-500" /> },
+  { name: "Tutorial Coding", icon: <Laptop className="h-3 w-3 text-purple-500" /> },
+  { name: "Diet Sehat", icon: <Heart className="h-3 w-3 text-red-500" /> },
+  { name: "Investasi Pemula", icon: <Banknote className="h-3 w-3 text-emerald-500" /> },
+]
+
+const CATEGORIES = [
+  {
+    name: "Clipping",
+    icon: Scissors,
+    video: "/videos/clipping.mov",
+    // gradient: "from-purple-900 to-indigo-900",
+    pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
+  },
+  {
+    name: "Trading",
+    icon: TrendingUp,
+    video: "/videos/trading.mov",
+    // gradient: "from-emerald-900 to-teal-900",
+    pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
+  },
+  {
+    name: "Bisnis",
+    icon: Briefcase,
+    video: "/videos/business.mov",
+    // gradient: "from-blue-900 to-slate-900",
+    pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
+  },
+  {
+    name: "Karir",
+    icon: Building2,
+    video: "/videos/career.mov",
+    // gradient: "from-orange-900 to-red-900",
+    pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
+  },
+  {
+    name: "Teknologi",
+    icon: Cpu,
+    video: "/videos/tech.mov",
+    // gradient: "from-cyan-900 to-blue-900",
+    pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
+  },
+  {
+    name: "Lifestyle",
+    icon: Heart,
+    video: "/videos/lifestyle.mov",
+    // gradient: "from-pink-900 to-rose-900",
+    pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
+  },
+]
+
 export default function LandingPage() {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState<any>(null)
@@ -21,22 +88,11 @@ export default function LandingPage() {
   const [user, setUser] = useState<User | null>(null)
   const searchRef = useRef<HTMLDivElement>(null)
 
-  const mockSuggestions = [
-    "TikTok Shop Accelerator",
-    "TikTok Prodigies",
-    "TikTok Growth Community",
-    "TikTok Profit Playbook",
-    "Crypto Trading Signals",
-    "Dropshipping Mastery",
-    "Affiliate Marketing 101",
-    "Content Creator Tools"
-  ]
-
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value
     setSearchQuery(query)
     if (query.length > 0) {
-      const filtered = mockSuggestions.filter(item =>
+      const filtered = MOCK_SUGGESTIONS.filter(item =>
         item.toLowerCase().includes(query.toLowerCase())
       )
       setFilteredSuggestions(filtered)
@@ -52,61 +108,7 @@ export default function LandingPage() {
     }
   }
 
-  const tags = [
-    { name: "Lihat Tren", icon: <Rocket className="h-3 w-3 text-blue-500" /> },
-    { name: "Belajar Saham", icon: <TrendingUp className="h-3 w-3 text-green-500" /> },
-    { name: "Tips Affiliate", icon: <Coins className="h-3 w-3 text-yellow-500" /> },
-    { name: "Cara FYP TikTok", icon: <Clapperboard className="h-3 w-3 text-pink-500" /> },
-    { name: "Ide Bisnis 2025", icon: <Zap className="h-3 w-3 text-orange-500" /> },
-    { name: "Tutorial Coding", icon: <Laptop className="h-3 w-3 text-purple-500" /> },
-    { name: "Diet Sehat", icon: <Heart className="h-3 w-3 text-red-500" /> },
-    { name: "Investasi Pemula", icon: <Banknote className="h-3 w-3 text-emerald-500" /> },
-  ]
 
-  const categories = [
-    {
-      name: "Clipping",
-      icon: Scissors,
-      video: "/videos/clipping.mov",
-      // gradient: "from-purple-900 to-indigo-900",
-      pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
-    },
-    {
-      name: "Trading",
-      icon: TrendingUp,
-      video: "/videos/trading.mov",
-      // gradient: "from-emerald-900 to-teal-900",
-      pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
-    },
-    {
-      name: "Bisnis",
-      icon: Briefcase,
-      video: "/videos/business.mov",
-      // gradient: "from-blue-900 to-slate-900",
-      pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
-    },
-    {
-      name: "Karir",
-      icon: Building2,
-      video: "/videos/career.mov",
-      // gradient: "from-orange-900 to-red-900",
-      pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
-    },
-    {
-      name: "Teknologi",
-      icon: Cpu,
-      video: "/videos/tech.mov",
-      // gradient: "from-cyan-900 to-blue-900",
-      pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
-    },
-    {
-      name: "Lifestyle",
-      icon: Heart,
-      video: "/videos/lifestyle.mov",
-      // gradient: "from-pink-900 to-rose-900",
-      pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
-    },
-  ]
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -158,7 +160,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col overflow-x-hidden">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/80 backdrop-blur-xl h-16 flex items-center px-4 md:px-6 justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/90 backdrop-blur-md h-16 flex items-center px-4 md:px-6 justify-between">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-orange-500 text-2xl font-bold">⚡</span>
         </Link>
@@ -193,8 +195,8 @@ export default function LandingPage() {
             <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#0e0e0e] to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#0e0e0e] to-transparent z-10" />
 
-            <div className="flex gap-3 animate-marquee whitespace-nowrap hover:pause">
-              {[...tags, ...tags, ...tags].map((tag, i) => (
+            <div className="flex gap-3 animate-marquee whitespace-nowrap hover:pause will-change-transform">
+              {[...TAGS, ...TAGS, ...TAGS].map((tag, i) => (
                 <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#222] text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer">
                   {tag.icon}
                   <span className="text-sm font-medium">{tag.name}</span>
@@ -220,7 +222,7 @@ export default function LandingPage() {
 
           <div ref={searchRef} className="relative w-full">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur-sm opacity-20 group-hover:opacity-40 transition duration-1000"></div>
               <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-2xl p-2 shadow-2xl">
                 <Search className="ml-4 h-6 w-6 text-neutral-500" />
                 <input
@@ -264,7 +266,7 @@ export default function LandingPage() {
                     )
                   ) : (
                     // Default suggestions when empty
-                    mockSuggestions.slice(0, 5).map((suggestion, i) => (
+                    MOCK_SUGGESTIONS.slice(0, 5).map((suggestion, i) => (
                       <div
                         key={i}
                         onClick={() => {
@@ -286,32 +288,8 @@ export default function LandingPage() {
 
         {/* Categories Grid */}
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat) => (
-            <div
-              key={cat.name}
-              onClick={() => setSelectedCategory(cat)}
-              className="group relative h-[200px] rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95"
-            >
-              {/* Video Background */}
-              <div className="absolute inset-0 z-0">
-                <video
-                  src={cat.video}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-              </div>
-
-              {/* Content: Title Bottom Left */}
-              <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
-                <h3 className="text-2xl font-bold text-white drop-shadow-lg transform translate-y-0 transition-transform duration-300">
-                  {cat.name}
-                </h3>
-              </div>
-            </div>
+          {CATEGORIES.map((cat) => (
+            <CategoryCard key={cat.name} category={cat} onClick={() => setSelectedCategory(cat)} />
           ))}
         </div>
       </div>
@@ -319,7 +297,7 @@ export default function LandingPage() {
       {/* Expanded Category Modal */}
       {selectedCategory && (
         <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
-          {/* Backdrop */}
+          {/* ... modal content ... */}
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setSelectedCategory(null)}
@@ -391,6 +369,45 @@ export default function LandingPage() {
           </div>
         </div>
       )}
+    </div>
+  )
+}
+
+function CategoryCard({ category, onClick }: { category: any, onClick: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  return (
+    <div
+      onClick={onClick}
+      onMouseEnter={() => videoRef.current?.play()}
+      onMouseLeave={() => {
+        if (videoRef.current) {
+          videoRef.current.pause()
+          videoRef.current.currentTime = 0
+        }
+      }}
+      className="group relative h-[200px] rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95 will-change-transform"
+    >
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          ref={videoRef}
+          src={category.video}
+          loop
+          muted
+          playsInline
+          preload="none"
+          className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+      </div>
+
+      {/* Content: Title Bottom Left */}
+      <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
+        <h3 className="text-2xl font-bold text-white drop-shadow-lg transform translate-y-0 transition-transform duration-300">
+          {category.name}
+        </h3>
+      </div>
     </div>
   )
 }

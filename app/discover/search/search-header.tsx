@@ -72,11 +72,6 @@ export function SearchHeader({
                 </div>
 
                 <div className="ml-auto flex items-center gap-3">
-                    {/* DEBUG: Temporary Indicator */}
-                    <div className="text-xs text-neutral-500 mr-2 border border-neutral-800 px-2 py-1 rounded">
-                        {user ? `Logged in: ${user.email}` : "Mode: Guest"}
-                    </div>
-
                     {user ? (
                         <div className="flex items-center gap-2">
                             <Link href="/dashboard">

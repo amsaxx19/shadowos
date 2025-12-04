@@ -14,14 +14,14 @@ interface AccordionItemProps {
 
 export function AccordionItem({ title, children, isOpen, onToggle, className }: AccordionItemProps) {
     return (
-        <div className={cn("border-b border-gray-100 last:border-0", className)}>
+        <div className={cn("border-b border-white/10 last:border-0", className)}>
             <button
                 onClick={onToggle}
-                className="flex w-full items-center justify-between py-4 font-medium transition-all hover:text-blue-600 text-left text-sm text-gray-900"
+                className="flex w-full items-center justify-between py-4 font-medium transition-all hover:text-blue-500 text-left text-sm text-white"
             >
                 {title}
                 <ChevronDown
-                    className={cn("h-4 w-4 shrink-0 transition-transform duration-200 text-gray-400", isOpen && "rotate-180")}
+                    className={cn("h-4 w-4 shrink-0 transition-transform duration-200 text-neutral-400", isOpen && "rotate-180")}
                 />
             </button>
             <div
