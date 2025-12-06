@@ -1,11 +1,52 @@
 "use client"
 
+import { useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, GraduationCap, LayoutGrid, Plus, Settings, X, ExternalLink, Info, Bell } from "lucide-react"
 import { StatCard } from "@/components/dashboard/stat-card"
+import confetti from "canvas-confetti"
 
 export default function OperatorDashboard() {
+    const searchParams = useSearchParams()
+
+    useEffect(() => {
+        // Check if coming from onboarding
+        if (searchParams.get('from_onboarding') === 'true') {
+            // Fire confetti
+            const duration = 3000
+            const end = Date.now() + duration
+
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+
+            const frame = () => {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.8 },
+                    colors: colors
+                })
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.8 },
+                    colors: colors
+                })
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame)
+                }
+            }
+            frame()
+
+            // Remove the query param from URL without refresh
+            window.history.replaceState({}, '', window.location.pathname)
+        }
+    }, [searchParams])
+
     return (
         <div className="p-4 md:p-8 space-y-8 max-w-[1600px] mx-auto font-sans">
             {/* Header */}

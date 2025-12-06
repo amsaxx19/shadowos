@@ -5,15 +5,25 @@ import { Search, Rocket, Instagram, Twitter, Youtube, X, TrendingUp, GraduationC
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 
 import { supabase } from "@/lib/supabase/client"
 
 export default function DiscoverPage() {
+    const router = useRouter()
     const [isSearchFocused, setIsSearchFocused] = useState(false)
+    const [searchQuery, setSearchQuery] = useState("")
     const [trendingProducts, setTrendingProducts] = useState<any[]>([])
     const [selectedCategory, setSelectedCategory] = useState<any>(null)
     const searchRef = useRef<HTMLDivElement>(null)
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault()
+        if (searchQuery.trim()) {
+            router.push(`/discover/search?q=${encodeURIComponent(searchQuery.trim())}`)
+        }
+    }
 
     // Close search dropdown when clicking outside
     useEffect(() => {
@@ -66,36 +76,42 @@ export default function DiscoverPage() {
     const categories = [
         {
             name: "Clipping",
+            slug: "clipping",
             icon: Scissors,
             video: "/videos/clipping.mov",
             pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
         },
         {
             name: "Trading",
+            slug: "trading",
             icon: TrendingUp,
             video: "/videos/trading.mov",
             pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
         },
         {
             name: "Bisnis",
+            slug: "bisnis",
             icon: Briefcase,
             video: "/videos/business.mov",
             pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
         },
         {
             name: "Karir",
+            slug: "karir",
             icon: Building2,
             video: "/videos/career.mov",
             pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
         },
         {
             name: "Teknologi",
+            slug: "teknologi",
             icon: Cpu,
             video: "/videos/tech.mov",
             pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
         },
         {
             name: "Lifestyle",
+            slug: "lifestyle",
             icon: Heart,
             video: "/videos/lifestyle.mov",
             pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
@@ -144,13 +160,15 @@ export default function DiscoverPage() {
                     </div>
 
                     <div ref={searchRef} className="relative w-full">
-                        <div className="relative group">
+                        <form onSubmit={handleSearch} className="relative group">
                             <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                             <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-2xl p-2 shadow-2xl">
                                 <Search className="ml-4 h-6 w-6 text-neutral-500" />
                                 <input
                                     type="text"
                                     placeholder="Search for products, creators, or categories..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
                                     className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg px-4 text-white placeholder:text-neutral-600 h-12"
                                     onFocus={() => setIsSearchFocused(true)}
                                 />
@@ -158,7 +176,7 @@ export default function DiscoverPage() {
                                     <span className="px-2 py-1 rounded bg-[#222] text-xs text-neutral-500 border border-[#333]">⌘K</span>
                                 </div>
                             </div>
-                        </div>
+                        </form>
 
                         {/* Search Dropdown */}
                         {isSearchFocused && (
@@ -293,8 +311,11 @@ export default function DiscoverPage() {
                         {/* Body Content */}
                         <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
 
-                            {/* Featured Ad Placeholder */}
-                            <div className="bg-[#1c1c1c] border border-[#333] rounded-xl p-4 flex items-center gap-4">
+                            {/* Featured Ad - Links to category */}
+                            <Link
+                                href={`/discover/search?category=${selectedCategory.slug}`}
+                                className="bg-[#1c1c1c] border border-[#333] rounded-xl p-4 flex items-center gap-4 hover:bg-[#222] transition-colors"
+                            >
                                 <div className="h-12 w-12 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
                                     <Rocket className="h-6 w-6" />
                                 </div>
@@ -305,14 +326,14 @@ export default function DiscoverPage() {
                                 <Button size="sm" variant="outline" className="ml-auto border-[#333] bg-transparent hover:bg-[#333] text-xs">
                                     View
                                 </Button>
-                            </div>
+                            </Link>
 
                             {/* Sub-niche List */}
                             <div className="grid grid-cols-1 gap-3">
                                 {selectedCategory.pills.map((pill: string, i: number) => (
                                     <Link
                                         key={i}
-                                        href={`/discover/search?q=${encodeURIComponent(pill)}`}
+                                        href={`/discover/search?q=${encodeURIComponent(pill)}&category=${selectedCategory.slug}`}
                                         className="flex items-center justify-between p-4 rounded-xl bg-[#161616] border border-[#222] hover:bg-[#222] hover:border-neutral-700 transition-all group"
                                     >
                                         <span className="font-medium text-neutral-200 group-hover:text-white">{pill}</span>
@@ -322,6 +343,14 @@ export default function DiscoverPage() {
                                     </Link>
                                 ))}
                             </div>
+
+                            {/* View All in Category */}
+                            <Link
+                                href={`/discover/search?category=${selectedCategory.slug}`}
+                                className="block w-full text-center py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors"
+                            >
+                                View All {selectedCategory.name} Products
+                            </Link>
                         </div>
 
                     </div>

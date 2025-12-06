@@ -36,44 +36,44 @@ const TAGS = [
 const CATEGORIES = [
   {
     name: "Clipping",
+    slug: "clipping",
     icon: Scissors,
     video: "/videos/clipping.mov",
-    // gradient: "from-purple-900 to-indigo-900",
     pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
   },
   {
     name: "Trading",
+    slug: "trading",
     icon: TrendingUp,
     video: "/videos/trading.mov",
-    // gradient: "from-emerald-900 to-teal-900",
     pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
   },
   {
     name: "Bisnis",
+    slug: "bisnis",
     icon: Briefcase,
     video: "/videos/business.mov",
-    // gradient: "from-blue-900 to-slate-900",
     pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
   },
   {
     name: "Karir",
+    slug: "karir",
     icon: Building2,
     video: "/videos/career.mov",
-    // gradient: "from-orange-900 to-red-900",
     pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
   },
   {
     name: "Teknologi",
+    slug: "teknologi",
     icon: Cpu,
     video: "/videos/tech.mov",
-    // gradient: "from-cyan-900 to-blue-900",
     pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
   },
   {
     name: "Lifestyle",
+    slug: "lifestyle",
     icon: Heart,
     video: "/videos/lifestyle.mov",
-    // gradient: "from-pink-900 to-rose-900",
     pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
   },
 ]
@@ -244,11 +244,28 @@ export default function LandingPage() {
             {isSearchFocused && (
               <div className="absolute top-full left-0 right-0 mt-2 bg-[#161616] border border-[#333] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 text-left">
                 <div className="p-2">
-                  <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Suggestions</div>
+                  {/* Trending Products from DB */}
+                  <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Trending Products</div>
+                  {trendingProducts.length > 0 ? (
+                    trendingProducts.map((product) => (
+                      <Link
+                        key={product.id}
+                        href={`/product/${product.id}`}
+                        className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
+                      >
+                        <TrendingUp className="h-4 w-4 text-orange-500" />
+                        <span>{product.title}</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="px-3 py-3 text-neutral-500 text-sm">Loading trending products...</div>
+                  )}
 
-                  {searchQuery.length > 0 ? (
-                    filteredSuggestions.length > 0 ? (
-                      filteredSuggestions.map((suggestion, i) => (
+                  {/* Search suggestions when typing */}
+                  {searchQuery.length > 0 && filteredSuggestions.length > 0 && (
+                    <>
+                      <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider mt-2 border-t border-[#222] pt-3">Suggestions</div>
+                      {filteredSuggestions.map((suggestion, i) => (
                         <div
                           key={i}
                           onClick={() => {
@@ -260,25 +277,8 @@ export default function LandingPage() {
                           <Search className="h-4 w-4 text-neutral-500" />
                           <span>{suggestion}</span>
                         </div>
-                      ))
-                    ) : (
-                      <div className="px-3 py-3 text-neutral-500 text-sm">No suggestions found</div>
-                    )
-                  ) : (
-                    // Default suggestions when empty
-                    MOCK_SUGGESTIONS.slice(0, 5).map((suggestion, i) => (
-                      <div
-                        key={i}
-                        onClick={() => {
-                          setSearchQuery(suggestion)
-                          router.push(`/discover/search?q=${encodeURIComponent(suggestion)}`)
-                        }}
-                        className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
-                      >
-                        <Search className="h-4 w-4 text-neutral-500" />
-                        <span>{suggestion}</span>
-                      </div>
-                    ))
+                      ))}
+                    </>
                   )}
                 </div>
               </div>
@@ -335,8 +335,11 @@ export default function LandingPage() {
             {/* Body Content */}
             <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
 
-              {/* Featured Ad Placeholder */}
-              <div className="bg-[#1c1c1c] border border-[#333] rounded-xl p-4 flex items-center gap-4">
+              {/* Featured Ad - Links to category */}
+              <Link
+                href={`/discover/search?category=${selectedCategory.slug}`}
+                className="bg-[#1c1c1c] border border-[#333] rounded-xl p-4 flex items-center gap-4 hover:bg-[#222] transition-colors"
+              >
                 <div className="h-12 w-12 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
                   <Rocket className="h-6 w-6" />
                 </div>
@@ -347,14 +350,14 @@ export default function LandingPage() {
                 <Button size="sm" variant="outline" className="ml-auto border-[#333] bg-transparent hover:bg-[#333] text-xs">
                   View
                 </Button>
-              </div>
+              </Link>
 
               {/* Sub-niche List */}
               <div className="grid grid-cols-1 gap-3">
                 {selectedCategory.pills.map((pill: string, i: number) => (
                   <Link
                     key={i}
-                    href={`/discover/search?q=${encodeURIComponent(pill)}`}
+                    href={`/discover/search?q=${encodeURIComponent(pill)}&category=${selectedCategory.slug}`}
                     className="flex items-center justify-between p-4 rounded-xl bg-[#161616] border border-[#222] hover:bg-[#222] hover:border-neutral-700 transition-all group"
                   >
                     <span className="font-medium text-neutral-200 group-hover:text-white">{pill}</span>
@@ -364,6 +367,14 @@ export default function LandingPage() {
                   </Link>
                 ))}
               </div>
+
+              {/* View All in Category */}
+              <Link
+                href={`/discover/search?category=${selectedCategory.slug}`}
+                className="block w-full text-center py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors"
+              >
+                View All {selectedCategory.name} Products
+              </Link>
             </div>
 
           </div>

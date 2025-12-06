@@ -70,8 +70,6 @@ export default async function ProductsPage() {
                             <TableHead className="text-neutral-500">Name</TableHead>
                             <TableHead className="text-neutral-500">Price</TableHead>
                             <TableHead className="text-neutral-500">Visibility</TableHead>
-                            <TableHead className="text-neutral-500">Discover status</TableHead>
-                            <TableHead className="text-neutral-500">Included apps</TableHead>
                             <TableHead className="text-neutral-500">Checkout conversion</TableHead>
                             <TableHead className="text-neutral-500 text-right">All time revenue</TableHead>
                             <TableHead className="w-[100px]"></TableHead>
@@ -80,7 +78,7 @@ export default async function ProductsPage() {
                     <TableBody>
                         {products?.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={8} className="h-24 text-center text-neutral-500">
+                                <TableCell colSpan={6} className="h-24 text-center text-neutral-500">
                                     No products found. Create one to get started.
                                 </TableCell>
                             </TableRow>
@@ -92,23 +90,14 @@ export default async function ProductsPage() {
                                             {product.title}
                                         </Link>
                                     </TableCell>
-                                    <TableCell className="text-white">${product.price}</TableCell>
+                                    <TableCell className="text-white">Rp {Number(product.price).toLocaleString('id-ID')}</TableCell>
                                     <TableCell>
                                         <span className="bg-green-500/20 text-green-500 text-xs font-medium px-2 py-0.5 rounded">
                                             Visible
                                         </span>
                                     </TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-2 text-neutral-400 text-sm">
-                                            <div className="h-4 w-4 rounded-full border border-neutral-600 flex items-center justify-center">
-                                                <div className="h-2 w-2 rounded-full bg-neutral-600" />
-                                            </div>
-                                            Not listed
-                                        </div>
-                                    </TableCell>
                                     <TableCell className="text-neutral-400">-</TableCell>
-                                    <TableCell className="text-neutral-400">-</TableCell>
-                                    <TableCell className="text-right text-white">$0.00</TableCell>
+                                    <TableCell className="text-right text-white">Rp 0</TableCell>
                                     <TableCell>
                                         <div className="flex items-center justify-end gap-2">
                                             <Link href={`/product/${product.id}`} target="_blank">

@@ -1,52 +1,36 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
-export async function login(formData: FormData) {
+export async function sendLoginOtp(email: string) {
+    console.log("sendLoginOtp called with:", email)
+
     const supabase = await createClient()
 
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
+    // Check if user exists in public.users table
+    const { data: existingUser } = await supabase
+        .from('users')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle()
 
-    const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-    })
-
-    if (error) {
-        redirect('/login?error=Could not authenticate user')
+    if (!existingUser) {
+        console.log("User not found:", email)
+        return { error: "Akun belum terdaftar. Silakan sign up terlebih dahulu." }
     }
 
-    revalidatePath('/', 'layout')
-    redirect('/home')
-}
-
-export async function signup(formData: FormData) {
-    const supabase = await createClient()
-
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const fullName = formData.get('full_name') as string
-    // Default role to 'owner' for all new users
-    const role = 'owner'
-
-    const { error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signInWithOtp({
         email,
-        password,
         options: {
-            data: {
-                full_name: fullName,
-                role: role,
-            },
-        },
+            shouldCreateUser: false, // Don't create new users on login
+        }
     })
 
     if (error) {
-        redirect('/signup?error=' + error.message)
+        console.error("sendLoginOtp error:", error)
+        return { error: error.message }
     }
 
-    revalidatePath('/', 'layout')
-    redirect('/home')
+    console.log("sendLoginOtp success")
+    return { success: true }
 }

@@ -36,26 +36,38 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         .eq('product_id', slug)
         .eq('status', 'paid')
 
-    const features = [
-        "Trading Live Harian - #1 Di Dunia",
-        "Sinyal Day Trade & Swing Real Time",
-        "Kelas Mingguan & Giveaway",
-        "Perpustakaan Video Edukasi Lengkap",
-        "Komunitas Kolaboratif & Suportif"
-    ]
+    // Get features from product data (stored as JSON array or empty array)
+    const features = product.features || []
 
+    // Get FAQs from product data
     const faqs = product.faqs || []
+
+    // Determine pricing display based on pricing_type or price
+    const pricingType = product.pricing_type || 'one-time'
+    const isFree = product.price === 0 || pricingType === 'free'
+    const isRecurring = pricingType === 'recurring'
 
     const averageRating = reviews && reviews.length > 0
         ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length
         : 0
+
+    // Get category label
+    const categoryLabels: Record<string, string> = {
+        'trading': 'Trading & Investasi',
+        'bisnis': 'Bisnis & Uang',
+        'sosmed': 'Media Sosial',
+        'karir': 'Karir & Pekerjaan',
+        'teknologi': 'Teknologi & Tools',
+        'lifestyle': 'Lifestyle & Hobi',
+    }
+    const categoryLabel = categoryLabels[product.category] || product.category || 'Produk'
 
     return (
         <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-blue-500/30">
             {/* Header */}
             <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-                    <Link href="/home" className="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                    <Link href="/discover" className="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors">
                         <ChevronLeft className="h-4 w-4" />
                         Kembali
                     </Link>
@@ -98,28 +110,30 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                             <Star key={i} className={`h-5 w-5 ${i < Math.round(averageRating) ? "fill-current" : "text-neutral-600"}`} />
                                         ))}
                                     </div>
-                                    <span className="text-neutral-400 text-sm ml-2">{averageRating.toFixed(1)} ({reviews?.length || 0}) • Trading</span>
+                                    <span className="text-neutral-400 text-sm ml-2">{averageRating.toFixed(1)} ({reviews?.length || 0}) • {categoryLabel}</span>
                                 </div>
                                 <p className="text-lg text-neutral-300 leading-relaxed">
-                                    {product.description || "Tetap tenang dan biarkan kami menavigasi pasar untuk Anda. Saksikan trading paling konsisten, menyeluruh, dan transparan di dunia. Bergabunglah dengan komunitas trading terbaik yang peduli dengan kesuksesan Anda di dalam dan di luar grafik."}
+                                    {product.description || "Deskripsi produk belum tersedia."}
                                 </p>
                             </div>
                         </div>
 
                         {/* Features */}
-                        <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">Fitur</h2>
-                            <div className="grid gap-4">
-                                {features.map((feature, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-neutral-900/50 border border-white/5">
-                                        <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 shrink-0">
-                                            <Check className="h-4 w-4" />
+                        {features.length > 0 && (
+                            <div className="space-y-6">
+                                <h2 className="text-2xl font-bold">Fitur</h2>
+                                <div className="grid gap-4">
+                                    {features.map((feature: string, i: number) => (
+                                        <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-neutral-900/50 border border-white/5">
+                                            <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 shrink-0">
+                                                <Check className="h-4 w-4" />
+                                            </div>
+                                            <span className="font-medium">{feature}</span>
                                         </div>
-                                        <span className="font-medium">{feature}</span>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         {/* Reviews */}
                         {reviews && reviews.length > 0 && (
@@ -170,31 +184,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-bold">{product.users?.full_name || 'Kreator'}</h3>
-                                        <p className="text-neutral-400">@creator • Bergabung Mei 2023</p>
+                                        <p className="text-neutral-400">@creator</p>
                                     </div>
                                     <Button variant="outline" className="ml-auto border-white/10 hover:bg-white/5">
                                         Lihat profil
                                     </Button>
                                 </div>
-                                <p className="text-neutral-300">
-                                    Motto kami adalah belajar dan menghasilkan. Kami di sini untuk membantu Anda membuka potensi penuh Anda dan mencapai profitabilitas yang konsisten. Waktu Anda adalah SEKARANG!
-                                </p>
                                 <div className="flex gap-4">
                                     {[Instagram, Twitter, Youtube, Globe].map((Icon, i) => (
                                         <div key={i} className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 cursor-pointer transition-colors">
                                             <Icon className="h-5 w-5" />
                                         </div>
                                     ))}
-                                </div>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        placeholder="Kirim pesan ke kreator..."
-                                        className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                                    />
-                                    <div className="absolute right-3 top-3 p-1 bg-white/10 rounded-full cursor-pointer hover:bg-white/20">
-                                        <MessageCircle className="h-4 w-4" />
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -228,13 +229,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
                                 <div className="space-y-6 relative z-10">
                                     <div>
-                                        <div className="flex items-baseline gap-1">
-                                            <span className="text-3xl font-bold text-white">
-                                                Rp {product.price.toLocaleString('id-ID')}
-                                            </span>
-                                            <span className="text-neutral-400">/ bulan</span>
-                                        </div>
-                                        <p className="text-xs text-neutral-500 mt-1">+ Rp 5.000 biaya awal</p>
+                                        {isFree ? (
+                                            <div className="flex items-baseline gap-1">
+                                                <span className="text-3xl font-bold text-green-500">Gratis</span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-baseline gap-1">
+                                                <span className="text-3xl font-bold text-white">
+                                                    Rp {Number(product.price).toLocaleString('id-ID')}
+                                                </span>
+                                                {isRecurring && <span className="text-neutral-400">/ bulan</span>}
+                                            </div>
+                                        )}
                                     </div>
 
                                     <CheckoutButton product={product} />
@@ -246,22 +252,25 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                 </div>
                             </Card>
 
-                            <div className="p-6 rounded-3xl bg-neutral-900/30 border border-white/5 flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-500">
-                                        <Star className="h-5 w-5 fill-current" />
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-sm">CuanBoss</p>
-                                        <div className="flex items-center gap-1 text-xs text-green-500">
-                                            <span className="px-1.5 py-0.5 rounded bg-green-500/20">20% reward</span>
+                            {/* Affiliate section - only show if enabled */}
+                            {product.is_affiliate_enabled && (
+                                <div className="p-6 rounded-3xl bg-neutral-900/30 border border-white/5 flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-500">
+                                            <Star className="h-5 w-5 fill-current" />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-sm">CuanBoss</p>
+                                            <div className="flex items-center gap-1 text-xs text-green-500">
+                                                <span className="px-1.5 py-0.5 rounded bg-green-500/20">{product.affiliate_percentage || 20}% reward</span>
+                                            </div>
                                         </div>
                                     </div>
+                                    <Button variant="outline" size="sm" className="h-8 text-xs border-white/10">
+                                        Jadi afiliasi
+                                    </Button>
                                 </div>
-                                <Button variant="outline" size="sm" className="h-8 text-xs border-white/10">
-                                    Jadi afiliasi
-                                </Button>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -272,10 +281,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-[#0a0a0a] border-t border-white/10 z-50 pb-8">
                 <div className="flex items-center gap-4">
                     <div className="flex-1">
-                        <p className="text-sm font-bold text-white">
-                            Rp {product.price.toLocaleString('id-ID')}
-                            <span className="text-neutral-400 font-normal"> / bulan</span>
-                        </p>
+                        {isFree ? (
+                            <p className="text-sm font-bold text-green-500">Gratis</p>
+                        ) : (
+                            <p className="text-sm font-bold text-white">
+                                Rp {Number(product.price).toLocaleString('id-ID')}
+                                {isRecurring && <span className="text-neutral-400 font-normal"> / bulan</span>}
+                            </p>
+                        )}
                     </div>
                     <div className="w-1/2">
                         <CheckoutButton product={product} />

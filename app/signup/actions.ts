@@ -1,18 +1,28 @@
 'use server'
 
 import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
 
 export async function sendOtp(email: string) {
     console.log("sendOtp called with:", email)
 
     const supabase = await createClient()
 
+    // Check if user already exists in public.users table
+    const { data: existingUser } = await supabase
+        .from('users')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle()
+
+    if (existingUser) {
+        console.log("User already exists:", email)
+        return { error: "Email sudah terpakai. Silakan login atau gunakan email lain." }
+    }
+
     const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
             shouldCreateUser: true, // Allow signup
-            // emailRedirectTo: '...' // Not needed for OTP code flow usually, but good for magic link
         }
     })
 
@@ -38,7 +48,19 @@ export async function verifyOtp(email: string, token: string) {
         return { error: error.message }
     }
 
-    // Check if user has a business
+    // Check if user profile is complete
+    const { data: userProfile } = await supabase
+        .from('users')
+        .select('full_name, username')
+        .eq('id', data.user?.id)
+        .single()
+
+    // If profile incomplete (new user), go to onboarding
+    if (!userProfile?.full_name || !userProfile?.username) {
+        return { success: true, redirectUrl: `/onboarding` }
+    }
+
+    // Otherwise check if user has a business
     const { data: businesses } = await supabase
         .from('business_members')
         .select('business_id')

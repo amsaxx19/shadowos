@@ -38,39 +38,57 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
             try {
                 const { data: { user } } = await supabase.auth.getUser()
 
-                // For development/demo purposes, if no user or error, use mock data
+                // If no user, show empty
                 if (!user) {
-                    console.log("No user found, using mock businesses")
-                    setBusinesses([
-                        { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
-                        { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
-                    ])
+                    setBusinesses([])
                     setIsLoading(false)
                     return
                 }
 
-                // Fetch businesses the user is a member of
-                const { data, error } = await supabase
-                    .from('businesses')
-                    .select('*')
+                // First try to fetch via business_members (for proper role support)
+                const { data: memberData, error: memberError } = await supabase
+                    .from('business_members')
+                    .select(`
+                        role,
+                        businesses (
+                            id,
+                            name,
+                            slug,
+                            logo_url,
+                            currency
+                        )
+                    `)
+                    .eq('user_id', user.id)
 
-                if (error || !data || data.length === 0) {
-                    console.warn("No businesses found in DB, using mock data for development.")
-                    // Fallback for dev/mock
-                    setBusinesses([
-                        { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
-                        { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
-                    ])
+                if (!memberError && memberData && memberData.length > 0) {
+                    // Transform the data to flatten businesses with role
+                    const userBusinesses = memberData
+                        .filter(item => item.businesses)
+                        .map(item => {
+                            const biz = item.businesses as unknown as Business
+                            return {
+                                ...biz,
+                                role: item.role
+                            }
+                        })
+                    setBusinesses(userBusinesses)
                 } else {
-                    setBusinesses(data)
+                    // Fallback: directly query businesses where user is owner
+                    const { data: ownedData, error: ownedError } = await supabase
+                        .from('businesses')
+                        .select('*')
+                        .eq('owner_id', user.id)
+
+                    if (!ownedError && ownedData && ownedData.length > 0) {
+                        setBusinesses(ownedData.map(b => ({ ...b, role: 'owner' })))
+                    } else {
+                        console.warn("No businesses found for user")
+                        setBusinesses([])
+                    }
                 }
             } catch (err) {
                 console.error("Failed to fetch businesses", err)
-                // Fallback
-                setBusinesses([
-                    { id: 'biz_1', name: 'CUANBOSS Inc.', slug: 'cuanboss', logo_url: null, currency: 'USD', role: 'owner' },
-                    { id: 'biz_2', name: 'My Second Store', slug: 'store-2', logo_url: null, currency: 'USD', role: 'admin' }
-                ])
+                setBusinesses([])
             } finally {
                 setIsLoading(false)
             }

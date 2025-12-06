@@ -2,11 +2,9 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
 export async function createProduct(formData: FormData) {
-    // 1. Verify Auth using standard client
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
@@ -15,49 +13,56 @@ export async function createProduct(formData: FormData) {
     }
 
     const title = formData.get('name') as string
+    const headline = formData.get('headline') as string
     const description = formData.get('description') as string
-    const price = parseFloat(formData.get('price') as string)
+    const price = parseFloat(formData.get('price') as string) || 0
+    const pricingType = formData.get('pricingType') as string || 'one-time'
     const faqs = JSON.parse(formData.get('faqs') as string || '[]')
+    const category = formData.get('category') as string || 'other'
 
-    const is_affiliate_enabled = formData.get('is_affiliate_enabled') === 'true'
-    const affiliate_percentage = is_affiliate_enabled ? parseInt(formData.get('affiliate_percentage') as string) : 0
-
-    // Get businessId from URL params (passed via hidden input or we need to parse referer/params)
-    // For now, let's assume we can get it from the form if we add a hidden input, OR we parse the referer.
-    // Better: The page should pass it.
-    // Let's check if the page has businessId in params.
-    // The page component `CreateProductPage` is inside `[businessId]`, so it can access params.
-    // But this is a server action called by form.
-    // We should add a hidden input for businessId in the form.
+    // Affiliate settings
+    const isAffiliateEnabled = formData.get('is_affiliate_enabled') === 'true'
+    const affiliatePercentage = parseInt(formData.get('affiliate_percentage') as string) || 0
 
     const businessId = formData.get('business_id') as string
 
-    // 2. Use Admin Client for DB operations to bypass RLS
+    // Check if businessId is valid UUID, if not use null (for development)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    const validBusinessId = uuidRegex.test(businessId) ? businessId : null
+
+    // Generate slug from title for the product link
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'product'
+
     const adminSupabase = createAdminClient()
 
-    const creator_id = user.id
-    const operator_id = user.id
-
-    const { error } = await adminSupabase.from('products').insert({
+    // Only insert columns that exist in the database
+    const { data, error } = await adminSupabase.from('products').insert({
         title,
         description,
-        price,
-        creator_id,
-        operator_id,
-        business_id: businessId,
+        price: pricingType === 'free' ? 0 : price,
+        creator_id: user.id,
+        operator_id: user.id,
+        business_id: validBusinessId,
         split_percentage_creator: 100,
         split_percentage_operator: 0,
-        faqs: faqs,
-        is_affiliate_enabled,
-        affiliate_percentage,
-        category: formData.get('category') as string || 'other'
-    })
+        category,
+        faqs,
+        is_affiliate_enabled: isAffiliateEnabled,
+        affiliate_percentage: isAffiliateEnabled ? affiliatePercentage : 0,
+    }).select('id').single()
 
     if (error) {
         console.error('Error creating product:', error)
-        throw new Error('Failed to create product')
+        throw new Error(error.message || 'Failed to create product')
     }
 
     revalidatePath(`/dashboard/${businessId}`)
-    redirect(`/dashboard/${businessId}/products`)
+
+    // Return the product data for the success modal
+    return {
+        success: true,
+        productId: data.id,
+        slug: slug,
+        productLink: `https://cuanboss.com/product/${data.id}`,
+    }
 }

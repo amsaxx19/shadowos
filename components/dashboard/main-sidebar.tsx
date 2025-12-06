@@ -13,7 +13,8 @@ import {
     Search,
     Plus,
     Menu,
-    HelpCircle
+    HelpCircle,
+    Loader2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -22,7 +23,7 @@ import { CreateBusinessModal } from "@/components/business/create-business-modal
 
 export function MainSidebar() {
     const pathname = usePathname()
-    const { activeBusiness, businesses: userBusinesses } = useBusiness()
+    const { activeBusiness, businesses: userBusinesses, isLoading } = useBusiness()
 
     // Check if we are in a business dashboard context (e.g. /dashboard/[id])
     // But NOT just /dashboard (which is the user home)
@@ -40,14 +41,12 @@ export function MainSidebar() {
         { href: "/profile", label: "Profile", icon: User },
     ]
 
-    // Use real businesses if available, otherwise fallback (or empty)
-    const displayBusinesses = userBusinesses.length > 0 ? userBusinesses.map(b => ({
+    // Map user businesses to display format
+    const displayBusinesses = userBusinesses.map(b => ({
         name: b.name,
         initials: b.name.substring(0, 2).toUpperCase(),
         href: `/dashboard/${b.id}/home`
-    })) : [
-        { name: "CUANBOSS Inc.", initials: "CB", href: dashboardHref },
-    ]
+    }))
 
     if (isBusinessDashboard) {
         return (
@@ -142,18 +141,25 @@ export function MainSidebar() {
                         <Search className="h-4 w-4 text-neutral-500 cursor-pointer hover:text-white" />
                     </div>
                     <nav className="space-y-1">
-                        {displayBusinesses.map((biz) => (
-                            <Link
-                                key={biz.name}
-                                href={biz.href}
-                                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all"
-                            >
-                                <div className="h-8 w-8 rounded-md bg-[#222] flex items-center justify-center text-xs font-bold text-neutral-300 border border-[#333]">
-                                    {biz.initials}
-                                </div>
-                                <span className="truncate">{biz.name}</span>
-                            </Link>
-                        ))}
+                        {isLoading ? (
+                            <div className="flex items-center gap-3 px-3 py-2">
+                                <div className="h-8 w-8 rounded-md bg-[#222] animate-pulse" />
+                                <div className="h-4 w-24 rounded bg-[#222] animate-pulse" />
+                            </div>
+                        ) : (
+                            displayBusinesses.map((biz) => (
+                                <Link
+                                    key={biz.name}
+                                    href={biz.href}
+                                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all"
+                                >
+                                    <div className="h-8 w-8 rounded-md bg-[#222] flex items-center justify-center text-xs font-bold text-neutral-300 border border-[#333]">
+                                        {biz.initials}
+                                    </div>
+                                    <span className="truncate">{biz.name}</span>
+                                </Link>
+                            ))
+                        )}
 
                         <CreateBusinessModal
                             trigger={
