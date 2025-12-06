@@ -177,7 +177,7 @@ export default function DiscoverPage() {
 
                 {/* Hero Logo & Search */}
                 <div className="text-center mb-16 space-y-8 w-full max-w-2xl relative z-10">
-                    <div className="flex flex-col items-center gap-4">
+                    <Link href="/" className="flex flex-col items-center gap-4 cursor-pointer hover:opacity-90 transition-opacity">
                         <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-2xl shadow-orange-500/20">
                             <span className="text-4xl">⚡</span>
                         </div>
@@ -187,7 +187,7 @@ export default function DiscoverPage() {
                         <p className="text-xl text-neutral-400">
                             The operating system for <span className="text-white font-medium">digital entrepreneurs</span>
                         </p>
-                    </div>
+                    </Link>
 
                     <div ref={searchRef} className="relative w-full">
                         <form onSubmit={handleSearch} className="relative group">
