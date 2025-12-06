@@ -257,15 +257,10 @@ export default function LandingPage() {
                       <Link
                         key={product.id}
                         href={`/product/${product.id}`}
-                        className="flex items-center justify-between gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
+                        className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
                       >
-                        <div className="flex items-center gap-3">
-                          <TrendingUp className="h-4 w-4 text-orange-500" />
-                          <span className="truncate max-w-[200px]">{product.title}</span>
-                        </div>
-                        <span className="text-xs text-neutral-500">
-                          {product.price === 0 ? 'Gratis' : `Rp ${Number(product.price).toLocaleString('id-ID')}`}
-                        </span>
+                        <TrendingUp className="h-4 w-4 text-orange-500" />
+                        <span className="truncate">{product.title}</span>
                       </Link>
                     ))
                   ) : (

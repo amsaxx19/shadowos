@@ -186,14 +186,9 @@ export default function DiscoverPage() {
                                     <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Trending Products</div>
                                     {trendingProducts.length > 0 ? (
                                         trendingProducts.map((product) => (
-                                            <Link href={`/product/${product.id}`} key={product.id} className="flex items-center justify-between gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
-                                                <div className="flex items-center gap-3">
-                                                    <TrendingUp className="h-4 w-4 text-orange-500" />
-                                                    <span className="truncate max-w-[200px]">{product.title}</span>
-                                                </div>
-                                                <span className="text-xs text-neutral-500">
-                                                    {product.price === 0 ? 'Gratis' : `Rp ${Number(product.price).toLocaleString('id-ID')}`}
-                                                </span>
+                                            <Link href={`/product/${product.id}`} key={product.id} className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
+                                                <TrendingUp className="h-4 w-4 text-orange-500" />
+                                                <span className="truncate">{product.title}</span>
                                             </Link>
                                         ))
                                     ) : (
