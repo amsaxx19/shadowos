@@ -38,42 +38,42 @@ const CATEGORIES = [
     name: "Clipping",
     slug: "clipping",
     icon: Scissors,
-    video: "/videos/clipping.mov",
+    video: "/videos/clipping.mp4",
     pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
   },
   {
     name: "Trading",
     slug: "trading",
     icon: TrendingUp,
-    video: "/videos/trading.mov",
+    video: "/videos/trading.mp4",
     pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
   },
   {
     name: "Bisnis",
     slug: "bisnis",
     icon: Briefcase,
-    video: "/videos/business.mov",
+    video: "/videos/business.mp4",
     pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
   },
   {
     name: "Karir",
     slug: "karir",
     icon: Building2,
-    video: "/videos/career.mov",
+    video: "/videos/career.mp4",
     pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
   },
   {
     name: "Teknologi",
     slug: "teknologi",
     icon: Cpu,
-    video: "/videos/tech.mov",
+    video: "/videos/tech.mp4",
     pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
   },
   {
     name: "Lifestyle",
     slug: "lifestyle",
     icon: Heart,
-    video: "/videos/lifestyle.mov",
+    video: "/videos/lifestyle.mp4",
     pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
   },
 ]
