@@ -11,16 +11,7 @@ import { User } from "@supabase/supabase-js"
 
 import { supabase } from "@/lib/supabase/client"
 
-const MOCK_SUGGESTIONS = [
-  "TikTok Shop Accelerator",
-  "TikTok Prodigies",
-  "TikTok Growth Community",
-  "TikTok Profit Playbook",
-  "Crypto Trading Signals",
-  "Dropshipping Mastery",
-  "Affiliate Marketing 101",
-  "Content Creator Tools"
-]
+
 
 const TAGS = [
   { name: "Lihat Tren", icon: <Rocket className="h-3 w-3 text-blue-500" /> },
@@ -90,20 +81,35 @@ export default function LandingPage() {
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [trendingProducts, setTrendingProducts] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
+  const [searchResults, setSearchResults] = useState<any[]>([])
+  const [isSearching, setIsSearching] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const searchRef = useRef<HTMLDivElement>(null)
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Debounced search function
+  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value
     setSearchQuery(query)
-    if (query.length > 0) {
-      const filtered = MOCK_SUGGESTIONS.filter(item =>
-        item.toLowerCase().includes(query.toLowerCase())
-      )
-      setFilteredSuggestions(filtered)
+
+    if (query.length > 1) {
+      setIsSearching(true)
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('id, title')
+          .ilike('title', `%${query}%`)
+          .limit(5)
+
+        if (!error && data) {
+          setSearchResults(data)
+        }
+      } catch (err) {
+        console.error('Search error:', err)
+      } finally {
+        setIsSearching(false)
+      }
     } else {
-      setFilteredSuggestions([])
+      setSearchResults([])
     }
   }
 
@@ -267,23 +273,26 @@ export default function LandingPage() {
                     <div className="px-3 py-3 text-neutral-500 text-sm">Loading trending products...</div>
                   )}
 
-                  {/* Search suggestions when typing */}
-                  {searchQuery.length > 0 && filteredSuggestions.length > 0 && (
+                  {/* Search results when typing */}
+                  {searchQuery.length > 1 && (
                     <>
-                      <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider mt-2 border-t border-[#222] pt-3">Suggestions</div>
-                      {filteredSuggestions.map((suggestion, i) => (
-                        <div
-                          key={i}
-                          onClick={() => {
-                            setSearchQuery(suggestion)
-                            router.push(`/discover/search?q=${encodeURIComponent(suggestion)}`)
-                          }}
-                          className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
-                        >
-                          <Search className="h-4 w-4 text-neutral-500" />
-                          <span>{suggestion}</span>
-                        </div>
-                      ))}
+                      <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider mt-2 border-t border-[#222] pt-3">Hasil Pencarian</div>
+                      {isSearching ? (
+                        <div className="px-3 py-3 text-neutral-500 text-sm">Mencari...</div>
+                      ) : searchResults.length > 0 ? (
+                        searchResults.map((product) => (
+                          <Link
+                            key={product.id}
+                            href={`/product/${product.id}`}
+                            className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
+                          >
+                            <Search className="h-4 w-4 text-neutral-500" />
+                            <span>{product.title}</span>
+                          </Link>
+                        ))
+                      ) : (
+                        <div className="px-3 py-3 text-neutral-500 text-sm">Tidak ditemukan produk untuk "{searchQuery}"</div>
+                      )}
                     </>
                   )}
                 </div>

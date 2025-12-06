@@ -15,8 +15,37 @@ export default function DiscoverPage() {
     const [isSearchFocused, setIsSearchFocused] = useState(false)
     const [searchQuery, setSearchQuery] = useState("")
     const [trendingProducts, setTrendingProducts] = useState<any[]>([])
+    const [searchResults, setSearchResults] = useState<any[]>([])
+    const [isSearching, setIsSearching] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState<any>(null)
     const searchRef = useRef<HTMLDivElement>(null)
+
+    // Live search as user types
+    const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const query = e.target.value
+        setSearchQuery(query)
+
+        if (query.length > 1) {
+            setIsSearching(true)
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('id, title')
+                    .ilike('title', `%${query}%`)
+                    .limit(5)
+
+                if (!error && data) {
+                    setSearchResults(data)
+                }
+            } catch (err) {
+                console.error('Search error:', err)
+            } finally {
+                setIsSearching(false)
+            }
+        } else {
+            setSearchResults([])
+        }
+    }
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault()
@@ -169,7 +198,7 @@ export default function DiscoverPage() {
                                     type="text"
                                     placeholder="Search for products, creators, or categories..."
                                     value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onChange={handleSearchChange}
                                     className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg px-4 text-white placeholder:text-neutral-600 h-12"
                                     onFocus={() => setIsSearchFocused(true)}
                                 />
@@ -183,16 +212,37 @@ export default function DiscoverPage() {
                         {isSearchFocused && (
                             <div className="absolute top-full left-0 right-0 mt-2 bg-[#161616] border border-[#333] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
                                 <div className="p-2">
-                                    <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Trending Products</div>
-                                    {trendingProducts.length > 0 ? (
-                                        trendingProducts.map((product) => (
-                                            <Link href={`/discover/search?q=${encodeURIComponent(product.title)}`} key={product.id} className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
-                                                <TrendingUp className="h-4 w-4 text-orange-500" />
-                                                <span className="truncate">{product.title}</span>
-                                            </Link>
-                                        ))
+                                    {/* Show search results when typing */}
+                                    {searchQuery.length > 1 ? (
+                                        <>
+                                            <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Hasil Pencarian</div>
+                                            {isSearching ? (
+                                                <div className="px-3 py-3 text-neutral-500 text-sm">Mencari...</div>
+                                            ) : searchResults.length > 0 ? (
+                                                searchResults.map((product) => (
+                                                    <Link href={`/product/${product.id}`} key={product.id} className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
+                                                        <Search className="h-4 w-4 text-neutral-500" />
+                                                        <span className="truncate">{product.title}</span>
+                                                    </Link>
+                                                ))
+                                            ) : (
+                                                <div className="px-3 py-3 text-neutral-500 text-sm">Tidak ditemukan produk untuk "{searchQuery}"</div>
+                                            )}
+                                        </>
                                     ) : (
-                                        <div className="px-3 py-3 text-neutral-500 text-sm">Loading trending products...</div>
+                                        <>
+                                            <div className="text-xs font-bold text-neutral-500 px-3 py-2 uppercase tracking-wider">Trending Products</div>
+                                            {trendingProducts.length > 0 ? (
+                                                trendingProducts.map((product) => (
+                                                    <Link href={`/discover/search?q=${encodeURIComponent(product.title)}`} key={product.id} className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors">
+                                                        <TrendingUp className="h-4 w-4 text-orange-500" />
+                                                        <span className="truncate">{product.title}</span>
+                                                    </Link>
+                                                ))
+                                            ) : (
+                                                <div className="px-3 py-3 text-neutral-500 text-sm">Loading trending products...</div>
+                                            )}
+                                        </>
                                     )}
                                 </div>
                             </div>
