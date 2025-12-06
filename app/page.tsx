@@ -39,6 +39,7 @@ const CATEGORIES = [
     slug: "clipping",
     icon: Scissors,
     video: "/videos/clipping.mp4",
+    poster: "/videos/clipping_poster.jpg",
     pills: ["Jasa Klipping", "Clipper Agency", "Video Shorts", "Content Reward"]
   },
   {
@@ -46,6 +47,7 @@ const CATEGORIES = [
     slug: "trading",
     icon: TrendingUp,
     video: "/videos/trading.mp4",
+    poster: "/videos/trading_poster.jpg",
     pills: ["Crypto & NFT", "Saham Lokal", "Forex / Gold", "Sinyal VIP"]
   },
   {
@@ -53,6 +55,7 @@ const CATEGORIES = [
     slug: "bisnis",
     icon: Briefcase,
     video: "/videos/business.mp4",
+    poster: "/videos/business_poster.jpg",
     pills: ["TikTok Affiliate", "Jastip & Impor", "Dropship", "Ide Usaha"]
   },
   {
@@ -60,6 +63,7 @@ const CATEGORIES = [
     slug: "karir",
     icon: Building2,
     video: "/videos/career.mp4",
+    poster: "/videos/career_poster.jpg",
     pills: ["Lolos BUMN", "Kerja Luar Negeri", "Template CV", "Interview"]
   },
   {
@@ -67,6 +71,7 @@ const CATEGORIES = [
     slug: "teknologi",
     icon: Cpu,
     video: "/videos/tech.mp4",
+    poster: "/videos/tech_poster.jpg",
     pills: ["Belajar Coding", "Template Excel", "Tools AI", "Bot & SaaS"]
   },
   {
@@ -74,6 +79,7 @@ const CATEGORIES = [
     slug: "lifestyle",
     icon: Heart,
     video: "/videos/lifestyle.mp4",
+    poster: "/videos/lifestyle_poster.jpg",
     pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
   },
 ]
@@ -404,6 +410,7 @@ function CategoryCard({ category, onClick }: { category: any, onClick: () => voi
         <video
           ref={videoRef}
           src={category.video}
+          poster={category.poster}
           loop
           muted
           playsInline
