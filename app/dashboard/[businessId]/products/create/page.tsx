@@ -14,7 +14,7 @@ import { X, Plus, Image as ImageIcon, Video, Eye, Trash2, ChevronRight, ChevronD
 import Link from "next/link"
 import { useState, use, useRef, useEffect, useCallback, useMemo, useActionState } from "react"
 import { cn } from "@/lib/utils"
-import { createProduct } from "../actions"
+import { createProduct, uploadProductImage } from "../actions"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 
@@ -141,6 +141,28 @@ export default function CreateProductPage({ params }: { params: Promise<{ busine
     const handleSubmit = async (formDataSubmit: FormData): Promise<void> => {
         setIsSubmitting(true)
         try {
+            // Upload first image if exists
+            let imageUrl = null
+            if (mediaFiles.length > 0) {
+                const uploadFormData = new FormData()
+                uploadFormData.append('file', mediaFiles[0].file)
+
+                const uploadResult = await uploadProductImage(uploadFormData)
+                if ('url' in uploadResult) {
+                    imageUrl = uploadResult.url
+                } else if ('error' in uploadResult) {
+                    console.error('Upload error:', uploadResult.error)
+                    alert(`Upload failed: ${uploadResult.error}`)
+                    setIsSubmitting(false)
+                    return
+                }
+            }
+
+            // Add image_url to form data
+            if (imageUrl) {
+                formDataSubmit.set('image_url', imageUrl)
+            }
+
             const result = await createProduct(formDataSubmit)
             if (result.success) {
                 setCreatedProduct({
@@ -151,6 +173,7 @@ export default function CreateProductPage({ params }: { params: Promise<{ busine
             }
         } catch (error) {
             console.error('Error creating product:', error)
+            alert('Failed to create product. Please try again.')
         } finally {
             setIsSubmitting(false)
         }
