@@ -8,10 +8,11 @@ export function SidebarWrapper() {
     const pathname = usePathname()
     const isBusinessDashboard = pathname.startsWith("/dashboard/") && pathname !== "/dashboard"
 
-    // Hide sidebars on full-screen pages like create product
+    // Hide sidebars on full-screen pages and public marketplace pages
     const isFullScreenPage = pathname.includes("/products/create") || pathname.includes("/products/edit")
+    const isPublicMarketplace = pathname.startsWith("/discover") || pathname.startsWith("/product/")
 
-    if (isFullScreenPage) {
+    if (isFullScreenPage || isPublicMarketplace) {
         return null
     }
 
