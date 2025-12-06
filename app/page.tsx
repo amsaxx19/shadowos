@@ -256,7 +256,7 @@ export default function LandingPage() {
                     trendingProducts.map((product) => (
                       <Link
                         key={product.id}
-                        href={`/product/${product.id}`}
+                        href={`/discover/search?q=${encodeURIComponent(product.title)}`}
                         className="flex items-center gap-3 px-3 py-3 hover:bg-[#222] rounded-lg cursor-pointer text-neutral-300 hover:text-white transition-colors"
                       >
                         <TrendingUp className="h-4 w-4 text-orange-500" />
