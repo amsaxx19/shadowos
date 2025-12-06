@@ -203,10 +203,10 @@ export default function LandingPage() {
 
             <div className="flex gap-3 animate-marquee whitespace-nowrap hover:pause will-change-transform">
               {[...TAGS, ...TAGS, ...TAGS].map((tag, i) => (
-                <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#222] text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer">
+                <Link key={i} href={`/discover/search?q=${encodeURIComponent(tag.name)}`} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#222] text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer">
                   {tag.icon}
                   <span className="text-sm font-medium">{tag.name}</span>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
