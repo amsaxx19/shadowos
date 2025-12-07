@@ -74,10 +74,8 @@ export function SearchHeader({
                 <div className="ml-auto flex items-center gap-3">
                     {user ? (
                         <div className="flex items-center gap-2">
-                            <Link href="/dashboard">
-                                <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
-                                    Dashboard
-                                </Button>
+                            <Link href="/dashboard" className="px-4 py-2 text-neutral-400 hover:text-white font-medium transition-colors">
+                                Dashboard
                             </Link>
                             <Button
                                 variant="ghost"
@@ -91,16 +89,12 @@ export function SearchHeader({
                             </Button>
                         </div>
                     ) : (
-                        <Link href="/login">
-                            <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">
-                                Log in
-                            </Button>
+                        <Link href="/login" className="px-4 py-2 text-neutral-400 hover:text-white font-medium transition-colors">
+                            Log in
                         </Link>
                     )}
-                    <Link href="/sell">
-                        <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium rounded-md px-4 h-9 text-sm shadow-lg shadow-orange-500/20 border border-orange-500/50">
-                            Mulai Jualan
-                        </Button>
+                    <Link href="/sell" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium rounded-md px-4 py-2 text-sm shadow-lg shadow-orange-500/20 border border-orange-500/50 transition-colors">
+                        Mulai Jualan
                     </Link>
                 </div>
             </div>

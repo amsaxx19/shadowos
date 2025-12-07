@@ -53,12 +53,6 @@ export default function OperatorDashboard() {
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold text-white">Today</h1>
                 <div className="flex items-center gap-3">
-                    <Button className="bg-[#2a2a2a] text-[#FFD700] hover:bg-[#333] border border-[#333] font-medium">
-                        <div className="bg-[#FFD700]/20 p-0.5 rounded mr-2">
-                            <LayoutGrid className="h-3 w-3 text-[#FFD700]" />
-                        </div>
-                        Add apps
-                    </Button>
                     <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
                         <Bell className="h-5 w-5" />
                     </Button>

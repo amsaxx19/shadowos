@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "shadowos",
+    "projectPath": "/Users/amosthiosa/CuanBoss/shadowos",
+    "testIds": [],
+    "additionalInstruction": "Use test credentials: email=amosthiosa1999@gmail.com, OTP=123456. Login flow: /login -> enter email -> click Continue -> /login/verify -> enter OTP 123456 -> redirects to /dashboard/create. Run ALL tests, not just login tests.",
+    "envs": {
+      "API_KEY": "sk-user-K3cMYsGyaKVchdc1YUvGnrSomBD2ZFAaAQGxTX6FHbpudJGdUcdtHz-eWNuib1tpnv-oel7pUA3TYbOOM_B8pl830PVJaYy_t7yTYninFUB3MRly0ZeZfr3jeqdDJGAzoio"
+    }
+  },
+  "proxy": "http://04c72601-358d-4643-a5bf-84b379d80068:nkX1PkRILUCl8QOp3GmVTpdkASYHocqz@tun.testsprite.com:8080"
+}

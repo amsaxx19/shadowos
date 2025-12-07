@@ -26,13 +26,11 @@ export default function SellPage() {
                     <span className="font-bold text-xl tracking-tight">CUAN<span className="text-blue-500">BOSS</span></span>
                 </Link>
                 <div className="flex items-center gap-3">
-                    <Link href="/login">
-                        <Button variant="ghost" className="text-neutral-400 hover:text-white font-medium">Log in</Button>
+                    <Link href="/login" className="px-4 py-2 text-neutral-400 hover:text-white font-medium transition-colors">
+                        Log in
                     </Link>
-                    <Link href="/signup">
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_20px_-5px_rgba(37,99,235,0.5)]">
-                            Daftar Sekarang
-                        </Button>
+                    <Link href="/signup" className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_20px_-5px_rgba(37,99,235,0.5)] px-6 py-2 transition-colors">
+                        Daftar Sekarang
                     </Link>
                 </div>
             </nav>
@@ -59,16 +57,16 @@ export default function SellPage() {
                         Kelas online, E-book, Komunitas VIP, Software, atau Jasa — apapun keahlianmu, CuanBoss adalah tempat untuk mengubahnya menjadi penghasilan nyata.
                     </p>
 
-                    <Link href="/signup">
-                        <motion.button
+                    <Link href="/signup" className="inline-block relative z-20">
+                        <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             animate={{ scale: [1, 1.02, 1] }}
                             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            className="h-20 px-12 text-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_50px_-10px_rgba(37,99,235,0.6)] flex items-center gap-3 mx-auto border border-white/10"
+                            className="h-20 px-12 text-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_50px_-10px_rgba(37,99,235,0.6)] flex items-center gap-3 mx-auto border border-white/10 cursor-pointer"
                         >
                             Mulai Jualan Gratis Sekarang <ArrowRight className="h-6 w-6" />
-                        </motion.button>
+                        </motion.div>
                     </Link>
 
                 </motion.div>
@@ -588,6 +586,13 @@ export default function SellPage() {
                 }
                 .animate-marquee {
                     animation: marquee 30s linear infinite;
+                }
+                @keyframes pulse-scale {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.02); }
+                }
+                .animate-pulse-scale {
+                    animation: pulse-scale 2s ease-in-out infinite;
                 }
             `}</style>
         </div>

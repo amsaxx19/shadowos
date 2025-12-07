@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "project": "ShadowOS",
+    "date": "2025-12-05",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "ShadowOS is a SaaS platform designed to connect Shadow Operators and Creators, enabling collaborative management and sale of digital products with automated revenue splits and financial management.",
+  "core_goals": [
+    "Enable seamless collaboration between Shadow Operators and Creators within a secure platform.",
+    "Provide a dual dashboard experience tailored to the needs of Operators and Creators for managing products, sales, and revenue.",
+    "Facilitate easy creation, upload, and management of digital products including image and file uploads with secure delivery.",
+    "Implement an efficient financial system that manages order processing, revenue splits, wallet balances, and withdrawal requests.",
+    "Offer an intuitive product discovery experience with trending products, category browsing, and live search suggestions."
+  ],
+  "key_features": [
+    "Passwordless OTP Authentication via email for secure and frictionless login without passwords.",
+    "Dual dashboards: Operator dashboard with global stats and product management; Creator dashboard with personal sales and wallet information.",
+    "Comprehensive product management including creation, editing, and digital asset uploads to Supabase Storage.",
+    "Landing page with hero section, search bar with live suggestions, trending products, and category grid featuring video backgrounds.",
+    "Discover and Search functionality with live suggestions and categorized product browsing for customers.",
+    "Order processing system with automatic revenue split calculation between Operators and Creators based on configured percentages.",
+    "Wallet system to track balances, view transaction histories, and manage withdrawal requests.",
+    "Middleware setup for session management and route protection using Supabase with rate limiting capability (currently disabled).",
+    "Marketing Sell page targeting potential creators and operators, featuring CTAs, testimonials, and FAQ."
+  ],
+  "user_flow_summary": [
+    "Users sign up or login using passwordless OTP authentication via email OTP codes.",
+    "Shadow Operators onboard and invite Creators to the platform.",
+    "Operators create and manage digital products linked to Creators, setting revenue split percentages.",
+    "Customers discover products through landing and discovery pages with search and live suggestions, then proceed to purchase.",
+    "Order processing verifies payments and distributes revenue automatically to Operator and Creator wallets.",
+    "Users access their dual dashboards to monitor sales, earnings, products, and wallet balances.",
+    "Creators and Operators manage withdrawal requests through the wallet system."
+  ],
+  "validation_criteria": [
+    "All users must be able to authenticate successfully via the passwordless OTP email system, including mock OTP for test domains.",
+    "Dual dashboards must display accurate analytics, product lists, orders, and wallet balances respective to the user roles.",
+    "Product creation and editing workflows must securely upload and save media files to Supabase Storage.",
+    "Live search suggestions should retrieve relevant product data with minimal latency.",
+    "Order processing and revenue split calculations must correctly compute and update wallet balances without errors.",
+    "Wallet transaction histories must be complete and reflective of all financial activities.",
+    "Route protection middleware must restrict unauthorized access and maintain user session integrity.",
+    "Landing and sell pages must render correctly and include all specified UI components and CTAs."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "Next.js 15 (App Router)",
+      "React",
+      "Tailwind CSS v4",
+      "Shadcn UI",
+      "Lucide React",
+      "Supabase (PostgreSQL, Auth, Storage)",
+      "Framer Motion"
+    ],
+    "features": [
+      {
+        "name": "Passwordless OTP Authentication",
+        "description": "Users authenticate via email OTP (magic link). No password field exists. Users enter email, receive 6-digit code, and enter code to login. Test emails ending in @example.com use mock OTP 123456.",
+        "files": [
+          "app/login/page.tsx",
+          "app/login/actions.ts",
+          "app/signup/page.tsx",
+          "app/signup/actions.ts",
+          "lib/supabase/middleware.ts"
+        ]
+      },
+      {
+        "name": "Landing Page",
+        "description": "Homepage with hero section, search bar with live suggestions, trending products, and category grid with video backgrounds.",
+        "files": [
+          "app/page.tsx"
+        ]
+      },
+      {
+        "name": "Sell Page",
+        "description": "Marketing page for potential sellers with CTA buttons to sign up. Features hero section, benefits, testimonials, and FAQ.",
+        "files": [
+          "app/sell/page.tsx"
+        ]
+      },
+      {
+        "name": "Discover & Search",
+        "description": "Product discovery page with categories and search functionality. Live search suggestions from database.",
+        "files": [
+          "app/discover/page.tsx",
+          "app/discover/search/page.tsx",
+          "app/discover/search/search-header.tsx"
+        ]
+      },
+      {
+        "name": "Dashboard",
+        "description": "Dual dashboard for Operators and Creators. Shows analytics, products, orders, and wallet balance.",
+        "files": [
+          "app/dashboard/page.tsx",
+          "app/dashboard/products/page.tsx",
+          "app/dashboard/wallet/page.tsx"
+        ]
+      },
+      {
+        "name": "Product Management",
+        "description": "Create, edit, and manage digital products. Includes image uploads to Supabase Storage.",
+        "files": [
+          "app/dashboard/products/new/page.tsx",
+          "app/dashboard/products/[id]/page.tsx"
+        ]
+      },
+      {
+        "name": "Wallet & Transactions",
+        "description": "Track wallet balance, view transaction history, and manage withdrawal requests.",
+        "files": [
+          "app/dashboard/wallet/page.tsx"
+        ]
+      },
+      {
+        "name": "Middleware & Rate Limiting",
+        "description": "Session management and route protection via Supabase middleware. Rate limiting is currently disabled.",
+        "files": [
+          "middleware.ts",
+          "lib/supabase/middleware.ts"
+        ]
+      }
+    ]
+  }
+}

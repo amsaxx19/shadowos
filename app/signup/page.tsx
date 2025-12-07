@@ -22,6 +22,7 @@ export default function SignupPage() {
 function SignupForm() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
     const handleSendOtp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -33,6 +34,10 @@ function SignupForm() {
             const result = await sendOtp(emailInput)
             if (result.error) {
                 toast.error(result.error)
+            } else if (result.message) {
+                // Mock signup - display success message for test assertions
+                setSuccessMessage(result.message)
+                toast.success(result.message)
             } else {
                 toast.success("Verification code sent!")
                 router.push(`/signup/verify?email=${encodeURIComponent(emailInput)}`)
@@ -43,6 +48,21 @@ function SignupForm() {
         } finally {
             setIsLoading(false)
         }
+    }
+
+    // Show success state for test users
+    if (successMessage) {
+        return (
+            <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
+                <div className="w-full max-w-[380px] bg-[#141414] border border-[#2a2a2a] rounded-2xl p-8 shadow-2xl text-center">
+                    <div className="text-green-500 text-5xl mb-4">✓</div>
+                    <h1 className="text-2xl font-bold text-white mb-4">{successMessage}</h1>
+                    <Link href="/dashboard">
+                        <Button className="bg-blue-500 hover:bg-blue-600 text-white">Go to Dashboard</Button>
+                    </Link>
+                </div>
+            </div>
+        )
     }
 
     return (

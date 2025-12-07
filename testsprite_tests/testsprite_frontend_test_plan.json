@@ -1,0 +1,553 @@
+[
+  {
+    "id": "TC001",
+    "title": "Passwordless OTP Authentication - Successful Login",
+    "description": "Verify that a user can successfully authenticate using a valid email and correct OTP code.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter a registered valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Request OTP code"
+      },
+      {
+        "type": "action",
+        "description": "Enter the correct OTP code received via email"
+      },
+      {
+        "type": "action",
+        "description": "Submit the OTP code"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is successfully logged in and redirected to appropriate dashboard"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Passwordless OTP Authentication - Login with Mock OTP for Test Domain",
+    "description": "Verify login works for emails ending with @example.com using the fixed mock OTP 123456.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid email address ending with @example.com"
+      },
+      {
+        "type": "action",
+        "description": "Request OTP code"
+      },
+      {
+        "type": "action",
+        "description": "Enter the mock OTP code 123456"
+      },
+      {
+        "type": "action",
+        "description": "Submit the OTP code"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is successfully logged in without receiving real OTP email"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Passwordless OTP Authentication - Incorrect OTP",
+    "description": "Ensure login fails when the user enters an incorrect OTP code.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter a registered valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Request OTP code"
+      },
+      {
+        "type": "action",
+        "description": "Enter an incorrect OTP code"
+      },
+      {
+        "type": "action",
+        "description": "Submit the OTP code"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify login is denied and appropriate error message is shown"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Dual Dashboards - Operator View Data Accuracy",
+    "description": "Verify that the Operator dashboard correctly displays global statistics, product lists, orders, and operator wallet balance.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as a Shadow Operator"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Operator dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify global stats are correctly calculated and displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify list of products managed by Operator is correctly displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify orders associated with Operator’s products are listed accurately"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify wallet balance matches expected funds"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Dual Dashboards - Creator View Data Accuracy",
+    "description": "Verify that the Creator dashboard correctly displays personal sales, product lists, orders, and wallet information.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as a Creator user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Creator dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the list of products created by the Creator is displayed correctly"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify sales and order records related to Creator’s products are accurate"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify wallet balance and transaction history are accurate"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Product Creation with Digital Asset Upload",
+    "description": "Validate successful creation of a new product including uploading images or files to Supabase Storage.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as an Operator or Creator with product management rights"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to product creation page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in product details form with valid inputs"
+      },
+      {
+        "type": "action",
+        "description": "Upload valid image or digital asset files"
+      },
+      {
+        "type": "action",
+        "description": "Submit product creation form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify product is saved successfully and appears on product list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify uploaded media files are present and accessible in Supabase Storage"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Product Editing and Media Replacement",
+    "description": "Verify that product editing works correctly including updating media files and saving changes.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as product owner"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to specific product edit page"
+      },
+      {
+        "type": "action",
+        "description": "Modify product details and upload new media files"
+      },
+      {
+        "type": "action",
+        "description": "Save changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updated product details are reflected correctly"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify new media replaces or is added correctly in Supabase Storage"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Landing Page Rendering and UI Components",
+    "description": "Check that the landing page loads correctly and all UI components such as hero section, search bar with live suggestions, trending products, and category grid with video backgrounds are displayed properly.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the landing page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify hero section is displayed with correct text and visuals"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify search bar is present and functional"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify live search suggestions appear as user types"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify trending products section shows correct product data"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify category grid displays videos as background correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Discover & Search - Live Suggestions Accuracy and Performance",
+    "description": "Validate the discover and search page returns relevant live product suggestions with minimal latency as user types in the search bar.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Discover or Search page"
+      },
+      {
+        "type": "action",
+        "description": "Type a partial product name or keyword in the search bar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify live search suggestions appear and are relevant to the input"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify search suggestions load within acceptable latency thresholds"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Order Processing and Automatic Revenue Split",
+    "description": "Ensure that purchasing an order properly processes payment and splits revenue automatically between Operator and Creator wallets as per configured percentages.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as customer"
+      },
+      {
+        "type": "action",
+        "description": "Browse and select a product linked to an Operator and Creator with known revenue split"
+      },
+      {
+        "type": "action",
+        "description": "Complete the purchase following checkout process"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify order is recorded and payment is confirmed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Operator’s wallet balance updates with correct revenue share"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Creator’s wallet balance updates with correct revenue share"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify transaction histories are updated accurately for both parties"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Wallet Transaction History Completeness",
+    "description": "Verify that all financial activities including sales income and withdrawals are reflected comprehensively and accurately in the wallet transaction history.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as Operator or Creator with wallet activity"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to wallet transaction history page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all transactions from sales, revenue splits, deposits, and withdrawals are listed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify transaction timestamps, amounts, and descriptions are correct"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Wallet Withdrawal Request Flow",
+    "description": "Validate that users can successfully submit withdrawal requests and that wallet balances and transaction histories reflect the withdrawal.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as Operator or Creator"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to wallet withdrawal request page"
+      },
+      {
+        "type": "action",
+        "description": "Submit a valid withdrawal request with amount less than or equal to wallet balance"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify withdrawal request is recorded successfully"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify wallet balance is reduced accordingly"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify transaction history shows the withdrawal entry"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Route Protection Middleware - Unauthorized Access",
+    "description": "Ensure that the middleware correctly blocks access to protected routes for unauthenticated users.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Attempt to access a protected dashboard or management route without logging in"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is denied and user is redirected to login page"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Route Protection Middleware - Session Integrity for Authenticated User",
+    "description": "Verify that authenticated users maintain session integrity and can access protected routes without interruption.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login successfully"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to various protected routes such as dashboards, product management, and wallet"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all requested pages load correctly without redirection"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Middleware Rate Limiting Disabled Behavior",
+    "description": "Validate that the rate limiting middleware is currently disabled and does not restrict normal API/request traffic.",
+    "category": "functional",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Make multiple rapid requests to controlled API endpoints"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that no requests are blocked or rate limited"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Sell Page Rendering and CTA Functionality",
+    "description": "Check that the marketing Sell page loads correctly with hero section, benefits, testimonials, FAQ, and functioning CTA buttons.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Sell page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the hero section displays correct marketing content"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify benefits section lists key platform advantages"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify testimonials section displays reviews correctly"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify FAQ section is present with collapsible answers"
+      },
+      {
+        "type": "action",
+        "description": "Click CTA buttons to sign up"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is navigated to signup/login page"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Search Suggestions - Edge Case Nonexistent Query",
+    "description": "Validate the behavior of live search suggestions when user inputs query with no matching products.",
+    "category": "error handling",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to search bar"
+      },
+      {
+        "type": "action",
+        "description": "Enter a random string or nonexistent product name"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no suggestions are shown and UI handles empty state smoothly"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Product Management - Invalid Media Upload Handling",
+    "description": "Ensure the product creation/editing workflow handles invalid media file uploads gracefully with proper error messages.",
+    "category": "error handling",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to product creation or editing page"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to upload an unsupported or corrupted media file"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify system rejects the file and displays appropriate error message"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form after invalid upload"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify submission is blocked until a valid file is uploaded"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Order Processing - Insufficient Payment Handling",
+    "description": "Verify that orders fail gracefully if payment processing is incomplete or insufficient.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Initiate purchase and simulate payment failure or insufficient funds"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify order is not confirmed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user sees a meaningful error message"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify wallet balances remain unchanged"
+      }
+    ]
+  }
+]
