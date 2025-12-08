@@ -398,30 +398,21 @@ export default function LandingPage() {
 }
 
 function CategoryCard({ category, onClick }: { category: any, onClick: () => void }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
   return (
     <div
       onClick={onClick}
-      onMouseEnter={() => videoRef.current?.play()}
-      onMouseLeave={() => {
-        if (videoRef.current) {
-          videoRef.current.pause()
-          videoRef.current.currentTime = 0
-        }
-      }}
       className="group relative h-[200px] rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95 will-change-transform"
     >
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
-          ref={videoRef}
           src={category.video}
           poster={category.poster}
+          autoPlay
           loop
           muted
           playsInline
-          preload="none"
+          preload="metadata"
           className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
