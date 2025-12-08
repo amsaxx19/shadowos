@@ -174,30 +174,30 @@ export default function DiscoverPage() {
                 </div>
 
                 {/* Hero Logo & Search */}
-                <div className="text-center mb-16 space-y-8 w-full max-w-2xl relative z-10">
-                    <Link href="/" className="flex flex-col items-center gap-4 cursor-pointer hover:opacity-90 transition-opacity">
-                        <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-2xl shadow-orange-500/20">
-                            <span className="text-4xl">⚡</span>
+                <div className="text-center mb-8 md:mb-16 space-y-6 md:space-y-8 w-full max-w-2xl relative z-10 px-2 md:px-0">
+                    <Link href="/" className="flex flex-col items-center gap-2 md:gap-4 cursor-pointer hover:opacity-90 transition-opacity">
+                        <div className="h-14 w-14 md:h-20 md:w-20 rounded-xl md:rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-2xl shadow-orange-500/20">
+                            <span className="text-2xl md:text-4xl">⚡</span>
                         </div>
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white">
+                        <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white">
                             CUAN<span className="text-orange-500">BOSS</span>
                         </h1>
-                        <p className="text-xl text-neutral-400">
+                        <p className="text-base md:text-xl text-neutral-400">
                             The operating system for <span className="text-white font-medium">digital entrepreneurs</span>
                         </p>
                     </Link>
 
                     <div ref={searchRef} className="relative w-full">
                         <form onSubmit={handleSearch} className="relative group">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                            <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-2xl p-2 shadow-2xl">
-                                <Search className="ml-4 h-6 w-6 text-neutral-500" />
+                            <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl md:rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                            <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-xl md:rounded-2xl p-1.5 md:p-2 shadow-2xl">
+                                <Search className="ml-3 md:ml-4 h-5 w-5 md:h-6 md:w-6 text-neutral-500" />
                                 <input
                                     type="text"
-                                    placeholder="Search for products, creators, or categories..."
+                                    placeholder="Search products, creators..."
                                     value={searchQuery}
                                     onChange={handleSearchChange}
-                                    className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg px-4 text-white placeholder:text-neutral-600 h-12"
+                                    className="w-full bg-transparent border-none focus:ring-0 outline-none text-base md:text-lg px-3 md:px-4 text-white placeholder:text-neutral-600 h-10 md:h-12"
                                     onFocus={() => setIsSearchFocused(true)}
                                 />
                                 <div className="hidden md:flex items-center gap-2 mr-2">
@@ -254,7 +254,7 @@ export default function DiscoverPage() {
                         <div
                             key={cat.name}
                             onClick={() => setSelectedCategory(cat)}
-                            className="group relative h-[200px] rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95"
+                            className="group relative h-[180px] md:h-[200px] rounded-xl md:rounded-2xl overflow-hidden border border-[#222] cursor-pointer hover:border-neutral-500 transition-all duration-300 active:scale-95"
                         >
                             {/* Video Background */}
                             <div className="absolute inset-0 z-0">
@@ -279,18 +279,19 @@ export default function DiscoverPage() {
                     ))}
                 </div>
 
-                {/* Payouts Counter */}
-                <div className="mt-20 text-center space-y-2">
-                    <div className="text-2xl md:text-3xl font-bold text-white tabular-nums">
-                        Rp 32.087.269.766 <span className="text-neutral-500 text-lg font-normal">telah dibayarkan ke kreator</span>
+                {/* Payout Counter */}
+                <div className="mt-12 md:mt-20 text-center space-y-2 px-4">
+                    <div className="text-xl md:text-2xl lg:text-3xl font-bold text-white tabular-nums">
+                        Rp 32.087.269.766
                     </div>
+                    <div className="text-sm md:text-lg text-neutral-500 font-normal">telah dibayarkan ke kreator</div>
                 </div>
             </div>
 
             {/* Footer */}
-            <footer className="border-t border-[#222] py-8 px-8 mt-auto">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex flex-wrap justify-center gap-6 text-xs font-medium text-neutral-500">
+            <footer className="border-t border-[#222] py-6 md:py-8 px-4 md:px-8 mt-auto">
+                <div className="max-w-7xl mx-auto flex flex-col items-center gap-6">
+                    <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs font-medium text-neutral-500">
                         <Link href="#" className="hover:text-white transition-colors">Belajar</Link>
                         <Link href="#" className="hover:text-white transition-colors">Karir</Link>
                         <Link href="#" className="hover:text-white transition-colors">Pers</Link>

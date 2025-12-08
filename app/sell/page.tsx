@@ -20,40 +20,40 @@ export default function SellPage() {
     return (
         <div className="min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden selection:bg-purple-500/30 selection:text-purple-200">
             {/* Navbar */}
-            <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl h-16 flex items-center px-4 md:px-6 justify-between">
+            <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl h-14 md:h-16 flex items-center px-3 md:px-6 justify-between">
                 <Link href="/" className="flex items-center gap-2">
-                    <span className="text-blue-500 text-2xl font-bold">⚡</span>
-                    <span className="font-bold text-xl tracking-tight">CUAN<span className="text-blue-500">BOSS</span></span>
+                    <span className="text-blue-500 text-xl md:text-2xl font-bold">⚡</span>
+                    <span className="font-bold text-lg md:text-xl tracking-tight">CUAN<span className="text-blue-500">BOSS</span></span>
                 </Link>
-                <div className="flex items-center gap-3">
-                    <Link href="/login" className="px-4 py-2 text-neutral-400 hover:text-white font-medium transition-colors">
+                <div className="flex items-center gap-2 md:gap-3">
+                    <Link href="/login" className="px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base text-neutral-400 hover:text-white font-medium transition-colors">
                         Log in
                     </Link>
-                    <Link href="/signup" className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_20px_-5px_rgba(37,99,235,0.5)] px-6 py-2 transition-colors">
+                    <Link href="/signup" className="bg-blue-600 hover:bg-blue-700 text-white text-sm md:text-base font-bold rounded-full shadow-[0_0_20px_-5px_rgba(37,99,235,0.5)] px-4 md:px-6 py-1.5 md:py-2 transition-colors">
                         Daftar Sekarang
                     </Link>
                 </div>
             </nav>
 
             {/* 1. HERO SECTION (The Promise) */}
-            <section className="pt-32 pb-20 px-4 text-center max-w-5xl mx-auto relative">
+            <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 text-center max-w-5xl mx-auto relative">
                 {/* Background Glow - Optimized Blur */}
-                <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 blur-[80px] rounded-full -z-10 opacity-50" />
-                <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-purple-600/20 blur-[60px] rounded-full -z-10 opacity-50 mix-blend-screen" />
+                <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-blue-600/20 blur-[60px] md:blur-[80px] rounded-full -z-10 opacity-50" />
+                <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-purple-600/20 blur-[40px] md:blur-[60px] rounded-full -z-10 opacity-50 mix-blend-screen" />
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight mb-6 md:mb-8 leading-[1.1]">
                         Gak peduli siapa lo, <br />
                         gak peduli latar belakang lo, <br />
                         <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
                             lo berhak sukses.
                         </span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-neutral-400 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
+                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-400 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed font-light px-2">
                         Kelas online, E-book, Komunitas VIP, Software, atau Jasa — apapun keahlianmu, CuanBoss adalah tempat untuk mengubahnya menjadi penghasilan nyata.
                     </p>
 
@@ -63,9 +63,9 @@ export default function SellPage() {
                             whileTap={{ scale: 0.95 }}
                             animate={{ scale: [1, 1.02, 1] }}
                             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            className="h-20 px-12 text-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_50px_-10px_rgba(37,99,235,0.6)] flex items-center gap-3 mx-auto border border-white/10 cursor-pointer"
+                            className="h-14 md:h-20 px-6 md:px-12 text-base md:text-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-[0_0_50px_-10px_rgba(37,99,235,0.6)] flex items-center gap-2 md:gap-3 mx-auto border border-white/10 cursor-pointer"
                         >
-                            Mulai Jualan Gratis Sekarang <ArrowRight className="h-6 w-6" />
+                            Mulai Jualan Gratis <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
                         </motion.div>
                     </Link>
 
@@ -103,12 +103,12 @@ export default function SellPage() {
             </section>
 
             {/* 3. KENAPA CUANBOSS? (The 5-Step Timeline) */}
-            <section className="py-32 px-4 max-w-7xl mx-auto relative overflow-hidden">
-                <div className="text-center mb-24 relative z-10">
-                    <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+            <section className="py-16 md:py-32 px-4 max-w-7xl mx-auto relative overflow-hidden">
+                <div className="text-center mb-12 md:mb-24 relative z-10">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
                         Kenapa <span className="text-blue-500">CuanBoss?</span>
                     </h2>
-                    <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
+                    <p className="text-base md:text-xl text-neutral-400 max-w-2xl mx-auto px-2">
                         Sistem canggih yang bekerja otomatis buat lo. Fokus berkarya, sisanya biar kami yang urus.
                     </p>
                 </div>
@@ -292,20 +292,20 @@ export default function SellPage() {
 
             {/* 4. BUSINESS MODELS GRID (Whop Style) */}
             {/* 4. APAPUN PRODUK KAMU (Bento Grid Gen Z Style) */}
-            <section className="py-32 px-4 max-w-7xl mx-auto">
-                <div className="text-center mb-20">
+            <section className="py-16 md:py-32 px-4 max-w-7xl mx-auto">
+                <div className="text-center mb-12 md:mb-20">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight"
                     >
                         Jualan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Apa Aja?</span>
                     </motion.h2>
-                    <p className="text-xl text-neutral-400">Satu platform, sejuta peluang. Gaspol bisnis digital lo.</p>
+                    <p className="text-base md:text-xl text-neutral-400">Satu platform, sejuta peluang. Gaspol bisnis digital lo.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[280px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[280px]">
                     {/* Item 1: Kursus (Large) */}
                     <motion.div
                         whileHover={{ scale: 0.98 }}
@@ -418,16 +418,16 @@ export default function SellPage() {
 
 
             {/* 5. COMPARISON SECTION (The "Employee vs Entrepreneur" Hook) */}
-            <section className="py-32 px-4 max-w-7xl mx-auto">
-                <div className="text-center mb-20">
-                    <h2 className="text-4xl md:text-6xl font-bold mb-6">Hidup Cuma Sekali, <br />Jangan Salah <span className="text-white">Pilih Jalan.</span></h2>
+            <section className="py-16 md:py-32 px-4 max-w-7xl mx-auto">
+                <div className="text-center mb-12 md:mb-20">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6">Hidup Cuma Sekali, <br />Jangan Salah <span className="text-white">Pilih Jalan.</span></h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
                     {/* Tipe 1: Digital Entrepreneur (The Goal) */}
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="relative group overflow-hidden rounded-[2.5rem] border-2 border-blue-500/50 bg-[#0a0a0a] p-8 md:p-12 flex flex-col justify-between min-h-[500px]"
+                        className="relative group overflow-hidden rounded-2xl md:rounded-[2.5rem] border-2 border-blue-500/50 bg-[#0a0a0a] p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
                     >
                         {/* Glowing Background */}
                         <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-blue-600/20 transition-colors duration-500" />
@@ -465,7 +465,7 @@ export default function SellPage() {
                     {/* Tipe 2: Corporate Slave (The Trap) */}
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="relative group overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#050505] p-8 md:p-12 flex flex-col justify-between min-h-[500px] opacity-80 hover:opacity-100 transition-opacity"
+                        className="relative group overflow-hidden rounded-2xl md:rounded-[2.5rem] border border-white/10 bg-[#050505] p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-[400px] md:min-h-[500px] opacity-80 hover:opacity-100 transition-opacity"
                     >
                         {/* Dark Background */}
                         <div className="absolute inset-0 bg-red-500/5 group-hover:bg-red-500/10 transition-colors duration-500" />
@@ -505,25 +505,25 @@ export default function SellPage() {
             </section>
 
             {/* 6. PRICING SECTION (The No-Brainer Offer) */}
-            <section className="py-24 px-4 bg-[#0a0a0a] border-y border-white/5">
+            <section className="py-16 md:py-24 px-4 bg-[#0a0a0a] border-y border-white/5">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-12">Mulai Gratis, <span className="text-blue-500">Tanpa Biaya Langganan.</span></h2>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 md:mb-12">Mulai Gratis, <span className="text-blue-500">Tanpa Biaya Langganan.</span></h2>
 
-                    <div className="relative bg-[#0f0f0f] border border-white/10 rounded-[3rem] p-8 md:p-16 overflow-hidden max-w-2xl mx-auto hover:border-blue-500/30 transition-all">
+                    <div className="relative bg-[#0f0f0f] border border-white/10 rounded-2xl md:rounded-[3rem] p-6 md:p-8 lg:p-16 overflow-hidden max-w-2xl mx-auto hover:border-blue-500/30 transition-all">
                         {/* Gradient Glow */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none" />
 
                         <div className="relative z-10">
-                            <div className="inline-block px-4 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm font-bold mb-8 border border-blue-500/20">
+                            <div className="inline-block px-3 md:px-4 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs md:text-sm font-bold mb-6 md:mb-8 border border-blue-500/20">
                                 GRATIS UNTUK MEMULAI
                             </div>
 
-                            <div className="flex items-baseline justify-center gap-2 mb-4">
-                                <span className="text-7xl md:text-8xl font-bold text-white">Rp 0</span>
-                                <span className="text-xl text-neutral-400">/ bulan</span>
+                            <div className="flex items-baseline justify-center gap-2 mb-3 md:mb-4">
+                                <span className="text-5xl md:text-7xl lg:text-8xl font-bold text-white">Rp 0</span>
+                                <span className="text-lg md:text-xl text-neutral-400">/ bulan</span>
                             </div>
 
-                            <p className="text-neutral-400 mb-10">Tanpa biaya langganan. Tanpa kartu kredit.</p>
+                            <p className="text-neutral-400 mb-8 md:mb-10 text-sm md:text-base">Tanpa biaya langganan. Tanpa kartu kredit.</p>
 
                             <ul className="space-y-4 mb-12 text-left max-w-xs mx-auto">
                                 <li className="flex items-center gap-3 text-lg">

@@ -1,8 +1,8 @@
 {
-  "status": "commited",
-  "type": "frontend",
+  "status": "init",
+  "type": "backend",
   "scope": "codebase",
-  "localEndpoint": "http://localhost:3000",
+  "localEndpoint": "http://localhost:3000/",
   "executionArgs": {
     "projectName": "shadowos",
     "projectPath": "/Users/amosthiosa/CuanBoss/shadowos",
@@ -12,5 +12,6 @@
       "API_KEY": "sk-user-K3cMYsGyaKVchdc1YUvGnrSomBD2ZFAaAQGxTX6FHbpudJGdUcdtHz-eWNuib1tpnv-oel7pUA3TYbOOM_B8pl830PVJaYy_t7yTYninFUB3MRly0ZeZfr3jeqdDJGAzoio"
     }
   },
-  "proxy": "http://04c72601-358d-4643-a5bf-84b379d80068:nkX1PkRILUCl8QOp3GmVTpdkASYHocqz@tun.testsprite.com:8080"
+  "proxy": "http://04c72601-358d-4643-a5bf-84b379d80068:nkX1PkRILUCl8QOp3GmVTpdkASYHocqz@tun.testsprite.com:8080",
+  "serverPort": 63616
 }

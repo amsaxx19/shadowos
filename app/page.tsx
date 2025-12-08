@@ -172,21 +172,21 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col overflow-x-hidden">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/90 backdrop-blur-md h-16 flex items-center px-4 md:px-6 justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-[#0e0e0e]/90 backdrop-blur-md h-14 md:h-16 flex items-center px-3 md:px-6 justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-orange-500 text-2xl font-bold">⚡</span>
+          <span className="text-orange-500 text-xl md:text-2xl font-bold">⚡</span>
         </Link>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           {user ? (
-            <Link href="/dashboard" className="px-4 py-2 text-neutral-400 hover:text-white font-medium transition-colors">
+            <Link href="/dashboard" className="px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base text-neutral-400 hover:text-white font-medium transition-colors">
               Dashboard
             </Link>
           ) : (
-            <Link href="/login" className="px-4 py-2 text-neutral-400 hover:text-white font-medium transition-colors">
+            <Link href="/login" className="px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base text-neutral-400 hover:text-white font-medium transition-colors">
               Log in
             </Link>
           )}
-          <Link href="/sell" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold rounded-full shadow-lg shadow-orange-500/20 border border-orange-500/50 px-4 py-2 transition-colors">
+          <Link href="/sell" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white text-sm md:text-base font-bold rounded-full shadow-lg shadow-orange-500/20 border border-orange-500/50 px-3 py-1.5 md:px-4 md:py-2 transition-colors">
             Mulai Jualan
           </Link>
         </div>
@@ -217,28 +217,28 @@ export default function LandingPage() {
         </div>
 
         {/* Hero Logo & Search */}
-        <div className="text-center mb-16 space-y-8 w-full max-w-2xl relative z-10">
-          <div className="flex flex-col items-center gap-4">
-            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-2xl shadow-orange-500/20">
-              <span className="text-4xl">⚡</span>
+        <div className="text-center mb-6 md:mb-16 space-y-4 md:space-y-8 w-full max-w-2xl relative z-10 px-2 md:px-4">
+          <div className="flex flex-col items-center gap-2 md:gap-4">
+            <div className="h-12 w-12 md:h-20 md:w-20 rounded-xl md:rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-2xl shadow-orange-500/20">
+              <span className="text-xl md:text-4xl">⚡</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white">
               CUAN<span className="text-orange-500">BOSS</span>
             </h1>
-            <p className="text-xl text-neutral-400">
+            <p className="text-sm md:text-xl text-neutral-400">
               The operating system for <span className="text-white font-medium">digital entrepreneurs</span>
             </p>
           </div>
 
           <div ref={searchRef} className="relative w-full">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur-sm opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-              <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-2xl p-2 shadow-2xl">
-                <Search className="ml-4 h-6 w-6 text-neutral-500" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl md:rounded-2xl blur-sm opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative flex items-center bg-[#161616] border border-[#333] rounded-xl md:rounded-2xl p-1.5 md:p-2 shadow-2xl">
+                <Search className="ml-3 md:ml-4 h-5 w-5 md:h-6 md:w-6 text-neutral-500" />
                 <input
                   type="text"
-                  placeholder="Search for products, creators, or categories..."
-                  className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg px-4 text-white placeholder:text-neutral-600 h-12"
+                  placeholder="Search products, creators..."
+                  className="w-full bg-transparent border-none focus:ring-0 outline-none text-base md:text-lg px-3 md:px-4 text-white placeholder:text-neutral-600 h-10 md:h-12"
                   onFocus={() => setIsSearchFocused(true)}
                   onChange={handleSearchChange}
                   onKeyDown={handleSearch}
@@ -300,7 +300,7 @@ export default function LandingPage() {
         </div>
 
         {/* Categories Grid */}
-        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-2 md:px-0">
           {CATEGORIES.map((cat) => (
             <CategoryCard key={cat.name} category={cat} onClick={() => setSelectedCategory(cat)} />
           ))}
@@ -317,7 +317,7 @@ export default function LandingPage() {
           />
 
           {/* Modal Content */}
-          <div className="relative w-full md:max-w-2xl bg-[#0e0e0e] md:rounded-3xl rounded-t-3xl overflow-hidden shadow-2xl animate-in slide-in-from-bottom-10 fade-in duration-300 border border-[#222]">
+          <div className="relative w-full md:max-w-2xl h-[85vh] md:h-auto bg-[#0e0e0e] rounded-t-2xl md:rounded-3xl overflow-hidden shadow-2xl animate-in slide-in-from-bottom-10 fade-in duration-300 border border-[#222]">
 
             {/* Header Banner */}
             <div className="relative h-48 w-full">

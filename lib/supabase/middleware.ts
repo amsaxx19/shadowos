@@ -99,11 +99,8 @@ export async function updateSession(request: NextRequest) {
             data: { user },
         } = await supabase.auth.getUser()
 
-        // Check for test session cookie (set by mock login for testing purposes)
-        const hasTestSession = request.cookies.get('test_session')?.value === 'true'
-
-        // Protected Routes Logic - allow test sessions to bypass for testing
-        if ((request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/home')) && !user && !hasTestSession) {
+        // Protected Routes Logic
+        if ((request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/home')) && !user) {
             return NextResponse.redirect(new URL('/login', request.url))
         }
 
