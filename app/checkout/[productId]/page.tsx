@@ -1,22 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-import { CheckoutForm } from './checkout-form'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ShieldCheck, Star, Share2, ArrowLeft, ShoppingCart } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer"
-import { CartDrawer } from './cart-drawer'
 import Link from 'next/link'
+
 
 export default async function CheckoutPage({ params }: { params: Promise<{ productId: string }> }) {
     const { productId } = await params
@@ -176,15 +165,12 @@ function renderProductPage(product: any, params: any) {
                         <span className="font-bold text-foreground text-lg">Rp {product.price.toLocaleString('id-ID')}</span>
                     </div>
                     <div className="flex gap-3">
-                        <CartDrawer product={{
-                            id: product.id,
-                            title: product.title,
-                            price: product.price,
-                            imagePlaceholder: product.title.charAt(0)
-                        }} />
+                        <Button variant="outline" size="icon" className="h-12 w-12 rounded-xl border-border">
+                            <ShoppingCart className="h-5 w-5" />
+                        </Button>
 
                         <Button className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg rounded-xl shadow-lg shadow-primary/20" asChild>
-                            <Link href={`/checkout/${product.id}/payment`}>
+                            <Link href={`/product/${product.id}`}>
                                 Beli Akses Sekarang
                             </Link>
                         </Button>
