@@ -37,14 +37,16 @@ export default async function DiscoverLayout({
 
     // Public Layout for non-authenticated users
     return (
-        <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col">
-            <main className="flex-1 pb-20 md:pb-0">
-                {children}
-            </main>
-            {/* Mobile Bottom Nav for public too */}
-            <MobileBottomNav />
-            <Toaster />
-        </div>
+        <BusinessProvider>
+            <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col">
+                <main className="flex-1 pb-20 md:pb-0">
+                    {children}
+                </main>
+                {/* Mobile Bottom Nav for public too */}
+                <MobileBottomNav />
+                <Toaster />
+            </div>
+        </BusinessProvider>
     )
 }
 
