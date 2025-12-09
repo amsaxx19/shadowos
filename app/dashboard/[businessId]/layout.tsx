@@ -4,6 +4,7 @@ import { useState } from "react"
 import { SidebarWrapper } from "@/components/dashboard/sidebar-wrapper"
 import { DashboardProvider } from "@/components/dashboard/dashboard-context"
 import { MobileSidebarDrawer } from "@/components/dashboard/mobile-sidebar-drawer"
+import { MobileBottomNav } from "@/components/dashboard/mobile-bottom-nav"
 import { Toaster } from "@/components/ui/sonner"
 import Link from "next/link"
 
@@ -45,11 +46,16 @@ export default function BusinessDashboardLayout({
                 </div>
 
                 {/* Main Content (Rest) */}
-                <main className="flex-1 overflow-y-auto bg-[#0e0e0e]">
+                <main className="flex-1 overflow-y-auto bg-[#0e0e0e] pb-20 md:pb-0">
                     {children}
                 </main>
+
+                {/* Mobile Bottom Navigation */}
+                <MobileBottomNav />
+
                 <Toaster />
             </div>
         </DashboardProvider>
     )
 }
+

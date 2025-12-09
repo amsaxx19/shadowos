@@ -13,29 +13,29 @@ import {
 import { createBusiness, generateBusinessName, checkBusinessName } from "./actions"
 
 const BUSINESS_MODELS = [
-    { id: "coaching", name: "Coaching and courses", Icon: GraduationCap, bgColor: "#facc15", textColor: "#000" },
-    { id: "agency", name: "Agency services", Icon: Briefcase, bgColor: "#ec4899", textColor: "#fff" },
-    { id: "paid-group", name: "Paid group", Icon: Users, bgColor: "#22c55e", textColor: "#000" },
+    { id: "coaching", name: "Coaching & Kursus", Icon: GraduationCap, bgColor: "#facc15", textColor: "#000" },
+    { id: "agency", name: "Jasa Agency", Icon: Briefcase, bgColor: "#ec4899", textColor: "#fff" },
+    { id: "paid-group", name: "Grup Berbayar", Icon: Users, bgColor: "#22c55e", textColor: "#000" },
     { id: "software", name: "Software", Icon: Monitor, bgColor: "#3b82f6", textColor: "#fff" },
-    { id: "events", name: "Events", Icon: Calendar, bgColor: "#f97316", textColor: "#000" },
+    { id: "events", name: "Event & Acara", Icon: Calendar, bgColor: "#f97316", textColor: "#000" },
     { id: "newsletter", name: "Newsletter", Icon: Mail, bgColor: "#10b981", textColor: "#000" },
-    { id: "physical", name: "Physical products", Icon: Package, bgColor: "#06b6d4", textColor: "#000" },
-    { id: "brick-mortar", name: "Brick and mortar", Icon: Store, bgColor: "#14b8a6", textColor: "#000" },
+    { id: "physical", name: "Produk Fisik", Icon: Package, bgColor: "#06b6d4", textColor: "#000" },
+    { id: "brick-mortar", name: "Toko Offline", Icon: Store, bgColor: "#14b8a6", textColor: "#000" },
 ]
 
 const INDUSTRIES = [
     { id: "trading", name: "Trading", Icon: TrendingUp, bgColor: "#22c55e", textColor: "#000" },
-    { id: "sports-betting", name: "Sports betting", Icon: Target, bgColor: "#ef4444", textColor: "#fff" },
+    { id: "sports-betting", name: "Taruhan Olahraga", Icon: Target, bgColor: "#ef4444", textColor: "#fff" },
     { id: "fitness", name: "Fitness", Icon: Dumbbell, bgColor: "#f97316", textColor: "#000" },
-    { id: "health", name: "Health & wellness", Icon: Heart, bgColor: "#10b981", textColor: "#000" },
-    { id: "ecommerce", name: "Ecommerce", Icon: ShoppingCart, bgColor: "#ec4899", textColor: "#fff" },
+    { id: "health", name: "Kesehatan", Icon: Heart, bgColor: "#10b981", textColor: "#000" },
+    { id: "ecommerce", name: "E-commerce", Icon: ShoppingCart, bgColor: "#ec4899", textColor: "#fff" },
     { id: "reselling", name: "Reselling", Icon: RefreshCw, bgColor: "#06b6d4", textColor: "#000" },
-    { id: "social-media", name: "Social media", Icon: Smartphone, bgColor: "#eab308", textColor: "#000" },
+    { id: "social-media", name: "Media Sosial", Icon: Smartphone, bgColor: "#eab308", textColor: "#000" },
     { id: "ai", name: "AI", Icon: Bot, bgColor: "#a855f7", textColor: "#fff" },
-    { id: "business", name: "Business", Icon: Building2, bgColor: "#6b7280", textColor: "#fff" },
+    { id: "business", name: "Bisnis", Icon: Building2, bgColor: "#6b7280", textColor: "#fff" },
     { id: "crypto", name: "Crypto", Icon: Bitcoin, bgColor: "#f59e0b", textColor: "#000" },
     { id: "gaming", name: "Gaming", Icon: Gamepad2, bgColor: "#6366f1", textColor: "#fff" },
-    { id: "education", name: "Education", Icon: BookOpen, bgColor: "#3b82f6", textColor: "#fff" },
+    { id: "education", name: "Edukasi", Icon: BookOpen, bgColor: "#3b82f6", textColor: "#fff" },
 ]
 
 export default function CreateBusinessPage() {
@@ -88,11 +88,11 @@ export default function CreateBusinessPage() {
 
     const handleNext = () => {
         if (step === 2 && !formData.businessModel) {
-            toast.error("Pilih model bisnis terlebih dahulu")
+            toast.error("Pilih model bisnis dulu")
             return
         }
         if (step === 3 && !formData.industry) {
-            toast.error("Pilih industri terlebih dahulu")
+            toast.error("Pilih industri dulu")
             return
         }
         setStep(step + 1)
@@ -104,7 +104,7 @@ export default function CreateBusinessPage() {
 
     const handleSubmit = async () => {
         if (!formData.businessName.trim()) {
-            toast.error("Nama bisnis harus diisi")
+            toast.error("Nama bisnis wajib diisi")
             return
         }
 
@@ -153,28 +153,28 @@ export default function CreateBusinessPage() {
                 <div className="w-full max-w-3xl">
                     {/* Step 1: Welcome */}
                     {step === 1 && (
-                        <div className="text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <div className="space-y-4">
-                                <h1 className="text-4xl font-bold tracking-tight">Let's create your business</h1>
-                                <p className="text-neutral-400 text-lg">
-                                    Businesses on CUANBOSS earn over Rp 10 billion every year. Let's build yours now.
+                        <div className="text-center space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 px-2">
+                            <div className="space-y-3 sm:space-y-4">
+                                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Yuk, buat bisnis kamu</h1>
+                                <p className="text-neutral-400 text-base sm:text-lg">
+                                    Bisnis di CUANBOSS menghasilkan lebih dari Rp 10 miliar setiap tahun. Ayo mulai sekarang.
                                 </p>
                             </div>
                             <Button
                                 onClick={handleNext}
-                                className="bg-blue-600 hover:bg-blue-700 h-12 px-12 rounded-xl text-base font-semibold transition-all hover:scale-105 active:scale-95"
+                                className="bg-blue-600 hover:bg-blue-700 h-12 px-10 sm:px-12 rounded-xl text-base font-semibold transition-all hover:scale-105 active:scale-95"
                             >
-                                Continue
+                                Lanjutkan
                             </Button>
                         </div>
                     )}
 
                     {/* Step 2: Business Model */}
                     {step === 2 && (
-                        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <h1 className="text-3xl font-bold text-center tracking-tight">Which model best describes your offer?</h1>
+                        <div className="space-y-6 sm:space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <h1 className="text-2xl sm:text-3xl font-bold text-center tracking-tight px-2">Model mana yang paling cocok dengan penawaranmu?</h1>
 
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                                 {BUSINESS_MODELS.map((model, index) => (
                                     <button
                                         key={model.id}
@@ -182,7 +182,7 @@ export default function CreateBusinessPage() {
                                             updateField("businessModel", model.id)
                                             setTimeout(() => setStep(3), 250)
                                         }}
-                                        className={`group relative p-5 rounded-xl text-left border transform transition-all duration-200 
+                                        className={`group relative p-4 sm:p-5 rounded-xl text-left border transform transition-all duration-200 
                                             hover:scale-[1.03] hover:-translate-y-1 active:scale-[0.98]
                                             ${formData.businessModel === model.id
                                                 ? "border-blue-500 bg-blue-500/10 scale-[1.02]"
@@ -200,14 +200,14 @@ export default function CreateBusinessPage() {
                                             }}
                                         />
 
-                                        <div className="relative z-10 space-y-3">
+                                        <div className="relative z-10 space-y-2 sm:space-y-3">
                                             <div
-                                                className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                                                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
                                                 style={{ backgroundColor: model.bgColor }}
                                             >
-                                                <model.Icon className="w-5 h-5 transition-transform duration-200 group-hover:rotate-6" style={{ color: model.textColor }} />
+                                                <model.Icon className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 group-hover:rotate-6" style={{ color: model.textColor }} />
                                             </div>
-                                            <span className="block font-medium text-[15px] text-white group-hover:text-white/90 transition-colors">{model.name}</span>
+                                            <span className="block font-medium text-sm sm:text-base text-white group-hover:text-white/90 transition-colors leading-tight">{model.name}</span>
                                         </div>
                                     </button>
                                 ))}
@@ -217,21 +217,21 @@ export default function CreateBusinessPage() {
 
                     {/* Step 3: Industry */}
                     {step === 3 && (
-                        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <h1 className="text-3xl font-bold text-center tracking-tight">Which industry best describes your offer?</h1>
+                        <div className="space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <h1 className="text-2xl sm:text-3xl font-bold text-center tracking-tight px-2">Industri mana yang paling cocok?</h1>
 
                             {/* Search */}
                             <div className="relative max-w-md mx-auto">
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
                                 <Input
-                                    placeholder="Search..."
+                                    placeholder="Cari..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="bg-[#0f0f0f] border-[#1f1f1f] text-white pl-11 h-11 rounded-xl focus:border-[#333]"
+                                    className="bg-[#0f0f0f] border-[#1f1f1f] text-white pl-11 h-12 rounded-xl focus:border-[#333] text-base"
                                 />
                             </div>
 
-                            <div className="grid grid-cols-3 gap-3 max-h-[420px] overflow-y-auto pr-2">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-h-[50vh] sm:max-h-[420px] overflow-y-auto pr-1 sm:pr-2">
                                 {filteredIndustries.map((industry, index) => (
                                     <button
                                         key={industry.id}
@@ -239,7 +239,7 @@ export default function CreateBusinessPage() {
                                             updateField("industry", industry.id)
                                             setTimeout(() => setStep(4), 250)
                                         }}
-                                        className={`group relative p-5 rounded-xl text-left border transform transition-all duration-200
+                                        className={`group relative p-4 sm:p-5 rounded-xl text-left border transform transition-all duration-200
                                             hover:scale-[1.03] hover:-translate-y-1 active:scale-[0.98]
                                             ${formData.industry === industry.id
                                                 ? "border-blue-500 bg-blue-500/10 scale-[1.02]"
@@ -256,14 +256,14 @@ export default function CreateBusinessPage() {
                                             }}
                                         />
 
-                                        <div className="relative z-10 space-y-3">
+                                        <div className="relative z-10 space-y-2 sm:space-y-3">
                                             <div
-                                                className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                                                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
                                                 style={{ backgroundColor: industry.bgColor }}
                                             >
-                                                <industry.Icon className="w-5 h-5 transition-transform duration-200 group-hover:rotate-6" style={{ color: industry.textColor }} />
+                                                <industry.Icon className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 group-hover:rotate-6" style={{ color: industry.textColor }} />
                                             </div>
-                                            <span className="block font-medium text-[15px] text-white group-hover:text-white/90 transition-colors">{industry.name}</span>
+                                            <span className="block font-medium text-sm sm:text-base text-white group-hover:text-white/90 transition-colors leading-tight">{industry.name}</span>
                                         </div>
                                     </button>
                                 ))}
@@ -275,15 +275,15 @@ export default function CreateBusinessPage() {
                     {step === 4 && (
                         <div className="space-y-8 max-w-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <div className="text-center space-y-2">
-                                <h1 className="text-3xl font-bold tracking-tight">Name your business</h1>
-                                <p className="text-neutral-500">This can be changed later</p>
+                                <h1 className="text-3xl font-bold tracking-tight">Beri nama bisnismu</h1>
+                                <p className="text-neutral-500">Bisa diubah nanti</p>
                             </div>
 
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Input
-                                            placeholder="Enter business name"
+                                            placeholder="Masukkan nama bisnis"
                                             value={formData.businessName}
                                             onChange={(e) => updateField("businessName", e.target.value)}
                                             className={`bg-[#0f0f0f] border-[#1f1f1f] text-white h-12 rounded-xl text-base pr-24 focus:border-[#333] transition-all ${formData.businessName && nameAvailable === true ? 'border-green-500/50' : ''
@@ -308,7 +308,7 @@ export default function CreateBusinessPage() {
                                                 onClick={handleGenerateName}
                                                 disabled={isGenerating}
                                                 className="text-neutral-500 hover:text-purple-400 transition-colors hover:scale-110 active:scale-95 disabled:opacity-50"
-                                                title="Generate random name"
+                                                title="Generate nama acak"
                                             >
                                                 {isGenerating ? (
                                                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -332,7 +332,7 @@ export default function CreateBusinessPage() {
                                     disabled={isLoading || !formData.businessName.trim() || nameAvailable === false || isChecking}
                                     className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-[#1a1a1a] disabled:text-neutral-600 h-12 rounded-xl text-base font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
                                 >
-                                    {isLoading ? <Loader2 className="animate-spin" /> : "Create business"}
+                                    {isLoading ? <Loader2 className="animate-spin" /> : "Buat Bisnis"}
                                 </Button>
                             </div>
                         </div>

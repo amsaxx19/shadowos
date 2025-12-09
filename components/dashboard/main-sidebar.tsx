@@ -99,92 +99,147 @@ export function MainSidebar() {
     }
 
     return (
-        <div className="flex h-full w-[240px] flex-col border-r border-[#222] bg-[#0e0e0e] text-neutral-400 z-20">
-            {/* Header: Logo */}
-            <div className="flex h-16 items-center px-6">
-                <div className="flex items-center gap-2 text-white font-bold text-xl">
-                    <span className="text-orange-500">⚡</span> CUANBOSS
+        <>
+            {/* Mobile: Compact Icon Sidebar */}
+            <div className="md:hidden flex h-full w-[60px] flex-col border-r border-[#222] bg-[#0e0e0e] text-neutral-400 z-20 items-center py-4">
+                {/* Logo */}
+                <div className="flex items-center justify-center mb-4">
+                    <span className="text-orange-500 font-bold text-xl">⚡</span>
                 </div>
-            </div>
 
-            <div className="flex-1 overflow-auto py-2 px-3 space-y-6">
-                {/* Main Navigation */}
-                <nav className="space-y-1">
+                {/* Icons Navigation */}
+                <nav className="space-y-2 flex flex-col items-center w-full px-2 flex-1">
                     {mainLinks.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
                             className={cn(
-                                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
-                                pathname === link.href || (link.label === "Dashboard" && pathname.includes("/dashboard/operator"))
+                                "flex items-center justify-center h-10 w-10 rounded-xl transition-all duration-200 relative",
+                                pathname === link.href || (link.label === "Dashboard" && pathname.includes("/dashboard/"))
                                     ? "bg-[#222] text-white"
-                                    : "text-neutral-400 hover:text-white hover:bg-[#161616]"
+                                    : "text-neutral-500 hover:text-white hover:bg-[#161616]"
                             )}
                         >
                             <link.icon className="h-5 w-5" />
-                            <span className="flex-1">{link.label}</span>
                             {link.badge && (
-                                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                                <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-[9px] font-bold text-white flex items-center justify-center border-2 border-[#0e0e0e]">
                                     {link.badge}
                                 </span>
                             )}
                         </Link>
                     ))}
+
+                    {/* Businesses */}
+                    <div className="w-8 h-px bg-[#333] my-2" />
+                    {displayBusinesses.slice(0, 3).map((biz) => (
+                        <Link
+                            key={biz.name}
+                            href={biz.href}
+                            className="flex items-center justify-center h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 text-xs font-bold text-neutral-300 hover:text-white transition-colors border border-[#333]"
+                        >
+                            {biz.initials}
+                        </Link>
+                    ))}
+
+                    {/* New Business */}
+                    <Link
+                        href="/dashboard/create"
+                        className="flex items-center justify-center h-10 w-10 rounded-xl bg-[#161616] text-neutral-500 hover:text-white transition-colors border border-[#333] border-dashed"
+                    >
+                        <Plus className="h-4 w-4" />
+                    </Link>
                 </nav>
+            </div>
 
-                {/* YOUR WHOPS */}
-                <div>
-                    <div className="flex items-center justify-between px-3 mb-2">
-                        <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
-                            BISNIS ANDA
-                        </span>
-                        <Search className="h-4 w-4 text-neutral-500 cursor-pointer hover:text-white" />
+            {/* Desktop: Full Sidebar */}
+            <div className="hidden md:flex h-full w-[240px] flex-col border-r border-[#222] bg-[#0e0e0e] text-neutral-400 z-20">
+                {/* Header: Logo */}
+                <div className="flex h-16 items-center px-6">
+                    <div className="flex items-center gap-2 text-white font-bold text-xl">
+                        <span className="text-orange-500">⚡</span> CUANBOSS
                     </div>
+                </div>
+
+                <div className="flex-1 overflow-auto py-2 px-3 space-y-6">
+                    {/* Main Navigation */}
                     <nav className="space-y-1">
-                        {isLoading ? (
-                            <div className="flex items-center gap-3 px-3 py-2">
-                                <div className="h-8 w-8 rounded-md bg-[#222] animate-pulse" />
-                                <div className="h-4 w-24 rounded bg-[#222] animate-pulse" />
-                            </div>
-                        ) : (
-                            displayBusinesses.map((biz) => (
-                                <Link
-                                    key={biz.name}
-                                    href={biz.href}
-                                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all"
-                                >
-                                    <div className="h-8 w-8 rounded-md bg-[#222] flex items-center justify-center text-xs font-bold text-neutral-300 border border-[#333]">
-                                        {biz.initials}
-                                    </div>
-                                    <span className="truncate">{biz.name}</span>
-                                </Link>
-                            ))
-                        )}
-
-                        <CreateBusinessModal
-                            trigger={
-                                <button suppressHydrationWarning className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all">
-                                    <div className="h-8 w-8 rounded-md bg-[#161616] flex items-center justify-center border border-[#333]">
-                                        <Plus className="h-4 w-4" />
-                                    </div>
-                                    <span>New business</span>
-                                </button>
-                            }
-                        />
+                        {mainLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={cn(
+                                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
+                                    pathname === link.href || (link.label === "Dashboard" && pathname.includes("/dashboard/operator"))
+                                        ? "bg-[#222] text-white"
+                                        : "text-neutral-400 hover:text-white hover:bg-[#161616]"
+                                )}
+                            >
+                                <link.icon className="h-5 w-5" />
+                                <span className="flex-1">{link.label}</span>
+                                {link.badge && (
+                                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                                        {link.badge}
+                                    </span>
+                                )}
+                            </Link>
+                        ))}
                     </nav>
-                </div>
-            </div>
 
-            {/* Footer */}
-            <div className="p-4 border-t border-[#222]">
-                <div className="flex items-center justify-between text-neutral-400">
-                    <button className="flex items-center gap-2 hover:text-white transition-colors">
-                        <Menu className="h-5 w-5" />
-                        <span className="text-sm font-medium">Menu</span>
-                    </button>
-                    <HelpCircle className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
+                    {/* YOUR WHOPS */}
+                    <div>
+                        <div className="flex items-center justify-between px-3 mb-2">
+                            <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                                BISNIS ANDA
+                            </span>
+                            <Search className="h-4 w-4 text-neutral-500 cursor-pointer hover:text-white" />
+                        </div>
+                        <nav className="space-y-1">
+                            {isLoading ? (
+                                <div className="flex items-center gap-3 px-3 py-2">
+                                    <div className="h-8 w-8 rounded-md bg-[#222] animate-pulse" />
+                                    <div className="h-4 w-24 rounded bg-[#222] animate-pulse" />
+                                </div>
+                            ) : (
+                                displayBusinesses.map((biz) => (
+                                    <Link
+                                        key={biz.name}
+                                        href={biz.href}
+                                        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all"
+                                    >
+                                        <div className="h-8 w-8 rounded-md bg-[#222] flex items-center justify-center text-xs font-bold text-neutral-300 border border-[#333]">
+                                            {biz.initials}
+                                        </div>
+                                        <span className="truncate">{biz.name}</span>
+                                    </Link>
+                                ))
+                            )}
+
+                            <CreateBusinessModal
+                                trigger={
+                                    <button suppressHydrationWarning className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-neutral-400 hover:text-white hover:bg-[#161616] transition-all">
+                                        <div className="h-8 w-8 rounded-md bg-[#161616] flex items-center justify-center border border-[#333]">
+                                            <Plus className="h-4 w-4" />
+                                        </div>
+                                        <span>New business</span>
+                                    </button>
+                                }
+                            />
+                        </nav>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="p-4 border-t border-[#222]">
+                    <div className="flex items-center justify-between text-neutral-400">
+                        <button className="flex items-center gap-2 hover:text-white transition-colors">
+                            <Menu className="h-5 w-5" />
+                            <span className="text-sm font-medium">Menu</span>
+                        </button>
+                        <HelpCircle className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
+

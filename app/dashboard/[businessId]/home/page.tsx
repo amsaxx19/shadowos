@@ -1,15 +1,29 @@
 "use client"
 
-import { useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useSearchParams, useParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, GraduationCap, LayoutGrid, Plus, Settings, X, ExternalLink, Info, Bell } from "lucide-react"
 import { StatCard } from "@/components/dashboard/stat-card"
 import confetti from "canvas-confetti"
 
+import { ShareStatsModal } from "@/components/dashboard/share-stats-modal"
+import { getSalesStats, type SalesStats } from "./actions"
+
 export default function OperatorDashboard() {
     const searchParams = useSearchParams()
+    const params = useParams()
+    const businessId = params.businessId as string
+
+    const [salesStats, setSalesStats] = useState<SalesStats | null>(null)
+
+    useEffect(() => {
+        // Fetch sales stats
+        if (businessId) {
+            getSalesStats(businessId).then(setSalesStats).catch(console.error)
+        }
+    }, [businessId])
 
     useEffect(() => {
         // Check if coming from onboarding
@@ -141,6 +155,7 @@ export default function OperatorDashboard() {
                 </Button>
             </div>
 
+
             {/* Bottom Section: Stats */}
             <div className="space-y-6">
                 <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
@@ -168,6 +183,14 @@ export default function OperatorDashboard() {
                             <ChevronDown className="ml-2 h-3 w-3 text-neutral-500" />
                         </Button>
                         <div className="w-px h-5 bg-[#333] mx-2 hidden xl:block" />
+
+                        <ShareStatsModal
+                            grossRevenue={salesStats ? `${salesStats.currency === 'IDR' ? 'Rp' : '$'}${salesStats.totalRevenue.toLocaleString()}` : '--'}
+                            percentageChange={salesStats ? `${salesStats.percentageChange >= 0 ? '+' : ''}${salesStats.percentageChange.toFixed(2)}%` : '0%'}
+                            isPositive={salesStats ? salesStats.percentageChange >= 0 : true}
+                            businessName={salesStats?.businessName}
+                        />
+
                         <Button variant="outline" size="sm" className="border-[#333] bg-[#111] text-white hover:bg-[#222] h-9 text-xs font-medium px-3">
                             <Plus className="mr-1.5 h-3 w-3" /> Add
                         </Button>
@@ -215,6 +238,6 @@ export default function OperatorDashboard() {
                     </Card>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

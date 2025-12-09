@@ -10,7 +10,7 @@ import { motion } from "framer-motion"
 const MARQUEE_ITEMS = [
     { name: "Budi", action: "menarik", amount: "Rp 5.000.000", color: "text-green-400" },
     { name: "Siska", action: "menerima order", amount: "+Rp 150.000", color: "text-blue-400" },
-    { name: "Deni", action: "mencairkan komisi", amount: "Rp 2.300.000", color: "text-purple-400" },
+    { name: "Deni", action: "mencairkan komisi", amount: "Rp 2.300.000", color: "text-cyan-400" },
     { name: "Rina", action: "menjual E-book", amount: "+Rp 99.000", color: "text-green-400" },
     { name: "Aldi", action: "menarik", amount: "Rp 12.500.000", color: "text-green-400" },
     { name: "Maya", action: "menerima order", amount: "+Rp 350.000", color: "text-blue-400" },
@@ -18,7 +18,7 @@ const MARQUEE_ITEMS = [
 
 export default function SellPage() {
     return (
-        <div className="min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden selection:bg-purple-500/30 selection:text-purple-200">
+        <div className="min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
             {/* Navbar */}
             <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl h-14 md:h-16 flex items-center px-3 md:px-6 justify-between">
                 <Link href="/" className="flex items-center gap-2">
@@ -39,7 +39,7 @@ export default function SellPage() {
             <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 text-center max-w-5xl mx-auto relative">
                 {/* Background Glow - Optimized Blur */}
                 <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-blue-600/20 blur-[60px] md:blur-[80px] rounded-full -z-10 opacity-50" />
-                <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-purple-600/20 blur-[40px] md:blur-[60px] rounded-full -z-10 opacity-50 mix-blend-screen" />
+                <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-cyan-600/20 blur-[40px] md:blur-[60px] rounded-full -z-10 opacity-50 mix-blend-screen" />
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -47,10 +47,10 @@ export default function SellPage() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight mb-6 md:mb-8 leading-[1.1]">
-                        Gak peduli siapa lo, <br />
-                        gak peduli latar belakang lo, <br />
-                        <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                            lo berhak sukses.
+                        Siapapun kamu, <br />
+                        apapun latar belakangmu, <br />
+                        <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-green-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+                            kamu berhak sukses.
                         </span>
                     </h1>
                     <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-400 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed font-light px-2">
@@ -145,8 +145,8 @@ export default function SellPage() {
                                             <div className="text-xs text-blue-400 mb-1">You (90%)</div>
                                             <div className="font-bold text-white">Rp 900rb</div>
                                         </div>
-                                        <div className="flex-1 bg-purple-500/10 p-3 rounded-xl border border-purple-500/20 text-center">
-                                            <div className="text-xs text-purple-400 mb-1">Partner (10%)</div>
+                                        <div className="flex-1 bg-cyan-500/10 p-3 rounded-xl border border-cyan-500/20 text-center">
+                                            <div className="text-xs text-cyan-400 mb-1">Partner (10%)</div>
                                             <div className="font-bold text-white">Rp 100rb</div>
                                         </div>
                                     </div>
@@ -186,18 +186,18 @@ export default function SellPage() {
 
                     {/* ITEM 3: Clipper Reward (Left Text, Right Visual) */}
                     <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24">
-                        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 h-12 w-12 bg-[#050505] border border-purple-500 rounded-full items-center justify-center z-10 shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-                            <Scissors className="h-6 w-6 text-purple-500" />
+                        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 h-12 w-12 bg-[#050505] border border-cyan-500 rounded-full items-center justify-center z-10 shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+                            <Scissors className="h-6 w-6 text-cyan-500" />
                         </div>
                         <div className="flex-1 text-center md:text-right md:pr-12">
-                            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-purple-400">Clipper Reward</h3>
+                            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-cyan-400">Clipper Reward</h3>
                             <p className="text-lg text-neutral-400 leading-relaxed">
                                 Punya banyak konten video? Biarkan pasukan clipper yang edit dan upload ulang. <strong className="text-white">Mereka digaji otomatis</strong> berdasarkan views yang mereka dapatkan.
                             </p>
                         </div>
                         <div className="flex-1 w-full md:pl-12">
-                            <div className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 max-w-sm mx-auto md:mx-0 hover:border-purple-500/30 transition-all group">
-                                <div className="absolute inset-0 bg-purple-500/10 blur-[60px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 max-w-sm mx-auto md:mx-0 hover:border-cyan-500/30 transition-all group">
+                                <div className="absolute inset-0 bg-cyan-500/10 blur-[60px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
                                 <div className="relative space-y-3">
                                     {[
                                         { title: "Video Viral #1", views: "1.2M Views", pay: "Rp 2.5jt" },
@@ -208,7 +208,7 @@ export default function SellPage() {
                                                 <div className="text-white text-sm font-medium">{item.title}</div>
                                                 <div className="text-xs text-neutral-500">{item.views}</div>
                                             </div>
-                                            <div className="text-purple-400 font-bold">{item.pay}</div>
+                                            <div className="text-cyan-400 font-bold">{item.pay}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -288,7 +288,21 @@ export default function SellPage() {
                 </div>
             </section>
 
-
+            {/* CTA After Kenapa CuanBoss */}
+            <section className="py-12 md:py-20 px-4">
+                <div className="text-center">
+                    <Link href="/signup">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center gap-3 px-8 md:px-12 py-4 md:py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base md:text-xl rounded-full shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)] transition-all border border-white/10"
+                        >
+                            Mulai Jualan Sekarang <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
+                        </motion.button>
+                    </Link>
+                    <p className="text-neutral-500 text-sm mt-4">Gratis, tanpa kartu kredit</p>
+                </div>
+            </section>
 
             {/* 4. BUSINESS MODELS GRID (Whop Style) */}
             {/* 4. APAPUN PRODUK KAMU (Bento Grid Gen Z Style) */}
@@ -300,7 +314,7 @@ export default function SellPage() {
                         viewport={{ once: true }}
                         className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight"
                     >
-                        Jualan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Apa Aja?</span>
+                        Jualan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-pink-400">Apa Aja?</span>
                     </motion.h2>
                     <p className="text-base md:text-xl text-neutral-400">Satu platform, sejuta peluang. Gaspol bisnis digital lo.</p>
                 </div>
@@ -331,9 +345,9 @@ export default function SellPage() {
                         whileHover={{ scale: 0.98 }}
                         className="md:row-span-2 relative group overflow-hidden rounded-3xl bg-[#0a0a0a] border border-white/10 p-8 flex flex-col"
                     >
-                        <div className="absolute inset-0 bg-gradient-to-b from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-cyan-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         <div className="relative z-10 mb-auto">
-                            <div className="h-12 w-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-4 text-purple-400">
+                            <div className="h-12 w-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-4 text-cyan-400">
                                 <Users className="h-6 w-6" />
                             </div>
                             <h3 className="text-3xl font-bold text-white mb-2">Komunitas VIP</h3>
@@ -342,7 +356,7 @@ export default function SellPage() {
                         {/* Chat Visual */}
                         <div className="relative mt-8 space-y-3 opacity-50 group-hover:opacity-100 transition-opacity">
                             <div className="bg-white/10 p-3 rounded-l-xl rounded-tr-xl w-3/4 ml-auto text-xs">Join VIP Group 🔥</div>
-                            <div className="bg-purple-500/20 p-3 rounded-r-xl rounded-tl-xl w-3/4 text-xs text-purple-300">Payment Confirmed! ✅</div>
+                            <div className="bg-cyan-500/20 p-3 rounded-r-xl rounded-tl-xl w-3/4 text-xs text-cyan-300">Payment Confirmed! ✅</div>
                             <div className="bg-white/10 p-3 rounded-l-xl rounded-tr-xl w-3/4 ml-auto text-xs">Welcome aboard! 🚀</div>
                         </div>
                     </motion.div>
@@ -418,89 +432,144 @@ export default function SellPage() {
 
 
             {/* 5. COMPARISON SECTION (The "Employee vs Entrepreneur" Hook) */}
-            <section className="py-16 md:py-32 px-4 max-w-7xl mx-auto">
-                <div className="text-center mb-12 md:mb-20">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6">Hidup Cuma Sekali, <br />Jangan Salah <span className="text-white">Pilih Jalan.</span></h2>
+            <section className="py-16 md:py-32 px-4 max-w-7xl mx-auto relative">
+                {/* Background decoration */}
+                <div className="absolute inset-0 -z-10 overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/10 via-cyan-600/5 to-pink-600/10 rounded-full blur-[120px]" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-                    {/* Tipe 1: Digital Entrepreneur (The Goal) */}
-                    <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        className="relative group overflow-hidden rounded-2xl md:rounded-[2.5rem] border-2 border-blue-500/50 bg-[#0a0a0a] p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
+                <div className="text-center mb-12 md:mb-20">
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-blue-400 font-semibold text-sm md:text-base mb-4 tracking-wider"
                     >
-                        {/* Glowing Background */}
-                        <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-blue-600/20 transition-colors duration-500" />
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-blue-500/20 blur-[100px] rounded-full pointer-events-none" />
+                        HIDUP CUMA SEKALI
+                    </motion.p>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6"
+                    >
+                        Jangan Salah <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-pink-400 bg-clip-text text-transparent">Pilih Jalan.</span>
+                    </motion.h2>
+                </div>
 
-                        <div className="relative z-10 mt-8">
-                            <div className="h-20 w-20 bg-blue-500 rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(59,130,246,0.4)]">
-                                <Laptop className="h-10 w-10 text-white" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+                    {/* Tipe 1: Digital Entrepreneur (The Goal) - FIRST on mobile */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.02, y: -5 }}
+                        className="relative group overflow-hidden rounded-3xl border-2 border-blue-500/50 bg-gradient-to-br from-blue-950/50 via-[#0a0a0a] to-[#0a0a0a] p-6 md:p-8 lg:p-10 flex flex-col min-h-[420px] md:min-h-[500px] shadow-[0_0_60px_-20px_rgba(59,130,246,0.3)]"
+                    >
+                        {/* Animated gradient background */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-cyan-600/10 opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
+                        <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/30 rounded-full blur-[80px] group-hover:blur-[100px] transition-all" />
+
+                        {/* Badge */}
+                        <div className="relative z-10 mb-6">
+                            <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-400 text-xs md:text-sm font-bold">
+                                <Rocket className="h-4 w-4" /> RECOMMENDED
+                            </span>
+                        </div>
+
+                        <div className="relative z-10 flex-1">
+                            <div className="h-16 w-16 md:h-20 md:w-20 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(59,130,246,0.4)] group-hover:shadow-[0_0_60px_rgba(59,130,246,0.6)] transition-shadow">
+                                <Laptop className="h-8 w-8 md:h-10 md:w-10 text-white" />
                             </div>
-                            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                                Pebisnis <span className="text-blue-400 underline decoration-blue-500/30 underline-offset-8">Produk Digital</span>
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
+                                Pebisnis <span className="text-blue-400">Produk Digital</span>
                             </h3>
-                            <p className="text-lg text-blue-200/80 mb-8">
-                                Kerja keras sekali di awal bikin produk, sisanya menikmati penghasilan otomatis seumur hidup.
+                            <p className="text-base md:text-lg text-blue-200/70 mb-6 leading-relaxed">
+                                Kerja keras sekali bikin produk, sisanya menikmati penghasilan <strong className="text-white">otomatis seumur hidup.</strong>
                             </p>
 
-                            <ul className="space-y-4">
+                            <ul className="space-y-3 md:space-y-4">
                                 {[
-                                    "Penghasilan tidak terbatas",
-                                    "Kerja dari mana saja & kapan saja",
-                                    "Bangun aset masa depan sendiri",
-                                    "Tidur pun rekening tetap terisi"
+                                    { icon: "💰", text: "Penghasilan tidak terbatas" },
+                                    { icon: "🌍", text: "Kerja dari mana saja & kapan saja" },
+                                    { icon: "🏆", text: "Bangun aset masa depan sendiri" },
+                                    { icon: "😴", text: "Tidur pun rekening tetap terisi" }
                                 ].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-white font-medium">
-                                        <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
-                                            <Check className="h-4 w-4 text-blue-400" />
+                                    <li key={i} className="flex items-center gap-3 text-white font-medium text-sm md:text-base">
+                                        <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-blue-500/30 to-cyan-500/20 flex items-center justify-center shrink-0 border border-blue-500/20">
+                                            <span className="text-base">{item.icon}</span>
                                         </div>
-                                        {item}
+                                        {item.text}
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     </motion.div>
 
-                    {/* Tipe 2: Corporate Slave (The Trap) */}
+                    {/* Tipe 2: Corporate Slave (The Trap) - SECOND on mobile */}
                     <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        className="relative group overflow-hidden rounded-2xl md:rounded-[2.5rem] border border-white/10 bg-[#050505] p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-[400px] md:min-h-[500px] opacity-80 hover:opacity-100 transition-opacity"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.02, y: -5 }}
+                        className="relative group overflow-hidden rounded-3xl border border-red-500/30 bg-gradient-to-br from-red-950/40 via-[#0a0a0a] to-[#0a0a0a] p-6 md:p-8 lg:p-10 flex flex-col min-h-[420px] md:min-h-[500px] shadow-[0_0_60px_-20px_rgba(239,68,68,0.2)]"
                     >
-                        {/* Dark Background */}
-                        <div className="absolute inset-0 bg-red-500/5 group-hover:bg-red-500/10 transition-colors duration-500" />
+                        {/* Red glow overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-orange-600/5 opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+                        <div className="absolute -top-24 -right-24 w-64 h-64 bg-red-500/20 rounded-full blur-[80px] group-hover:blur-[100px] transition-all" />
 
-                        <div className="relative z-10 mt-8">
-                            <div className="h-20 w-20 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10">
+                        {/* Badge */}
+                        <div className="relative z-10 mb-6">
+                            <span className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 text-xs md:text-sm font-bold">
+                                <Lock className="h-4 w-4" /> JEBAKAN
+                            </span>
+                        </div>
+
+                        <div className="relative z-10 flex-1">
+                            <div className="h-16 w-16 md:h-20 md:w-20 bg-gradient-to-br from-red-900/60 to-orange-900/40 rounded-2xl flex items-center justify-center mb-6 border border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.2)]">
                                 <div className="relative">
-                                    <Briefcase className="h-10 w-10 text-neutral-500" />
-                                    <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full animate-pulse" />
+                                    <Briefcase className="h-8 w-8 md:h-10 md:w-10 text-red-400" />
+                                    <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
                                 </div>
                             </div>
-                            <h3 className="text-3xl md:text-4xl font-bold text-neutral-400 mb-4">
-                                Terjebak <span className="text-neutral-600 line-through decoration-red-500/50 decoration-2">Rutinitas</span>
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
+                                Terjebak <span className="text-red-400 line-through decoration-red-500 decoration-2">Rutinitas</span>
                             </h3>
-                            <p className="text-lg text-neutral-500 mb-8">
-                                Menukar waktu berharga demi gaji yang numpang lewat. Pergi pagi pulang malam, impian terkubur.
+                            <p className="text-base md:text-lg text-red-200/60 mb-6 leading-relaxed">
+                                Menukar waktu berharga demi gaji yang numpang lewat. <strong className="text-red-300">Pergi pagi pulang malam.</strong>
                             </p>
 
-                            <ul className="space-y-4">
+                            <ul className="space-y-3 md:space-y-4">
                                 {[
-                                    "Gaji kecil & kenaikan lambat",
-                                    "Diatur bos, gak punya kebebasan",
-                                    "Rawan PHK kapan saja",
-                                    "Capek kerja buat mimpi orang lain"
+                                    { icon: "💸", text: "Gaji kecil & kenaikan lambat" },
+                                    { icon: "⛓️", text: "Diatur bos, gak punya kebebasan" },
+                                    { icon: "⚠️", text: "Rawan PHK kapan saja" },
+                                    { icon: "😓", text: "Capek kerja buat mimpi orang lain" }
                                 ].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-neutral-500">
-                                        <div className="h-6 w-6 rounded-full bg-white/5 flex items-center justify-center shrink-0">
-                                            <X className="h-4 w-4 text-neutral-600" />
+                                    <li key={i} className="flex items-center gap-3 text-neutral-300 text-sm md:text-base">
+                                        <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-red-500/30 to-orange-500/20 flex items-center justify-center shrink-0 border border-red-500/30">
+                                            <span className="text-base">{item.icon}</span>
                                         </div>
-                                        {item}
+                                        {item.text}
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     </motion.div>
+                </div>
+
+                {/* CTA Button */}
+                <div className="text-center mt-12 md:mt-16">
+                    <Link href="/signup">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center gap-3 px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-base md:text-xl rounded-full shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)] transition-all"
+                        >
+                            Pilih Jalan yang Benar <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
+                        </motion.button>
+                    </Link>
                 </div>
             </section>
 

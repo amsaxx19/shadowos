@@ -1,9 +1,8 @@
 import { MainSidebar } from "@/components/dashboard/main-sidebar"
-import { Button } from "@/components/ui/button"
+import { MobileBottomNav } from "@/components/dashboard/mobile-bottom-nav"
 import { DashboardProvider } from "@/components/dashboard/dashboard-context"
 import { Toaster } from "@/components/ui/sonner"
 import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
 
 import { BusinessProvider } from "@/components/providers/business-provider"
 
@@ -15,20 +14,20 @@ export default async function DiscoverLayout({
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
-    // Allow public access
-    // if (!user) {
-    //     redirect("/login")
-    // }
-
     if (user) {
         return (
             <DashboardProvider>
                 <BusinessProvider>
                     <div className="flex h-screen w-full bg-[#0e0e0e] text-white overflow-hidden font-sans">
-                        <MainSidebar />
-                        <main className="flex-1 overflow-y-auto bg-[#0e0e0e]">
+                        {/* Sidebar hidden on mobile */}
+                        <div className="hidden md:block">
+                            <MainSidebar />
+                        </div>
+                        <main className="flex-1 overflow-y-auto bg-[#0e0e0e] pb-20 md:pb-0">
                             {children}
                         </main>
+                        {/* Mobile Bottom Nav */}
+                        <MobileBottomNav />
                         <Toaster />
                     </div>
                 </BusinessProvider>
@@ -39,10 +38,13 @@ export default async function DiscoverLayout({
     // Public Layout for non-authenticated users
     return (
         <div className="min-h-screen bg-[#0e0e0e] text-white font-sans flex flex-col">
-            <main className="flex-1">
+            <main className="flex-1 pb-20 md:pb-0">
                 {children}
             </main>
+            {/* Mobile Bottom Nav for public too */}
+            <MobileBottomNav />
             <Toaster />
         </div>
     )
 }
+
