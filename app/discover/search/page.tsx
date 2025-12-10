@@ -198,47 +198,51 @@ function SearchContent() {
                 ) : displayProducts.length > 0 ? (
                     displayProducts.map((product) => (
                         <Link href={`/product/${product.id}`} key={product.id} className="block">
-                            <div className="bg-[#161616] border border-[#222] rounded-2xl overflow-hidden">
-                                {/* Product Image/Video */}
-                                <div className="relative aspect-video">
+                            <div className="bg-[#161616] border border-[#222] rounded-xl overflow-hidden flex h-32 hover:border-neutral-500 transition-colors">
+                                {/* Product Image - Left Side */}
+                                <div className="relative w-32 min-w-[128px] h-full bg-[#111]">
                                     <Image
                                         src={product.image_url || "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&auto=format&fit=crop&q=60"}
                                         alt={product.title}
                                         fill
                                         className="object-cover"
                                     />
-                                    {/* Price Badge */}
-                                    <div className="absolute bottom-3 right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg">
-                                        {formatPrice(product.price, product.billing_interval)}
+                                    {/* Price Badge - Bottom Right of Image */}
+                                    <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                        {formatPrice(product.price)}
                                     </div>
                                 </div>
 
-                                {/* Product Info */}
-                                <div className="p-4">
-                                    <div className="flex items-start gap-3">
-                                        {/* Product Icon */}
-                                        <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center flex-shrink-0">
-                                            <span className="text-lg">⚡</span>
-                                        </div>
-
-                                        {/* Product Details */}
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="font-bold text-white text-base leading-tight">
+                                {/* Product Info - Right Side */}
+                                <div className="p-3 flex flex-col justify-between flex-1 min-w-0">
+                                    <div>
+                                        <div className="flex items-start justify-between gap-2">
+                                            <h3 className="font-bold text-white text-sm md:text-base leading-snug line-clamp-2">
                                                 {product.title}
                                             </h3>
-                                            {product.description && (
-                                                <p className="text-neutral-400 text-sm mt-1 line-clamp-1">
-                                                    {product.description}
-                                                </p>
-                                            )}
-                                            {/* Rating */}
-                                            <div className="flex items-center gap-1 mt-2">
-                                                {[...Array(5)].map((_, i) => (
-                                                    <Star key={i} className="h-3 w-3 text-yellow-500 fill-yellow-500" />
-                                                ))}
-                                                <span className="text-xs text-neutral-400 ml-1">4.76 (369)</span>
-                                            </div>
                                         </div>
+
+                                        {product.description && (
+                                            <p className="text-neutral-400 text-xs mt-1 line-clamp-1">
+                                                {product.description}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <div className="flex items-center justify-between mt-2">
+                                        {/* Rating */}
+                                        <div className="flex items-center gap-1">
+                                            <Star className="h-3 w-3 text-orange-500 fill-orange-500" />
+                                            <span className="text-xs text-neutral-300 font-medium">4.8</span>
+                                            <span className="text-[10px] text-neutral-500">(120)</span>
+                                        </div>
+
+                                        {/* Billing Interval Badge */}
+                                        {product.billing_interval && product.billing_interval !== 'one_time' && (
+                                            <span className="text-[10px] uppercase text-neutral-500 border border-[#333] px-1.5 py-0.5 rounded">
+                                                /{product.billing_interval}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
