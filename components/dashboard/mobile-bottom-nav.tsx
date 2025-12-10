@@ -33,7 +33,6 @@ export function MobileBottomNav() {
         : (userBusinesses.length > 0 ? `/dashboard/${userBusinesses[0].id}/home` : "/dashboard")
 
     const navItems = [
-        { href: "/home", label: "Home", icon: Home },
         { href: "/discover", label: "Discover", icon: Compass },
         { href: dashboardHref, label: "Dashboard", icon: LayoutDashboard, matchPath: "/dashboard" },
         { href: "/notifications", label: "Notifikasi", icon: Bell },

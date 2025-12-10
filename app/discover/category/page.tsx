@@ -106,7 +106,7 @@ function CategoryContent() {
                 <div
                     onClick={async () => {
                         const { data: { user } } = await (await import('@/lib/supabase/client')).supabase.auth.getUser()
-                        window.location.href = user ? "/home" : "/"
+                        window.location.href = user ? "/dashboard" : "/"
                     }}
                     className="flex flex-col items-center gap-2 cursor-pointer"
                 >

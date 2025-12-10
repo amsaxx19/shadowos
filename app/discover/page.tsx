@@ -139,7 +139,7 @@ export default function DiscoverPage() {
                     <div
                         onClick={async () => {
                             const { data: { user } } = await supabase.auth.getUser()
-                            window.location.href = user ? "/home" : "/"
+                            window.location.href = user ? "/dashboard" : "/"
                         }}
                         className="flex flex-col items-center gap-3 cursor-pointer"
                     >

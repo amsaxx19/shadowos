@@ -55,11 +55,10 @@ export function MobileSidebarDrawer({ isOpen, onClose }: MobileSidebarDrawerProp
         : (userBusinesses.length > 0 ? `/dashboard/${userBusinesses[0].id}/home` : "/dashboard")
 
     const mainLinks = [
-        { href: "/home", label: "Home", icon: Home },
         { href: "/discover", label: "Discover", icon: Compass },
+        { href: dashboardHref, label: "Dashboard", icon: LayoutDashboard },
         { href: "/messages", label: "Messages", icon: MessageCircle, badge: 1 },
         { href: "/notifications", label: "Notifications", icon: Bell },
-        { href: dashboardHref, label: "Dashboard", icon: LayoutDashboard },
         { href: "/affiliates", label: "Affiliates", icon: Ticket },
         { href: "/profile", label: "Profile", icon: User },
     ]

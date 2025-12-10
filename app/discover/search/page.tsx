@@ -115,7 +115,7 @@ function SearchContent() {
                         onClick={async (e) => {
                             e.preventDefault();
                             const { data: { user } } = await supabase.auth.getUser()
-                            window.location.href = user ? "/home" : "/"
+                            window.location.href = user ? "/dashboard" : "/"
                         }}
                         className="flex-shrink-0 cursor-pointer"
                     >
