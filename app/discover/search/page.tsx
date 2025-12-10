@@ -189,60 +189,50 @@ function SearchContent() {
                 </button>
             </div>
 
-            {/* Products List */}
-            <div className="flex-1 px-4 py-4 space-y-4">
+            {/* Products Grid/List */}
+            <div className="flex-1 px-4 py-4 space-y-4 md:space-y-0 md:grid md:grid-cols-3 lg:grid-cols-4 md:gap-5">
                 {loading ? (
-                    <div className="flex items-center justify-center py-20">
+                    <div className="flex items-center justify-center py-20 col-span-full">
                         <div className="text-neutral-500">Memuat...</div>
                     </div>
                 ) : displayProducts.length > 0 ? (
                     displayProducts.map((product) => (
                         <Link href={`/product/${product.id}`} key={product.id} className="block">
-                            <div className="bg-[#161616] border border-[#222] rounded-xl overflow-hidden flex h-32 hover:border-neutral-500 transition-colors">
-                                {/* Product Image - Left Side */}
-                                <div className="relative w-32 min-w-[128px] h-full bg-[#111]">
+                            {/* Mobile: Horizontal Card | Desktop: Vertical Card */}
+                            <div className="bg-[#161616] border border-[#222] rounded-xl overflow-hidden flex h-32 md:flex-col md:h-auto hover:border-neutral-500 transition-colors">
+                                {/* Product Image */}
+                                <div className="relative w-32 min-w-[128px] h-full md:w-full md:aspect-video bg-[#111]">
                                     <Image
                                         src={product.image_url || "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&auto=format&fit=crop&q=60"}
                                         alt={product.title}
                                         fill
                                         className="object-cover"
                                     />
-                                    {/* Price Badge - Bottom Right of Image */}
-                                    <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                        {formatPrice(product.price)}
+                                    {/* Price Badge */}
+                                    <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-md">
+                                        {formatPrice(product.price, product.billing_interval)}
                                     </div>
                                 </div>
 
-                                {/* Product Info - Right Side */}
-                                <div className="p-3 flex flex-col justify-between flex-1 min-w-0">
+                                {/* Product Info */}
+                                <div className="p-3 md:p-4 flex flex-col justify-between flex-1 min-w-0">
                                     <div>
-                                        <div className="flex items-start justify-between gap-2">
-                                            <h3 className="font-bold text-white text-sm md:text-base leading-snug line-clamp-2">
-                                                {product.title}
-                                            </h3>
-                                        </div>
-
+                                        <h3 className="font-bold text-white text-sm md:text-base leading-snug line-clamp-2">
+                                            {product.title}
+                                        </h3>
                                         {product.description && (
-                                            <p className="text-neutral-400 text-xs mt-1 line-clamp-1">
+                                            <p className="text-neutral-400 text-xs mt-1 line-clamp-1 md:line-clamp-2">
                                                 {product.description}
                                             </p>
                                         )}
                                     </div>
 
-                                    <div className="flex items-center justify-between mt-2">
+                                    <div className="flex items-center gap-1 mt-2">
                                         {/* Rating */}
-                                        <div className="flex items-center gap-1">
-                                            <Star className="h-3 w-3 text-orange-500 fill-orange-500" />
-                                            <span className="text-xs text-neutral-300 font-medium">4.8</span>
-                                            <span className="text-[10px] text-neutral-500">(120)</span>
-                                        </div>
-
-                                        {/* Billing Interval Badge */}
-                                        {product.billing_interval && product.billing_interval !== 'one_time' && (
-                                            <span className="text-[10px] uppercase text-neutral-500 border border-[#333] px-1.5 py-0.5 rounded">
-                                                /{product.billing_interval}
-                                            </span>
-                                        )}
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} className="h-3 w-3 text-yellow-500 fill-yellow-500" />
+                                        ))}
+                                        <span className="text-xs text-neutral-400 ml-1">4.8 (120)</span>
                                     </div>
                                 </div>
                             </div>
