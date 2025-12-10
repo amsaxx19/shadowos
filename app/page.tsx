@@ -79,7 +79,7 @@ const CATEGORIES = [
     icon: Heart,
     video: "/videos/lifestyle.mp4",
     poster: "/videos/lifestyle_poster.jpg",
-    pills: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"]
+    pills: ["Diet & Gym", "E-Book Premium", "Travel Guide", "Resep Masakan"]
   },
 ]
 

@@ -51,7 +51,7 @@ const categoryData: Record<string, {
     "lifestyle": {
         name: "Lifestyle",
         video: "/videos/lifestyle.mov",
-        subcategories: ["Diet & Gym", "Joki Gaming", "Travel Guide", "Resep Masakan"],
+        subcategories: ["Diet & Gym", "E-Book Premium", "Travel Guide", "Resep Masakan"],
         featuredTitle: "Upgrade Lifestyle",
         featuredDesc: "Tips hidup sehat dan produktif"
     }

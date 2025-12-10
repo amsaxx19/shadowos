@@ -158,7 +158,7 @@ export default function DiscoverPage() {
                 </div>
 
                 {/* Search Bar */}
-                <div ref={searchRef} className="relative w-full max-w-md mb-8">
+                <div ref={searchRef} className="relative w-full max-w-md md:max-w-2xl mb-8">
                     <form onSubmit={handleSearch}>
                         <div className="flex items-center bg-[#1a1a1a] border border-[#333] rounded-full px-4 py-3">
                             <Search className="h-5 w-5 text-neutral-500 mr-3" />
@@ -214,12 +214,12 @@ export default function DiscoverPage() {
                 </div>
 
                 {/* Category Grid - 2 columns with video backgrounds */}
-                <div className="w-full max-w-lg grid grid-cols-2 gap-2 mb-10">
+                <div className="w-full max-w-lg md:max-w-4xl lg:max-w-6xl grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-10">
                     {categories.map((cat) => (
                         <Link
                             key={cat.slug}
                             href={`/discover/category?category=${cat.slug}`}
-                            className="relative aspect-[16/10] rounded-lg overflow-hidden group"
+                            className="relative aspect-[16/10] md:aspect-video rounded-xl overflow-hidden group border border-transparent hover:border-neutral-700 transition-all"
                         >
                             {/* Video Background */}
                             <video
