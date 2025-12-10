@@ -1,7 +1,7 @@
 "use client"
 
 import { Input } from "@/components/ui/input"
-import { Search, Rocket, Instagram, Twitter, Youtube, X, TrendingUp, GraduationCap, Dumbbell, Coins, PenTool, Banknote, Briefcase, Clapperboard, Zap, Scissors, Building2, Cpu, Laptop, Heart, Gamepad2, UserCheck, ArrowRight } from "lucide-react"
+import { Search, Rocket, Instagram, Twitter, Youtube, X, TrendingUp, GraduationCap, Dumbbell, Coins, PenTool, Banknote, Briefcase, Clapperboard, Zap, Scissors, Building2, Cpu, Laptop, Heart, Gamepad2, UserCheck, ArrowRight, User as UserIcon, LogOut, LayoutDashboard, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
@@ -10,6 +10,14 @@ import { useRouter } from "next/navigation"
 import { User } from "@supabase/supabase-js"
 
 import { supabase } from "@/lib/supabase/client"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 
@@ -120,6 +128,12 @@ export default function LandingPage() {
     }
   }
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    setUser(null)
+    router.refresh()
+  }
+
 
 
   useEffect(() => {
@@ -178,9 +192,34 @@ export default function LandingPage() {
         </Link>
         <div className="flex items-center gap-2 md:gap-3">
           {user ? (
-            <Link href="/dashboard" className="px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base text-neutral-400 hover:text-white font-medium transition-colors">
-              Dashboard
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base text-neutral-400 hover:text-white font-medium transition-colors outline-none">
+                  <span>Account</span>
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 bg-[#0e0e0e] border-[#222] text-white">
+                <DropdownMenuLabel>
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">My Account</p>
+                    <p className="text-xs leading-none text-neutral-400 truncate">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-[#222]" />
+                <DropdownMenuItem className="focus:bg-[#1a1a1a] focus:text-white cursor-pointer" onClick={() => router.push('/dashboard')}>
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  <span>Dashboard</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-[#222]" />
+                <DropdownMenuItem className="focus:bg-[#1a1a1a] focus:text-white cursor-pointer" onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <Link href="/login" className="px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base text-neutral-400 hover:text-white font-medium transition-colors">
               Log in

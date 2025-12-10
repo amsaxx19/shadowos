@@ -87,7 +87,7 @@ export default async function NewProductPage() {
                             <CardContent className="space-y-6">
                                 <div className="grid gap-6 md:grid-cols-2">
                                     <div className="space-y-2">
-                                        <Label htmlFor="price" className="text-blue-900">Price (IDR)</Label>
+                                        <Label htmlFor="price" className="text-blue-900">Price (Rp)</Label>
                                         <div className="relative">
                                             <span className="absolute left-3 top-2.5 text-blue-500">Rp</span>
                                             <Input

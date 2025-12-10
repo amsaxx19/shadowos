@@ -10,7 +10,7 @@ export default function ShareTestPage() {
                 <p className="text-neutral-400">Click the button below to test the share feature.</p>
 
                 <ShareStatsModal
-                    grossRevenue="$12,345.00"
+                    grossRevenue="Rp 12.345.000"
                     percentageChange="+125.5%"
                     isPositive={true}
                     businessName="Test Business"

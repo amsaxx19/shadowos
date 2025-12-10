@@ -1,6 +1,9 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+
+const MIDTRANS_DEMO_EMAIL = 'midtrans-demo@shadowos.com'
 
 export async function sendLoginOtp(email: string) {
     console.log("sendLoginOtp called with:", email)
@@ -40,4 +43,32 @@ export async function sendLoginOtp(email: string) {
 
     console.log("sendLoginOtp success")
     return { success: true }
+}
+
+/**
+ * Special password-based login ONLY for Midtrans verification demo account.
+ * This bypasses the normal OTP flow.
+ */
+export async function loginWithPassword(email: string, password: string) {
+    console.log("loginWithPassword called for:", email)
+
+    // STRICT: Only allow the demo email
+    if (email.toLowerCase() !== MIDTRANS_DEMO_EMAIL) {
+        return { error: "Password login is only available for the demo account." }
+    }
+
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    })
+
+    if (error) {
+        console.error("loginWithPassword error:", error)
+        return { error: error.message }
+    }
+
+    console.log("loginWithPassword success for:", email)
+    return { success: true, user: data.user }
 }

@@ -41,7 +41,7 @@ export function SimulateSaleButton() {
 
             if (isOwner) {
                 toast.success("Payment Successful!", {
-                    description: "IDR 100,000 has been added to your wallet."
+                    description: "Rp 100.000 has been added to your wallet."
                 })
             } else {
                 toast.warning("Payment Successful!", {

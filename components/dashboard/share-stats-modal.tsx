@@ -22,7 +22,7 @@ interface ShareStatsModalProps {
 }
 
 export function ShareStatsModal({
-    grossRevenue = "$0.00",
+    grossRevenue = "Rp 0",
     percentageChange = "+0.00%",
     isPositive = true,
     businessName = "Shadow Operator",
@@ -175,7 +175,7 @@ export function ShareStatsModal({
                                             <span className="text-black font-black text-[10px]">C</span>
                                         </div>
                                         <span className="text-sm font-semibold text-white">CUANBOSS</span>
-                                        <span className="text-xs text-neutral-400">| IDR</span>
+                                        <span className="text-xs text-neutral-400">| Rp</span>
                                     </div>
                                     <div className="text-[10px] text-neutral-500 mt-0.5">Seller: {businessName}</div>
                                 </div>

@@ -121,8 +121,8 @@ export default function OperatorDashboard() {
                         <div className="flex items-start justify-between">
                             <div className="space-y-1">
                                 <span className="text-sm font-medium text-neutral-500">Balance</span>
-                                <div className="text-3xl font-bold text-white tracking-tight">$0.00</div>
-                                <div className="text-sm text-neutral-600">$0.00 pending</div>
+                                <div className="text-3xl font-bold text-white tracking-tight">Rp 0</div>
+                                <div className="text-sm text-neutral-600">Rp 0 pending</div>
                             </div>
                             <span className="text-sm font-medium text-blue-500 cursor-pointer hover:text-blue-400">View</span>
                         </div>
@@ -147,7 +147,7 @@ export default function OperatorDashboard() {
                         <GraduationCap className="h-5 w-5" />
                     </div>
                     <span className="text-sm font-medium text-neutral-300 group-hover:text-white transition-colors">
-                        Join Whop University and start your path to your first $10K.
+                        Join Whop University and start your path to your first Rp 150 juta.
                     </span>
                 </div>
                 <Button variant="ghost" size="icon" className="text-neutral-500 hover:text-white h-8 w-8">
@@ -185,7 +185,7 @@ export default function OperatorDashboard() {
                         <div className="w-px h-5 bg-[#333] mx-2 hidden xl:block" />
 
                         <ShareStatsModal
-                            grossRevenue={salesStats ? `${salesStats.currency === 'IDR' ? 'Rp' : '$'}${salesStats.totalRevenue.toLocaleString()}` : '--'}
+                            grossRevenue={salesStats ? `Rp ${salesStats.totalRevenue.toLocaleString('id-ID')}` : '--'}
                             percentageChange={salesStats ? `${salesStats.percentageChange >= 0 ? '+' : ''}${salesStats.percentageChange.toFixed(2)}%` : '0%'}
                             isPositive={salesStats ? salesStats.percentageChange >= 0 : true}
                             businessName={salesStats?.businessName}
@@ -210,7 +210,7 @@ export default function OperatorDashboard() {
                             <ExternalLink className="h-3 w-3 text-neutral-600" />
                         </CardHeader>
                         <CardContent className="flex-1 flex flex-col justify-between">
-                            <div className="text-3xl font-bold text-white tracking-tight">$0.00</div>
+                            <div className="text-3xl font-bold text-white tracking-tight">Rp 0</div>
                             <div className="flex items-center justify-center flex-1">
                                 <div className="bg-[#1a1a1a] px-3 py-1.5 rounded-md text-xs font-medium text-neutral-400 border border-[#333]">
                                     No data available
@@ -228,7 +228,7 @@ export default function OperatorDashboard() {
                             <ExternalLink className="h-3 w-3 text-neutral-600" />
                         </CardHeader>
                         <CardContent className="flex-1 flex flex-col justify-between">
-                            <div className="text-3xl font-bold text-white tracking-tight">$0.00</div>
+                            <div className="text-3xl font-bold text-white tracking-tight">Rp 0</div>
                             <div className="flex items-center justify-center flex-1">
                                 <div className="bg-[#1a1a1a] px-3 py-1.5 rounded-md text-xs font-medium text-neutral-400 border border-[#333]">
                                     No data available

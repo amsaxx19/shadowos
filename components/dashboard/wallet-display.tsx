@@ -23,7 +23,7 @@ export function WalletDisplay({ userId }: { userId: string }) {
 
     return (
         <div className="text-2xl font-bold">
-            IDR {balance.toLocaleString()}
+            Rp {balance.toLocaleString('id-ID')}
         </div>
     )
 }

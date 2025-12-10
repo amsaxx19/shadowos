@@ -226,7 +226,7 @@ export default function AffiliatesPage() {
                                                 <span>Elevate Academy: Coaching & Courses</span>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-sm text-neutral-300">$0.00</TableCell>
+                                        <TableCell className="text-sm text-neutral-300">Rp 0</TableCell>
                                         <TableCell className="text-right">
                                             <Button variant="outline" className="h-7 text-xs border-[#333] bg-[#161616] text-neutral-300 hover:text-white hover:bg-[#222]">
                                                 View assets

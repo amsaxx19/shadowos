@@ -294,7 +294,7 @@ export default function CreateProductPage({ params }: { params: Promise<{ busine
                                         name="headline"
                                         value={formData.headline}
                                         onChange={(e) => updateField('headline', e.target.value)}
-                                        placeholder="How to Build a Viral App: $0 to $100k/mo"
+                                        placeholder="How to Build a Viral App: Rp 0 to Rp 100jt/mo"
                                         className="h-11 bg-[#0a0a0a] border-[#222] rounded-xl text-white"
                                         maxLength={80}
                                     />

@@ -98,7 +98,7 @@ export default function CreateInvoicePage() {
 
                         <div className="flex gap-2">
                             <div className="relative flex-1">
-                                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500">$</div>
+                                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500">Rp</div>
                                 <Input
                                     value={price}
                                     onChange={(e) => setPrice(e.target.value)}
@@ -110,7 +110,7 @@ export default function CreateInvoicePage() {
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent className="bg-[#161616] border-[#333] text-white">
-                                    <SelectItem value="idr">IDR</SelectItem>
+                                    <SelectItem value="idr">IDR (Rp)</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -122,7 +122,7 @@ export default function CreateInvoicePage() {
                                     onClick={() => setPrice(val)}
                                     className="px-3 py-1 rounded bg-[#161616] border border-[#333] text-xs text-neutral-400 hover:text-white hover:bg-[#222] transition-colors"
                                 >
-                                    ${val}
+                                    Rp{val}rb
                                 </button>
                             ))}
                         </div>
@@ -197,7 +197,7 @@ export default function CreateInvoicePage() {
 
                         <div className="rounded-xl border border-[#222] bg-[#0e0e0e] p-6 space-y-6">
                             <div className="space-y-1">
-                                <div className="text-4xl font-bold text-white">${Number(price).toFixed(2)}</div>
+                                <div className="text-4xl font-bold text-white">Rp {Number(price).toLocaleString('id-ID')}</div>
                                 <div className="text-sm text-neutral-500">Due December 6, 2025</div>
                             </div>
 
@@ -221,17 +221,17 @@ export default function CreateInvoicePage() {
 
                             <div className="flex justify-between text-sm">
                                 <span className="text-white">Elevate Clipping Mastery</span>
-                                <span className="text-white">${Number(price).toFixed(2)}</span>
+                                <span className="text-white">Rp {Number(price).toLocaleString('id-ID')}</span>
                             </div>
 
                             <div className="flex justify-between text-sm">
                                 <span className="text-white">Service fee</span>
-                                <span className="text-white">$5.00</span>
+                                <span className="text-white">Rp 75.000</span>
                             </div>
 
                             <div className="border-t border-[#222] pt-4 flex justify-between text-sm font-medium">
                                 <span className="text-white">Total</span>
-                                <span className="text-white">${(Number(price) + 5).toFixed(2)}</span>
+                                <span className="text-white">Rp {(Number(price) + 75000).toLocaleString('id-ID')}</span>
                             </div>
 
                             <div className="text-xs text-neutral-600 pt-4">
@@ -258,7 +258,7 @@ export default function CreateInvoicePage() {
                             </div>
 
                             <div className="rounded-lg bg-[#161616] border border-[#222] p-4 text-center">
-                                <div className="text-2xl font-bold text-white">${Number(price).toFixed(2)}</div>
+                                <div className="text-2xl font-bold text-white">Rp {Number(price).toLocaleString('id-ID')}</div>
                                 <div className="text-xs text-neutral-500">One-time</div>
                             </div>
 

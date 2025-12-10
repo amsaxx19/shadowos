@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import React from "react"
-import { sendLoginOtp } from "./actions"
+import { sendLoginOtp, loginWithPassword } from "./actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,6 +11,8 @@ import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
+
+const MIDTRANS_DEMO_EMAIL = 'midtrans-demo@shadowos.com'
 
 export default function LoginPage() {
     return (
@@ -23,21 +25,39 @@ export default function LoginPage() {
 function LoginForm() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-    const handleSendOtp = async (e: React.FormEvent<HTMLFormElement>) => {
+    const isDemoEmail = email.trim().toLowerCase() === MIDTRANS_DEMO_EMAIL
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setIsLoading(true)
-        const formData = new FormData(e.currentTarget)
-        const emailInput = formData.get('email') as string
 
         try {
-            const result = await sendLoginOtp(emailInput)
-
-            if (result.error) {
-                toast.error(result.error)
+            if (isDemoEmail) {
+                // Password-based login for demo account
+                if (!password) {
+                    toast.error("Please enter the password")
+                    setIsLoading(false)
+                    return
+                }
+                const result = await loginWithPassword(email, password)
+                if (result.error) {
+                    toast.error(result.error)
+                } else {
+                    toast.success("Login successful!")
+                    router.push('/dashboard')
+                }
             } else {
-                toast.success("Code sent to your email!")
-                router.push(`/signup/verify?email=${encodeURIComponent(emailInput)}`)
+                // Normal OTP flow
+                const result = await sendLoginOtp(email)
+                if (result.error) {
+                    toast.error(result.error)
+                } else {
+                    toast.success("Code sent to your email!")
+                    router.push(`/signup/verify?email=${encodeURIComponent(email)}`)
+                }
             }
         } catch (error) {
             toast.error("An unexpected error occurred")
@@ -87,7 +107,7 @@ function LoginForm() {
                         </p>
 
                         {/* Email Form */}
-                        <form onSubmit={handleSendOtp} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
                                 <Label htmlFor="email" className="text-neutral-400 text-sm">Email</Label>
                                 <Input
@@ -96,24 +116,35 @@ function LoginForm() {
                                     type="email"
                                     placeholder="johnappleseed@gmail.com"
                                     required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-neutral-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-12 rounded-xl text-base px-4"
                                 />
-                                {/* Dummy password field for test compatibility */}
-                                <Input
-                                    type="password"
-                                    name="password"
-                                    placeholder="Password"
-                                    className="h-0 p-0 border-0 opacity-0 pointer-events-none absolute"
-                                    tabIndex={-1}
-                                />
                             </div>
+
+                            {/* Password field - only shown for demo email */}
+                            {isDemoEmail && (
+                                <div className="space-y-2">
+                                    <Label htmlFor="password" className="text-neutral-400 text-sm">Password</Label>
+                                    <Input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        placeholder="••••••••"
+                                        required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="bg-[#0a0a0a] border-[#333] text-white placeholder:text-neutral-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-12 rounded-xl text-base px-4"
+                                    />
+                                </div>
+                            )}
 
                             <Button
                                 type="submit"
                                 disabled={isLoading}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold h-12 rounded-xl text-base transition-colors"
                             >
-                                {isLoading ? <Loader2 className="animate-spin" /> : "Continue"}
+                                {isLoading ? <Loader2 className="animate-spin" /> : (isDemoEmail ? "Login" : "Continue")}
                             </Button>
                         </form>
 
@@ -139,3 +170,4 @@ function LoginForm() {
         </div>
     )
 }
+

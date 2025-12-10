@@ -61,7 +61,7 @@ export default function PayoutsPage() {
 
                         <div className="flex items-center justify-between text-sm">
                             <span className="text-blue-500 font-medium cursor-pointer hover:underline">Total balance overview</span>
-                            <span className="text-white">$0.00</span>
+                            <span className="text-white">Rp 0</span>
                         </div>
                     </div>
 
