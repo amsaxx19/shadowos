@@ -14,12 +14,14 @@ import {
     Plus,
     Menu,
     HelpCircle,
-    Loader2
+    Loader2,
+    LogOut
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useBusiness } from "@/components/providers/business-provider"
 import { CreateBusinessModal } from "@/components/business/create-business-modal"
+import { supabase } from "@/lib/supabase/client"
 
 export function MainSidebar() {
     const pathname = usePathname()
@@ -86,8 +88,15 @@ export function MainSidebar() {
 
                 {/* Footer Icons */}
                 <div className="space-y-4 flex flex-col items-center w-full mt-auto">
-                    <button className="h-10 w-10 flex items-center justify-center hover:text-white transition-colors">
-                        <Menu className="h-5 w-5" />
+                    <button
+                        onClick={async () => {
+                            await supabase.auth.signOut()
+                            window.location.href = '/login'
+                        }}
+                        className="h-10 w-10 flex items-center justify-center hover:text-red-400 text-neutral-400 transition-colors"
+                        title="Sign Out"
+                    >
+                        <LogOut className="h-5 w-5" />
                     </button>
                     <button className="h-10 w-10 flex items-center justify-center hover:text-white transition-colors">
                         <HelpCircle className="h-5 w-5" />
@@ -230,9 +239,15 @@ export function MainSidebar() {
                 {/* Footer */}
                 <div className="p-4 border-t border-[#222]">
                     <div className="flex items-center justify-between text-neutral-400">
-                        <button className="flex items-center gap-2 hover:text-white transition-colors">
-                            <Menu className="h-5 w-5" />
-                            <span className="text-sm font-medium">Menu</span>
+                        <button
+                            onClick={async () => {
+                                await supabase.auth.signOut()
+                                window.location.href = '/login'
+                            }}
+                            className="flex items-center gap-2 hover:text-white transition-colors text-red-500 hover:text-red-400"
+                        >
+                            <LogOut className="h-5 w-5" />
+                            <span className="text-sm font-medium">Sign Out</span>
                         </button>
                         <HelpCircle className="h-5 w-5 hover:text-white cursor-pointer transition-colors" />
                     </div>

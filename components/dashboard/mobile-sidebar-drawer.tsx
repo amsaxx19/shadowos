@@ -19,10 +19,12 @@ import {
     Package,
     Users,
     Receipt,
-    Wallet
+    Wallet,
+    LogOut
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useBusiness } from "@/components/providers/business-provider"
+import { supabase } from "@/lib/supabase/client"
 
 interface MobileSidebarDrawerProps {
     isOpen: boolean
@@ -209,6 +211,20 @@ export function MobileSidebarDrawer({ isOpen, onClose }: MobileSidebarDrawerProp
                             </Link>
                         </nav>
                     </div>
+                </div>
+
+                {/* Footer Sign Out */}
+                <div className="p-4 border-t border-[#222]">
+                    <button
+                        onClick={async () => {
+                            await supabase.auth.signOut()
+                            window.location.href = '/login'
+                        }}
+                        className="flex items-center gap-3 w-full rounded-xl px-3 py-3 text-sm font-medium text-red-500 hover:bg-[#161616] transition-all"
+                    >
+                        <LogOut className="h-5 w-5" />
+                        <span>Sign Out</span>
+                    </button>
                 </div>
             </div>
         </>

@@ -16,7 +16,7 @@ function SearchContent() {
     const [searchInput, setSearchInput] = useState(query)
     const [allProducts, setAllProducts] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
-    const [activeTab, setActiveTab] = useState<'best' | 'all'>('best')
+    const [activeTab, setActiveTab] = useState<'best' | 'all'>('all')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     // Check if user is logged in
@@ -201,12 +201,13 @@ function SearchContent() {
                             {/* Mobile: Horizontal Card | Desktop: Vertical Card */}
                             <div className="bg-[#161616] border border-[#222] rounded-xl overflow-hidden flex h-32 md:flex-col md:h-auto hover:border-neutral-500 transition-colors">
                                 {/* Product Image */}
-                                <div className="relative w-32 min-w-[128px] h-full md:w-full md:aspect-video bg-[#111]">
+                                <div className="relative w-32 min-w-[128px] h-full md:w-full md:aspect-square bg-[#111]">
                                     <Image
                                         src={product.image_url || "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&auto=format&fit=crop&q=60"}
                                         alt={product.title}
                                         fill
                                         className="object-cover"
+                                        unoptimized
                                     />
                                     {/* Price Badge */}
                                     <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-md">
